@@ -17,15 +17,15 @@ import {
 
 const NAV_MENU = [
   {
-    name: "Page",
-    icon: RectangleStackIcon,
-  },
-  {
-    name: "Account",
+    name: "Benefit",
     icon: UserCircleIcon,
   },
   {
-    name: "Docs",
+    name: "Produk",
+    icon: RectangleStackIcon,
+  },
+  {
+    name: "Cara Berlangganan",
     icon: CommandLineIcon,
     href: "https://www.material-tailwind.com/docs/react/installation",
   },
@@ -69,25 +69,23 @@ export function Navbar() {
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <Typography color="blue-gray" className="text-lg font-bold">
-          Material Tailwind
+          Golden Digital
         </Typography>
-        <ul className="ml-10 hidden items-center gap-8 lg:flex">
-          {NAV_MENU.map(({ name, icon: Icon, href }) => (
-            <NavItem key={name} href={href}>
-              <Icon className="h-5 w-5" />
-              {name}
-            </NavItem>
-          ))}
-        </ul>
         <div className="hidden items-center gap-2 lg:flex">
-          <Button variant="text">Sign In</Button>
-          <a href="https://www.material-tailwind.com/blocks" target="_blank">
-            <Button color="gray">blocks</Button>
+          <ul className="ml-10 mr-5 hidden items-center gap-8 lg:flex">
+            {NAV_MENU.map(({ name, icon: Icon, href }) => (
+              <NavItem key={name} href={href}>
+                {name}
+              </NavItem>
+            ))}
+          </ul>
+          <a href="#" target="_blank">
+            <Button className="bg-amber-500">Langganan</Button>
           </a>
         </div>
         <IconButton
           variant="text"
-          color="gray"
+          className="bg-amber-500"
           onClick={handleOpen}
           className="ml-auto inline-block lg:hidden"
         >
@@ -109,9 +107,8 @@ export function Navbar() {
             ))}
           </ul>
           <div className="mt-6 mb-4 flex items-center gap-2">
-            <Button variant="text">Sign In</Button>
-            <a href="https://www.material-tailwind.com/blocks" target="_blank">
-              <Button color="gray">blocks</Button>
+            <a href="#" target="_blank">
+              <Button className="bg-amber-500">Langganan</Button>
             </a>
           </div>
         </div>
