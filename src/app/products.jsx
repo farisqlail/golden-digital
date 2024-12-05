@@ -49,7 +49,7 @@ const Products = [
 export function Product() {
   return (
     <section className="py-28 px-8">
-      <div className="container mx-auto mb-20 text-center">
+      <div className="container mx-auto sm:mb-20 mb-0 text-center">
         <Typography color="blue-gray" className="mb-2 font-bold uppercase">
           Pilihan
         </Typography>

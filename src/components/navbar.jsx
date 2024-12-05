@@ -6,11 +6,14 @@ import {
   Collapse,
   Button,
   Typography,
+  IconButton,
 } from "@material-tailwind/react";
 import {
   RectangleStackIcon,
   UserCircleIcon,
   CommandLineIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from "@heroicons/react/24/solid";
 
 const NAV_MENU = [
@@ -66,6 +69,14 @@ export function Navbar() {
         <Typography color="blue-gray" className="text-lg font-bold">
           Golden Digital
         </Typography>
+        <IconButton
+          variant="text"
+          color="blue-gray"
+          className="ml-auto h-6 w-6 text-gray-800 lg:hidden"
+          onClick={handleOpen}
+        >
+          {open ? <XMarkIcon className="h-6 w-6" /> : <Bars3Icon className="h-6 w-6" />}
+        </IconButton>
         <div className="hidden items-center gap-2 lg:flex">
           <ul className="ml-10 mr-5 hidden items-center gap-8 lg:flex">
             {NAV_MENU.map(({ name, href }) => (
@@ -79,12 +90,11 @@ export function Navbar() {
           </a>
         </div>
       </div>
-      <Collapse open={open}>
+      <Collapse open={open} className="lg:hidden">
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
             {NAV_MENU.map(({ name, icon: Icon }) => (
               <NavItem key={name}>
-                <Icon className="h-5 w-5" />
                 {name}
               </NavItem>
             ))}

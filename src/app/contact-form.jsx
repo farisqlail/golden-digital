@@ -10,7 +10,7 @@ import { EnvelopeIcon, PhoneIcon, TicketIcon } from "@heroicons/react/24/solid";
 export function ContactForm() {
   return (
     <section className="px-8 py-16">
-      <div className="container mx-auto mb-20 text-center">
+      <div className="container mx-auto sm:mb-20 mb-0 text-center">
         <h1 color="blue-gray" className="mb-4">
           Kontak Kami
         </h1>

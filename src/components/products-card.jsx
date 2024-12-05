@@ -31,7 +31,7 @@ export function ProductCard({ img, title, desc }) {
         <Typography className="mb-6 font-normal !text-gray-500">
           {desc}
         </Typography>
-        <Button className="bg-amber-400" size="sm">
+        <Button className="bg-amber-600" size="sm">
           Beli
         </Button>
       </CardBody>

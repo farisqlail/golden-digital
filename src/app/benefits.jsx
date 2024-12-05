@@ -54,7 +54,7 @@ const Benefits = [
 export function Benefit() {
   return (
     <section className="px-8 lg:mt-0 mt-20">
-      <div className="container mx-auto mb-20 text-center">
+      <div className="container mx-auto sm:mb-20 mb-0 text-center">
         <h1
           color="blue-gray"
           className="mb-2 font-bold uppercase">

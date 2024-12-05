@@ -35,7 +35,7 @@ function Hero() {
           >
             Solusi langganan mudah dan terpercaya
           </Typography>
-          <Button className="w-full p-4 md:w-[12rem] bg-amber-400">
+          <Button className="w-full p-4 md:w-[12rem] bg-amber-600">
             Langganan Di Sini
           </Button>
         </div>

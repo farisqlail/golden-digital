@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+
 import { Typography, Card, CardBody, Avatar } from "@material-tailwind/react";
 
 export function Subscribe() {
@@ -10,7 +11,7 @@ export function Subscribe() {
   return (
     <section className="py-12 px-8 lg:py-24">
       <div className="container max-w-screen-lg mx-auto">
-        <div className="container mx-auto mb-20 text-center">
+        <div className="container mx-auto sm:mb-20 mb-0 text-center">
           <Typography variant="h2" color="blue-gray" className="mb-4">
             Cara Berlangganan
           </Typography>
@@ -75,16 +76,16 @@ export function Subscribe() {
                 </div>
               )}
               <div className="flex items-center gap-4">
-                <div className={`w-10 rounded-lg bg-amber-400 text-white p-2 flex justify-center items-center cursor-pointer ${active === 1 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(1)}>1</div>
+                <div className={`w-10 rounded-lg bg-amber-600 text-white p-2 flex justify-center items-center cursor-pointer ${active === 1 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(1)}>1</div>
                 <div className="w-[1px] h-[36px] bg-blue-gray-100 "></div>
-                <div className={`w-10 rounded-lg bg-amber-400 text-white p-2 flex justify-center items-center cursor-pointer ${active === 2 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(2)}>2</div>
+                <div className={`w-10 rounded-lg bg-amber-600 text-white p-2 flex justify-center items-center cursor-pointer ${active === 2 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(2)}>2</div>
                 <div className="w-[1px] h-[36px] bg-blue-gray-100" />
-                <div className={`w-10 rounded-lg bg-amber-400 text-white p-2 flex justify-center items-center cursor-pointer ${active === 3 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(3)}>3</div>
+                <div className={`w-10 rounded-lg bg-amber-600 text-white p-2 flex justify-center items-center cursor-pointer ${active === 3 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(3)}>3</div>
                 <div className="w-[1px] h-[36px] bg-blue-gray-100" />
-                <div className={`w-10 rounded-lg bg-amber-400 text-white p-2 flex justify-center items-center cursor-pointer ${active === 4 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(4)}>4</div>
+                <div className={`w-10 rounded-lg bg-amber-600 text-white p-2 flex justify-center items-center cursor-pointer ${active === 4 ? "opacity-100" : "opacity-50"}`} onClick={() => setActive(4)}>4</div>
               </div>
             </div>
-            <div className="h-[21rem] rounded-lg w-[20rem] sm:w-[20rem] shrink-0">
+            <div className="h-full sm:h-[21rem] rounded-lg w-full max-w-[20rem] sm:max-w-[20rem] shrink-0">
               <Image
                 width={1024}
                 height={800}
