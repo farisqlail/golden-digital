@@ -7,7 +7,7 @@ import { Input, Button, Typography } from "@material-tailwind/react";
 
 function Hero() {
   return (
-    <header className="bg-white p-8 lg:mb-[150px] mb-0 lg:mt-10 mt-10">
+    <header className="bg-white p-8 lg:mb-[150px] mb-0 lg:mt-10 mt-0">
       <div className="container mx-auto grid h-full gap-10 min-h-[60vh] w-full grid-cols-1 items-center lg:grid-cols-2">
         <div className="row-start-2 lg:row-auto">
           <div className="flex flex-col">
@@ -42,8 +42,8 @@ function Hero() {
         <Image
           width={800}
           height={300}
-          alt="team work"
-          src="/image/hero.png"
+          alt="hero"
+          src="/image/hero-1.png"
           className="w-full "
         />
       </div>

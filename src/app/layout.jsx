@@ -18,6 +18,7 @@ export default function RootLayout({ children }) {
           src="https://api.nepcha.com/js/nepcha-analytics.js"
         ></script>
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
+        <title>Golden Digital</title>
       </head>
       <body className={roboto.className}>
         <Layout>

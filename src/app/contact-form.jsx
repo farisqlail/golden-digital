@@ -23,7 +23,7 @@ export function ContactForm() {
               <span className="mx-auto mb-8 text-base text-gray-500">
                 Tim kami akan menghubungi Anda dalam waktu 24 jam
               </span>
-              <div className="flex gap-5">
+              <div className="flex gap-5 mt-3">
                 <PhoneIcon className="h-6 w-6 text-white" />
                 <h6 className="text-white mb-2">+62(424) 535 3523</h6>
               </div>

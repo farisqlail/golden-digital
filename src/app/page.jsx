@@ -5,8 +5,8 @@ import { Navbar, Footer } from "@/components";
 import Hero from "./hero";
 import Benefits from "./benefits";
 import Projects from "./products";
-import Testimonial from "./testimonial";
-import PopularClients from "./popular-clients";
+import Subscribe from "./subscribe";
+import PopularProducts from "./popular-products";
 import ContactForm from "./contact-form";
 
 export default function Portfolio() {
@@ -16,8 +16,8 @@ export default function Portfolio() {
       <Hero />
       <Benefits />
       <Projects />
-      <Testimonial />
-      <PopularClients />
+      <Subscribe />
+      <PopularProducts />
       <ContactForm />
       <Footer />
     </>
