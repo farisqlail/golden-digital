@@ -2,13 +2,13 @@
 import { Navbar, Footer } from "@/components";
 
 // sections
-import Detail from "./partial/Detail"
+import Checkout from "./partial/Checkout"
 
-export default function DetailPage() {
+export default function CheckoutPage() {
     return (
         <>
             <Navbar />
-            <Detail />
+            <Checkout />
             <Footer />
         </>
     );

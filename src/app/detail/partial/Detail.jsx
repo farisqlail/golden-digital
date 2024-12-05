@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import {useRouter} from "next/navigation";
 import Image from "next/image";
 import {
     Card,
@@ -14,8 +15,14 @@ import {
     Typography
 } from "@material-tailwind/react";
 
-export function ContactForm() {
+export function Detail() {
+    const router = useRouter();
     const [activeTab, setActiveTab] = React.useState("informasi");
+
+    const toCheckout = () => {
+        router.push("/checkout")
+    }
+
     const data = [
         {
             label: "Informasi",
@@ -136,7 +143,7 @@ export function ContactForm() {
                             ))}
                         </div>
 
-                        <Button className="bg-amber-500 w-full">Pesan</Button>
+                        <Button className="bg-amber-500 w-full" onClick={toCheckout}>Pesan</Button>
                     </div>
                 </div>
             </div>
@@ -144,4 +151,4 @@ export function ContactForm() {
     );
 }
 
-export default ContactForm;
+export default Detail;
