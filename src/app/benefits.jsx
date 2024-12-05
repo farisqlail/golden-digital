@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import { Typography } from "@material-tailwind/react";
 import {
   RectangleGroupIcon,
@@ -54,12 +55,16 @@ export function Benefit() {
   return (
     <section className="px-8">
       <div className="container mx-auto mb-20 text-center">
-        <Typography color="blue-gray" className="mb-2 font-bold uppercase">
+        <h1
+          color="blue-gray"
+          className="mb-2 font-bold uppercase">
           Golden Digital
-        </Typography>
-        <Typography variant="h1" color="blue-gray" className="mb-4">
+        </h1>
+        <h1
+          color="blue-gray"
+          className="mb-4">
           Keuntungan Berlangganan Di Golden Digital
-        </Typography>
+        </h1>
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-y-10 md:grid-cols-2 lg:grid-cols-3 flex justify-center">
         {Benefits.map((props, idx) => (

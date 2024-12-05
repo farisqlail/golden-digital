@@ -1,12 +1,6 @@
 import { Card, CardBody, Typography } from "@material-tailwind/react";
 
-interface BenefitCardProps {
-  title: string;
-  icon: React.ElementType;
-  children: React.ReactNode;
-}
-
-export function BenefitsCard({ icon: Icon, title, children }: BenefitCardProps) {
+export function BenefitsCard({ icon: Icon, title, children }) {
   return (
     <Card color="transparent" shadow={false}>
       <CardBody className="grid justify-center text-center">

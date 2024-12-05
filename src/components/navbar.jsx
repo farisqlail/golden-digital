@@ -1,18 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import {
   Navbar as MTNavbar,
   Collapse,
   Button,
-  IconButton,
   Typography,
 } from "@material-tailwind/react";
 import {
   RectangleStackIcon,
   UserCircleIcon,
   CommandLineIcon,
-  Squares2X2Icon,
-  XMarkIcon,
-  Bars3Icon,
 } from "@heroicons/react/24/solid";
 
 const NAV_MENU = [
@@ -27,16 +25,10 @@ const NAV_MENU = [
   {
     name: "Cara Berlangganan",
     icon: CommandLineIcon,
-    href: "https://www.material-tailwind.com/docs/react/installation",
   },
 ];
 
-interface NavItemProps {
-  children: React.ReactNode;
-  href?: string;
-}
-
-function NavItem({ children, href }: NavItemProps) {
+function NavItem({ children, href }) {
   return (
     <li>
       <Typography
@@ -54,15 +46,18 @@ function NavItem({ children, href }: NavItemProps) {
 }
 
 export function Navbar() {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  React.useEffect(() => {
-    window.addEventListener(
-      "resize",
-      () => window.innerWidth >= 960 && setOpen(false)
-    );
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 960) {
+        setOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return (
@@ -73,7 +68,7 @@ export function Navbar() {
         </Typography>
         <div className="hidden items-center gap-2 lg:flex">
           <ul className="ml-10 mr-5 hidden items-center gap-8 lg:flex">
-            {NAV_MENU.map(({ name, icon: Icon, href }) => (
+            {NAV_MENU.map(({ name, href }) => (
               <NavItem key={name} href={href}>
                 {name}
               </NavItem>
@@ -83,18 +78,6 @@ export function Navbar() {
             <Button className="bg-amber-500">Langganan</Button>
           </a>
         </div>
-        <IconButton
-          variant="text"
-          className="bg-amber-500"
-          onClick={handleOpen}
-          className="ml-auto inline-block lg:hidden"
-        >
-          {open ? (
-            <XMarkIcon strokeWidth={2} className="h-6 w-6" />
-          ) : (
-            <Bars3Icon strokeWidth={2} className="h-6 w-6" />
-          )}
-        </IconButton>
       </div>
       <Collapse open={open}>
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">

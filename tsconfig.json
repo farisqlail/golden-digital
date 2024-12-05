@@ -34,7 +34,7 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts"
-  ],
+, "src/app/contact-form.jsx", "src/app/benefits.jsx", "src/app/clients.jsx", "src/app/hero.jsx", "src/app/layout.jsx", "src/app/page.jsx", "src/app/popular-clients.jsx", "src/app/products.jsx", "src/app/testimonial.jsx", "src/components/benefits-card.jsx", "src/components/footer.jsx", "src/components/layout.jsx", "src/components/navbar.jsx", "src/components/products-card.jsx"  ],
   "exclude": [
     "node_modules"
   ]

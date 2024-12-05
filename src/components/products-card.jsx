@@ -7,13 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-interface ProductCardProps {
-  img: string;
-  title: string;
-  desc: string;
-}
-
-export function ProductCard({ img, title, desc }: ProductCardProps) {
+export function ProductCard({ img, title, desc }) {
   return (
     <Card color="transparent" shadow={false}>
       <CardHeader floated={false} className="mx-0 mt-0 mb-6 h-48">
