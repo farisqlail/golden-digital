@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
+
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -66,9 +68,8 @@ export function Navbar() {
   return (
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <Typography color="blue-gray" className="text-lg font-bold">
-          Golden Digital
-        </Typography>
+        <Image width={1024} height={800} src={`/logos/logo.png`}
+          className="h-full rounded-lg max-w-28" />
         <IconButton
           variant="text"
           color="blue-gray"
