@@ -5,7 +5,6 @@ import { Navbar, Footer } from "@/components";
 import Hero from "./partial/hero";
 import Benefits from "./partial/benefits";
 import Projects from "./partial/products";
-import Promos from "./partial/promos";
 import Subscribe from "./partial/subscribe";
 import PopularProducts from "./partial/popular-products";
 import ContactForm from "./partial/contact-form";
@@ -15,11 +14,10 @@ export default function Portfolio() {
     <>
       <Navbar />
       <Hero />
+      <PopularProducts />
       <Benefits />
-      <Promos />
       <Projects />
       <Subscribe />
-      <PopularProducts />
       <ContactForm />
       <Footer />
     </>

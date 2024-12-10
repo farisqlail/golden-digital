@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 
 export function Promos() {

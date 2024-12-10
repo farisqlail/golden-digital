@@ -3,21 +3,21 @@
 import Image from "next/image";
 
 import { Typewriter } from 'react-simple-typewriter';
-import { Input, Button, Typography } from "@material-tailwind/react";
+import { Input, Button, Typography, Carousel } from "@material-tailwind/react";
 
 function Hero() {
   return (
-    <header className="bg-white p-8 lg:mb-[150px] mb-0 lg:mt-10 mt-0">
-      <div className="container mx-auto grid h-full gap-10 min-h-[60vh] w-full grid-cols-1 items-center lg:grid-cols-2">
-        <div className="row-start-2 lg:row-auto">
-          <div className="flex flex-col">
+    <header className="bg-white p-8 lg:mb-0 mb-0 lg:mt-10 mt-0">
+      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full items-center">
+        <div className="flex flex-col justify-center items-center">
+          <div className="flex flex-col justify-center items-center">
             <Typography
               variant="h1"
-              className="mb-4 lg:text-6xl !leading-tight text-3xl font-bold "
+              className="mb-4 lg:text-6xl !leading-tight text-3xl font-bold text-center"
             >
               Tempat Langganan Akun
             </Typography>
-            <h1 className="mb-4 lg:text-5xl text-4xl font-bold leading-tight">
+            <h1 className="mb-4 lg:text-5xl text-4xl font-bold leading-tight text-amber-600">
               <Typewriter
                 words={['Netflix', 'Disney+', 'HBO Max', 'Spotify']}
                 loop={true}
@@ -39,13 +39,35 @@ function Hero() {
             Langganan Di Sini
           </Button>
         </div>
-        <Image
-          width={800}
-          height={300}
-          alt="hero"
-          src="/image/hero-1.png"
-          className="w-full "
-        />
+        <Carousel className="rounded-xl max-w-[95%] sm:max-w-[85%] md:max-w-[75%] lg:max-w-[60%] mx-auto">
+          <div className="relative h-full w-full">
+            <iframe
+              className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-lg"
+              src="https://www.youtube.com/embed/qM60-hob0a8"
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className="relative h-full w-full">
+            <iframe
+              className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-lg"
+              src="https://www.youtube.com/embed/qM60-hob0a8"
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+          <div className="relative h-full w-full">
+            <iframe
+              className="h-[250px] sm:h-[300px] md:h-[400px] lg:h-[500px] w-full rounded-lg"
+              src="https://www.youtube.com/embed/qM60-hob0a8"
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </Carousel>
       </div>
     </header>
   );

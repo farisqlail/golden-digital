@@ -12,27 +12,29 @@ const CLIENTS = [
 
 export function PopularProducts() {
   return (
-    <section className="py-8 px-8 lg:py-20">
+    <section className="py-4 px-4 lg:py-8 bg-gray-300 mb-10 mt-10">
       <div className="container mx-auto grid items-center place-items-center">
         <div className="text-center">
-          <Typography variant="h6" className="mb-4 uppercase !text-gray-500">
+          <Typography variant="h6" className="mb-4 uppercase !text-gray-800">
             Golden Digital
           </Typography>
-          <Typography variant="h2" color="blue-gray" className="mb-4">
+          <Typography variant="h2" color="black" className="mb-4">
             Produk Populer Kami
           </Typography>
         </div>
-        <div className="flex flex-wrap items-center justify-center gap-6 mt-8">
-          {CLIENTS.map((logo, key) => (
-            <Image
-              key={key}
-              alt={logo}
-              width={480}
-              height={480}
-              src={`/logos/${logo}.png`}
-              className="w-40 grayscale opacity-75"
-            />
-          ))}
+        <div className="w-full overflow-x-auto mt-4">
+          <div className="flex items-center gap-6 justify-start lg:justify-center">
+            {CLIENTS.map((logo, key) => (
+              <Image
+                key={key}
+                alt={logo}
+                width={480}
+                height={480}
+                src={`/logos/${logo}.png`}
+                className="w-40"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
