@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-
 import {
   Navbar as MTNavbar,
   Collapse,
@@ -11,9 +10,6 @@ import {
   IconButton,
 } from "@material-tailwind/react";
 import {
-  RectangleStackIcon,
-  UserCircleIcon,
-  CommandLineIcon,
   Bars3Icon,
   XMarkIcon,
 } from "@heroicons/react/24/solid";
@@ -21,28 +17,44 @@ import {
 const NAV_MENU = [
   {
     name: "Benefit",
-    icon: UserCircleIcon,
+    id: "benefits",
   },
   {
     name: "Produk",
-    icon: RectangleStackIcon,
+    id: "products",
   },
   {
     name: "Cara Berlangganan",
-    icon: CommandLineIcon,
+    id: "subscribe",
+  },
+  {
+    name: "FAQ",
+    id: "faq",
   },
 ];
 
-function NavItem({ children, href }) {
+function NavItem({ children, id }) {
+  const handleClick = () => {
+    const target = document.getElementById(id);
+    if (target) {
+      const offsetTop = target.offsetTop - 80; // Adjust offset for fixed header
+      window.scrollTo({
+        top: offsetTop,
+        behavior: "smooth",
+      });
+    } else {
+      console.error(`Target with id '${id}' not found.`);
+    }
+  };
+
   return (
     <li>
       <Typography
-        as="a"
-        href={href || "#"}
-        target={href ? "_blank" : "_self"}
+        as="button"
         variant="paragraph"
         color="gray"
-        className="flex items-center gap-2 font-medium text-gray-900"
+        className="flex items-center gap-2 font-medium text-gray-900 cursor-pointer"
+        onClick={handleClick}
       >
         {children}
       </Typography>
@@ -68,8 +80,12 @@ export function Navbar() {
   return (
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <Image width={1024} height={800} src={`/logos/logo.png`}
-          className="h-full rounded-lg max-w-28" />
+        <Image
+          width={1024}
+          height={800}
+          src={`/logos/logo.png`}
+          className="h-full rounded-lg max-w-28"
+        />
         <IconButton
           variant="text"
           color="blue-gray"
@@ -80,8 +96,8 @@ export function Navbar() {
         </IconButton>
         <div className="hidden items-center gap-2 lg:flex">
           <ul className="ml-10 mr-5 hidden items-center gap-8 lg:flex">
-            {NAV_MENU.map(({ name, href }) => (
-              <NavItem key={name} href={href}>
+            {NAV_MENU.map(({ name, id }) => (
+              <NavItem key={name} id={id}>
                 {name}
               </NavItem>
             ))}
@@ -94,17 +110,12 @@ export function Navbar() {
       <Collapse open={open} className="lg:hidden">
         <div className="container mx-auto mt-3 border-t border-gray-200 px-2 pt-4">
           <ul className="flex flex-col gap-4">
-            {NAV_MENU.map(({ name, icon: Icon }) => (
-              <NavItem key={name}>
+            {NAV_MENU.map(({ name, id }) => (
+              <NavItem key={name} id={id}>
                 {name}
               </NavItem>
             ))}
           </ul>
-          <div className="mt-6 mb-4 flex items-center gap-2">
-            <a href="#" target="_blank">
-              <Button className="bg-amber-500">Langganan</Button>
-            </a>
-          </div>
         </div>
       </Collapse>
     </MTNavbar>

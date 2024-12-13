@@ -6,7 +6,7 @@ import Image from "next/image";
 import { Typography, Card, CardBody, Avatar } from "@material-tailwind/react";
 
 export function Subscribe() {
-  const [active, setActive] = React.useState(3);
+  const [active, setActive] = React.useState(1);
 
   return (
     <section className="py-9 px-8 lg:py-8">
