@@ -23,7 +23,7 @@ export function ProductCard({ img, title, desc }) {
           alt={title}
           width={768}
           height={768}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-containe"
         />
       </CardHeader>
       <CardBody className="p-0">
