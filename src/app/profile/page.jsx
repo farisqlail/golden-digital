@@ -41,6 +41,12 @@ function Profile() {
     if (error) {
         return <div>Error: {error}</div>;
     }
+
+    const logout = () => {
+        localStorage.removeItem("authToken");
+        router.push("/")
+    }
+
     return (
         <>
             <Navbar />
@@ -72,7 +78,7 @@ function Profile() {
                         </div>
                         <span>Pesanan</span>
                     </div>
-                    <div className="flex items-center gap-2 cursor-pointer">
+                    <div className="flex items-center gap-2 cursor-pointer" onClick={logout}>
                         <div>
                             <svg width="28px" height="28px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
