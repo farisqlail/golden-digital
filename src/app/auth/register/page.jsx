@@ -56,8 +56,8 @@ function Register() {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600">
-            <Card className="w-full max-w-md shadow-lg">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 px-4">
+            <Card className="w-full max-w-lg shadow-lg bg-white bg-opacity-90">
                 <CardBody className="p-6">
                     <Typography
                         variant="h4"

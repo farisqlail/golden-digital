@@ -53,18 +53,18 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
-      <Card className="w-full max-w-md shadow-lg bg-white bg-opacity-80">
-        <CardBody className="p-6">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 sm:px-6 md:px-8">
+      <Card className="w-full max-w-md shadow-lg bg-white bg-opacity-80 sm:max-w-sm md:max-w-lg">
+        <CardBody className="p-6 sm:p-4 md:p-8">
           <Typography
             variant="h4"
-            className="text-center text-2xl font-bold text-gray-800 mb-4"
+            className="text-center text-2xl sm:text-xl md:text-3xl font-bold text-gray-800 mb-4"
           >
             Masuk ke Akun Anda
           </Typography>
           <Typography
             variant="paragraph"
-            className="text-center text-gray-500 mb-6"
+            className="text-center text-gray-500 mb-6 sm:mb-4 md:mb-8"
           >
             Masukkan email dan password untuk melanjutkan.
           </Typography>
@@ -99,9 +99,11 @@ function Login() {
                   type="checkbox"
                   className="form-checkbox h-4 w-4 text-amber-600"
                 />
-                <span className="ml-2 text-gray-600">Ingat Saya</span>
+                <span className="ml-2 text-gray-600 text-sm sm:text-xs">
+                  Ingat Saya
+                </span>
               </label>
-              <a href="#" className="text-amber-600 hover:underline text-sm">
+              <a href="#" className="text-amber-600 hover:underline text-sm sm:text-xs">
                 Lupa Password?
               </a>
             </div>
@@ -124,10 +126,10 @@ function Login() {
             </Button>
           </form>
         </CardBody>
-        <CardFooter className="text-center p-6">
+        <CardFooter className="text-center p-6 sm:p-4 md:p-8">
           <Typography
             variant="paragraph"
-            className="text-gray-600 flex gap-2 justify-center"
+            className="text-gray-600 flex gap-2 justify-center text-sm sm:text-xs"
           >
             Belum punya akun?{" "}
             <div
