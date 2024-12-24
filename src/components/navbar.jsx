@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+
 import Image from "next/image";
 import {
   Navbar as MTNavbar,
@@ -9,35 +11,21 @@ import {
   Typography,
   IconButton,
 } from "@material-tailwind/react";
-import {
-  Bars3Icon,
-  XMarkIcon,
-} from "@heroicons/react/24/solid";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
+import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const NAV_MENU = [
-  {
-    name: "Benefit",
-    id: "benefits",
-  },
-  {
-    name: "Produk",
-    id: "products",
-  },
-  {
-    name: "Cara Berlangganan",
-    id: "subscribe",
-  },
-  {
-    name: "FAQ",
-    id: "faq",
-  },
+  { name: "Benefit", id: "benefits" },
+  { name: "Produk", id: "products" },
+  { name: "Cara Berlangganan", id: "subscribe" },
+  { name: "FAQ", id: "faq" },
 ];
 
 function NavItem({ children, id }) {
   const handleClick = () => {
     const target = document.getElementById(id);
     if (target) {
-      const offsetTop = target.offsetTop - 80; // Adjust offset for fixed header
+      const offsetTop = target.offsetTop - 80;
       window.scrollTo({
         top: offsetTop,
         behavior: "smooth",
@@ -63,7 +51,9 @@ function NavItem({ children, id }) {
 }
 
 export function Navbar() {
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [authToken, setAuthToken] = useState(null);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
@@ -73,19 +63,31 @@ export function Navbar() {
         setOpen(false);
       }
     };
+
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const token = localStorage.getItem("authToken");
+    setAuthToken(token);
+  }, []);
+
+  const handleNavigation = (url) => {
+    router.push(url);
+  };
+
   return (
     <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
-        <Image
-          width={1024}
-          height={800}
-          src={`/logos/logo.png`}
-          className="h-full rounded-lg max-w-28"
-        />
+        <div onClick={() => handleNavigation("/")} className="cursor-pointer">
+          <Image
+            width={1024}
+            height={800}
+            src={`/logos/logo.png`}
+            className="h-full rounded-lg max-w-28"
+          />
+        </div>
         <IconButton
           variant="text"
           color="blue-gray"
@@ -102,9 +104,18 @@ export function Navbar() {
               </NavItem>
             ))}
           </ul>
-          <a href="#" target="_blank">
-            <Button className="bg-amber-500">Langganan</Button>
-          </a>
+          {authToken ? (
+            <div
+              className="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full cursor-pointer"
+              onClick={() => handleNavigation("/profile")}
+            >
+              <UserCircleIcon className="w-6 h-6 text-gray-600" />
+            </div>
+          ) : (
+            <div onClick={() => handleNavigation("/auth/login")}>
+              <Button className="bg-amber-500">Langganan</Button>
+            </div>
+          )}
         </div>
       </div>
       <Collapse open={open} className="lg:hidden">

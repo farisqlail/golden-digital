@@ -1,6 +1,7 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Input,
   Button,
@@ -9,15 +10,50 @@ import {
   CardBody,
   CardFooter,
 } from "@material-tailwind/react";
+import { postResource } from "../../../../utils/Fetch";
 
 function Login() {
+  const router = useRouter();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setErrorMessage("");
+
+    try {
+      const response = await postResource("customers/login", formData);
+      if (response.success) {
+        localStorage.setItem("authToken", response.data.token);
+
+        alert("Login berhasil!");
+        router.push("/profile");
+      } else {
+        setErrorMessage(response.message || "Gagal masuk. Silakan cek kembali email dan password Anda.");
+      }
+    } catch (error) {
+      setErrorMessage("Terjadi kesalahan. Silakan coba lagi.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleNavigation = (url) => {
+    router.push(url);
+  };
+
   return (
-    <div
-      className="flex justify-center items-center min-h-screen bg-cover bg-center"
-      style={{
-        backgroundImage: "url('https://source.unsplash.com/random/1600x900')", // Ganti dengan gambar yang Anda pilih
-      }}
-    >
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500">
       <Card className="w-full max-w-md shadow-lg bg-white bg-opacity-80">
         <CardBody className="p-6">
           <Typography
@@ -32,13 +68,16 @@ function Login() {
           >
             Masukkan email dan password untuk melanjutkan.
           </Typography>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <Input
                 type="email"
                 label="Email"
                 size="lg"
                 className="w-full"
+                name="email"
+                value={formData.email}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -48,6 +87,9 @@ function Login() {
                 label="Password"
                 size="lg"
                 className="w-full"
+                name="password"
+                value={formData.password}
+                onChange={handleInputChange}
                 required
               />
             </div>
@@ -59,32 +101,41 @@ function Login() {
                 />
                 <span className="ml-2 text-gray-600">Ingat Saya</span>
               </label>
-              <a
-                href="#"
-                className="text-amber-600 hover:underline text-sm"
-              >
+              <a href="#" className="text-amber-600 hover:underline text-sm">
                 Lupa Password?
               </a>
             </div>
+            {errorMessage && (
+              <Typography
+                variant="small"
+                className="text-red-600 text-center mb-4"
+              >
+                {errorMessage}
+              </Typography>
+            )}
             <Button
               type="submit"
               color="amber"
               size="lg"
               className="w-full bg-amber-600 hover:bg-amber-700"
+              disabled={loading}
             >
-              Masuk
+              {loading ? "Loading..." : "Masuk"}
             </Button>
           </form>
         </CardBody>
         <CardFooter className="text-center p-6">
           <Typography
             variant="paragraph"
-            className="text-gray-600"
+            className="text-gray-600 flex gap-2 justify-center"
           >
             Belum punya akun?{" "}
-            <a href="#" className="text-amber-600 hover:underline">
+            <div
+              onClick={() => handleNavigation("/auth/register")}
+              className="text-amber-600 cursor-pointer hover:underline"
+            >
               Daftar
-            </a>
+            </div>
           </Typography>
         </CardFooter>
       </Card>
