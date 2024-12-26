@@ -12,18 +12,33 @@ import {
     TabPanel,
     Radio,
     Button,
-    Typography
+    Typography,
+    Dialog,
+    DialogHeader,
+    DialogBody,
+    DialogFooter,
+    Input,
 } from "@material-tailwind/react";
 
 import {
     getResource,
+    postResource
 } from "../../../../../utils/Fetch";
 
 export function Detail({ productData }) {
     const router = useRouter();
     const [activeTab, setActiveTab] = React.useState("informasi");
     const [promo, setPromo] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const [open, setOpen] = React.useState(false);
+    const [openSecondModal, setOpenSecondModal] = useState(false);
+    const [formData, setFormData] = React.useState({
+        name: '',
+        email: '',
+        phone: '',
+        transaction_code: productData?.kode_toko,
+    });
+    const handleOpen = () => setOpen(!open);
+    const handleOpenSecondModal = () => setOpenSecondModal(!openSecondModal);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -54,6 +69,39 @@ export function Detail({ productData }) {
             desc: `Pilih paket yang sesuai dengan kebutuhan Anda! Akun premium hadir dengan beberapa pilihan skema berlangganan: Paket Bulanan yang memungkinkan Anda menikmati akses premium dengan biaya bulanan yang terjangkau, Paket Tahunan yang memberikan diskon lebih besar dengan berlangganan untuk setahun penuh, dan Paket Keluarga yang menyediakan akses premium untuk beberapa akun dalam satu keluarga dengan harga yang lebih hemat. Setiap paket menawarkan berbagai keuntungan seperti bebas iklan, kualitas streaming lebih tinggi, dan akses eksklusif ke konten tertentu.`
         },
     ];
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async () => {
+        const data = {
+            external_id: formData.transaction_code,
+            amount: productData?.harga,
+            id_price: productData?.id,
+            id_promo: 0,
+            customer_name: formData.name,
+            email_customer: formData.email,
+            phone_customer: formData.phone,
+            transaction_code: formData.transaction_code,
+            payment_status: "PENDING",
+        };
+
+        try {
+            const response = await postResource('create-invoice', data);
+
+            if (response.success === true) {
+                window.open(response.invoice.invoice_url, '_blank');
+                router.push("/payments")
+                handleOpenSecondModal();
+            } else {
+                console.error('Invoice URL is missing in the response:', response);
+            }
+        } catch (error) {
+            console.error('Error creating invoice:', error);
+        }
+    };
 
     return (
         <section className="py-8 px-4">
@@ -203,12 +251,67 @@ export function Detail({ productData }) {
                             )}
                         </div>
 
-                        <Button className="bg-amber-500 w-full" onClick={toCheckout}>
+                        <Button className="bg-amber-500 w-full" onClick={handleOpen}>
                             Pesan
                         </Button>
                     </div>
                 </div>
             </div>
+
+            <Dialog open={open} handler={handleOpen}>
+                <DialogHeader>Konfirmasi Pesanan</DialogHeader>
+                <DialogBody>
+                    Anda dapat mendapatkan point jika anda memiliki akun <span className="font-semibold">Golden Digital</span>
+                </DialogBody>
+                <DialogFooter className="flex flex-col gap-3">
+                    <Button onClick={() => {
+                        handleOpen();
+                        handleOpenSecondModal();
+                    }} className="w-full bg-amber-500">
+                        <span>Tetap lanjutkan</span>
+                    </Button>
+                    <div className="flex justify-center">
+                        <span className="mr-1 w-full text-red-500 cursor-pointer" onClick={handleOpen}>Login dan dapatkan point!</span>
+                    </div>
+                </DialogFooter>
+            </Dialog>
+
+            <Dialog open={openSecondModal} handler={handleOpenSecondModal}>
+                <DialogHeader>Masukkan Informasi Anda</DialogHeader>
+                <DialogBody className="flex flex-col gap-4">
+                    <Input
+                        label="Nama"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        label="Email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                    />
+                    <Input
+                        label="Nomor Telepon"
+                        name="phone"
+                        type="tel"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        required
+                    />
+                </DialogBody>
+                <DialogFooter>
+                    <Button
+                        className="w-full bg-amber-500"
+                        onClick={handleSubmit}
+                    >
+                        Lanjutkan
+                    </Button>
+                </DialogFooter>
+            </Dialog>
         </section>
     );
 }
