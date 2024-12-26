@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 import {
   getResource,
@@ -10,7 +11,8 @@ import { ProductCard } from "@/components";
 import { Typography } from "@material-tailwind/react";
 
 export function Product() {
-  const [products, setProducts] = useState([]); 
+  const router = useRouter();
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,9 +22,8 @@ export function Product() {
         const websiteProducts = result.products.filter(
           (product) => product.platform === "Website"
         );
-        console.log("Filtered Products:", websiteProducts);
 
-        setProducts(websiteProducts); 
+        setProducts(websiteProducts);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -46,13 +47,18 @@ export function Product() {
           products.map((product) => (
             <ProductCard
               key={product.id_produk}
-              img="/logos/netflix.png" 
-              title={product.detail_produk} 
-              desc={`Harga: Rp ${product.harga.toLocaleString()}`} 
+              img="/logos/netflix.png"
+              title={product.detail_produk}
+              desc={`Harga: Rp ${product.harga.toLocaleString()}`}
+              code={product.id_produk}
             />
           ))
         ) : (
-          <Typography variant="h6" color="gray" className="col-span-4 text-center">
+          <Typography
+            variant="h6"
+            color="gray"
+            className="col-span-4 text-center"
+          >
             Tidak ada produk yang tersedia.
           </Typography>
         )}

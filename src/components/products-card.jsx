@@ -8,11 +8,11 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-export function ProductCard({ img, title, desc }) {
+export function ProductCard({ img, title, desc, code }) {
   const router = useRouter();
 
-  const toDetail = () => {
-    router.push("/detail")
+  const toDetail = (id) => {
+    router.push(`/product/${id}`);
   }
 
   return (
@@ -23,7 +23,7 @@ export function ProductCard({ img, title, desc }) {
           alt={title}
           width={768}
           height={768}
-          className="h-full w-full object-containe"
+          className="h-full w-full object-contain"
         />
       </CardHeader>
       <CardBody className="p-0">
@@ -38,7 +38,7 @@ export function ProductCard({ img, title, desc }) {
         <Typography className="mb-6 font-normal !text-gray-500">
           {desc}
         </Typography>
-        <Button className="bg-amber-600" size="sm" onClick={toDetail}>
+        <Button className="bg-amber-600" size="sm" onClick={() => toDetail(code)}>
           Beli
         </Button>
       </CardBody>
