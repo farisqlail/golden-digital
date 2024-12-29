@@ -23,7 +23,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 import {
     getResource,
-    postResource
+    postResource,
+    getResourceWithToken
 } from "../../../../../utils/Fetch";
 
 export function Detail({ productData }) {
@@ -32,6 +33,7 @@ export function Detail({ productData }) {
     const [promo, setPromo] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [openSecondModal, setOpenSecondModal] = useState(false);
+    const [dataUser, setDataUser] = useState(null);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -44,7 +46,12 @@ export function Detail({ productData }) {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                const authToken = localStorage.getItem("authToken");
                 const result = await getResource("promo");
+                if(authToken){
+                    const resultUser = await getResourceWithToken("profile", authToken);
+                    setDataUser(resultUser.data);
+                }
                 setPromo(Array.isArray(result.promo) ? result.promo : []);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -76,6 +83,14 @@ export function Detail({ productData }) {
         setFormData((prev) => ({ ...prev, [name]: value }));
     };
 
+    const checkout = async () => {
+        if(localStorage.getItem("authToken")) {
+            await handleSubmit();
+        } else {
+            handleOpen();
+        }
+    }
+
     const handleSubmit = async () => {
         const transactionCode = uuidv4();
 
@@ -83,10 +98,11 @@ export function Detail({ productData }) {
             external_id: productData?.kode_toko,
             amount: productData?.harga,
             id_price: productData?.id,
+            id_user: dataUser ? dataUser.id : 0,
             id_promo: 0,
-            customer_name: formData.name,
-            email_customer: formData.email,
-            phone_customer: formData.phone,
+            customer_name: dataUser ? dataUser.name : formData.name,
+            email_customer: dataUser ? dataUser.email : formData.email,
+            phone_customer: dataUser ? dataUser.number : formData.phone,
             transaction_code: transactionCode,
             payment_status: "PENDING",
         };
@@ -255,7 +271,7 @@ export function Detail({ productData }) {
                             )}
                         </div>
 
-                        <Button className="bg-amber-500 w-full" onClick={handleOpen}>
+                        <Button className="bg-amber-500 w-full" onClick={checkout}>
                             Pesan
                         </Button>
                     </div>
