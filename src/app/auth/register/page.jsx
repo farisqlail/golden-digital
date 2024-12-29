@@ -21,7 +21,7 @@ function Register() {
         email: "",
         password: "",
         number: "",
-        point: 0
+        point: 20
     });
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");

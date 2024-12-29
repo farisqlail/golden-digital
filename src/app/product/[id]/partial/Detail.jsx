@@ -19,6 +19,7 @@ import {
     DialogFooter,
     Input,
 } from "@material-tailwind/react";
+import { v4 as uuidv4 } from 'uuid';
 
 import {
     getResource,
@@ -76,24 +77,27 @@ export function Detail({ productData }) {
     };
 
     const handleSubmit = async () => {
+        const transactionCode = uuidv4();
+
         const data = {
-            external_id: formData.transaction_code,
+            external_id: productData?.kode_toko,
             amount: productData?.harga,
             id_price: productData?.id,
             id_promo: 0,
             customer_name: formData.name,
             email_customer: formData.email,
             phone_customer: formData.phone,
-            transaction_code: formData.transaction_code,
+            transaction_code: transactionCode,
             payment_status: "PENDING",
         };
 
+        localStorage.setItem("dataPayment", JSON.stringify(data));
         try {
             const response = await postResource('create-invoice', data);
 
             if (response.success === true) {
                 window.open(response.invoice.invoice_url, '_blank');
-                router.push("/payments")
+                router.push("/waiting")
                 handleOpenSecondModal();
             } else {
                 console.error('Invoice URL is missing in the response:', response);
