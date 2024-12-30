@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { Navbar, Footer } from "@/components";
+import { NavbarDetail, Footer } from "@/components";
 import { getResourceWithToken } from "../../../utils/Fetch";
 
 function Profile() {
@@ -47,7 +47,7 @@ function Profile() {
 
   return (
     <>
-      <Navbar />
+      <NavbarDetail />
       <div className="min-h-screen bg-gray-100 flex flex-col md:flex-row justify-center gap-6 p-4 md:p-8">
         {/* Sidebar */}
         <div className="bg-white rounded-lg shadow-md p-4 flex flex-col gap-4 w-full md:max-w-sm">

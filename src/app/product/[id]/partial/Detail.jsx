@@ -34,6 +34,7 @@ export function Detail({ productData }) {
     const [open, setOpen] = React.useState(false);
     const [openSecondModal, setOpenSecondModal] = useState(false);
     const [dataUser, setDataUser] = useState(null);
+    const [selectedPromo, setSelectedPromo] = useState(null);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -47,12 +48,12 @@ export function Detail({ productData }) {
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
-                const result = await getResource("promo");
-                if(authToken){
+                const result = await getResource("vouchers");
+                if (authToken) {
                     const resultUser = await getResourceWithToken("profile", authToken);
                     setDataUser(resultUser.data);
                 }
-                setPromo(Array.isArray(result.promo) ? result.promo : []);
+                setPromo(Array.isArray(result.voucher) ? result.voucher : []);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -84,22 +85,33 @@ export function Detail({ productData }) {
     };
 
     const checkout = async () => {
-        if(localStorage.getItem("authToken")) {
+        if (localStorage.getItem("authToken")) {
             await handleSubmit();
         } else {
             handleOpen();
         }
     }
 
+    const calculateTotalAmount = () => {
+        const baseAmount = productData?.harga || 0;
+        const adminFee = 6524; 
+        const discount = selectedPromo?.amount || 0; 
+        return baseAmount - discount + adminFee;
+    };
+
+    const handlePromoSelect = (promoItem) => {
+        setSelectedPromo(promoItem);
+    };
+
     const handleSubmit = async () => {
         const transactionCode = uuidv4();
 
         const data = {
             external_id: productData?.kode_toko,
-            amount: productData?.harga,
+            amount: calculateTotalAmount(),
             id_price: productData?.id,
             id_user: dataUser ? dataUser.id : 0,
-            id_promo: 0,
+            id_promo: selectedPromo ? selectedPromo.id : 0,
             customer_name: dataUser ? dataUser.name : formData.name,
             email_customer: dataUser ? dataUser.email : formData.email,
             phone_customer: dataUser ? dataUser.number : formData.phone,
@@ -233,11 +245,13 @@ export function Detail({ productData }) {
                                     [
                                         ["Nama Paket", productData?.product?.variance?.variance_name],
                                         ["Harga", "Rp" + productData?.harga.toLocaleString()],
+                                        ["Diskon", selectedPromo ? "Rp" + selectedPromo.amount.toLocaleString() : "Rp0"],
                                         ["Biaya Admin", "Rp6,524"],
+                                        ["Total", "Rp" + calculateTotalAmount().toLocaleString()],
                                     ].map(([label, value], idx) => (
                                         <div className="flex justify-between gap-5" key={idx}>
                                             <span>{label}</span>
-                                            <span className={idx === 3 ? "font-semibold" : ""}>{value}</span>
+                                            <span className={idx === 4 ? "font-semibold" : ""}>{value}</span>
                                         </div>
                                     ))
                                 ) : (
@@ -255,13 +269,14 @@ export function Detail({ productData }) {
 
                         <div className="flex flex-col gap-3">
                             {promo.length > 0 ? (
-                                promo.map((promoItem, idx) => (
+                                promo.map((promoItem) => (
                                     <div className="flex gap-3" key={promoItem.id}>
                                         <div className="border rounded-lg p-1 w-full">
                                             <Radio
                                                 name="type"
-                                                label={promoItem.title}
+                                                label={promoItem.name}
                                                 color="amber"
+                                                onChange={() => handlePromoSelect(promoItem)}
                                             />
                                         </div>
                                     </div>

@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { Navbar, Footer } from "@/components";
+import { NavbarDetail, Footer } from "@/components";
 
 import Detail from "./partial/Detail"
 
@@ -18,7 +18,7 @@ export default function DetailPage({ params }) {
             const fetchData = async () => {
                 try {
                     const result = await getResource(`get_detail_products/${params.id}`);
-                    console.log(result.price);
+
                     setProductData(result.price);
                 } catch (error) {
                     console.error("Error fetching product details:", error);
@@ -31,7 +31,7 @@ export default function DetailPage({ params }) {
 
     return (
         <>
-            <Navbar />
+            <NavbarDetail />
             <Detail productData={productData} />
             <Footer />
         </>
