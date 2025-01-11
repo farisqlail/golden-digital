@@ -110,7 +110,7 @@ export function Detail({ productData }) {
             external_id: productData?.kode_toko,
             amount: calculateTotalAmount(),
             id_price: productData?.id,
-            id_user: dataUser ? dataUser.id : 0,
+            id_customer: dataUser ? dataUser.id : 0,
             id_promo: selectedPromo ? selectedPromo.id : 0,
             customer_name: dataUser ? dataUser.name : formData.name,
             email_customer: dataUser ? dataUser.email : formData.email,
