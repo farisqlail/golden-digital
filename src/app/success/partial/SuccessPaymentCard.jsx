@@ -134,7 +134,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                             type="text"
                             className="w-full p-2 border rounded-md mb-4"
                             placeholder="Contoh: 6281234567890"
-                            value={userData.number ? userData.number : whatsappNumber}
+                            value={userData ? userData.number : whatsappNumber}
                             onChange={(e) => setWhatsappNumber(e.target.value)}
                         />
                         <div className="flex justify-end space-x-2">
