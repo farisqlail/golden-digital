@@ -94,8 +94,8 @@ export function Detail({ productData }) {
 
     const calculateTotalAmount = () => {
         const baseAmount = productData?.harga || 0;
-        const adminFee = 6524; 
-        const discount = selectedPromo?.amount || 0; 
+        const adminFee = 6524;
+        const discount = selectedPromo?.amount || 0;
         return baseAmount - discount + adminFee;
     };
 
@@ -267,24 +267,26 @@ export function Detail({ productData }) {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-3">
-                            {promo.length > 0 ? (
-                                promo.map((promoItem) => (
-                                    <div className="flex gap-3" key={promoItem.id}>
-                                        <div className="border rounded-lg p-1 w-full">
-                                            <Radio
-                                                name="type"
-                                                label={promoItem.name}
-                                                color="amber"
-                                                onChange={() => handlePromoSelect(promoItem)}
-                                            />
+                        {dataUser && (
+                            <div className="flex flex-col gap-3">
+                                {promo.length > 0 ? (
+                                    promo.map((promoItem) => (
+                                        <div className="flex gap-3" key={promoItem.id}>
+                                            <div className="border rounded-lg p-1 w-full">
+                                                <Radio
+                                                    name="type"
+                                                    label={promoItem.name}
+                                                    color="amber"
+                                                    onChange={() => handlePromoSelect(promoItem)}
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="w-3/4 h-4 bg-gray-200 animate-pulse rounded"></div>
-                            )}
-                        </div>
+                                    ))
+                                ) : (
+                                    <div className="w-3/4 h-4 bg-gray-200 animate-pulse rounded"></div>
+                                )}
+                            </div>
+                        )}
 
                         <Button className="bg-amber-500 w-full" onClick={checkout}>
                             Pesan

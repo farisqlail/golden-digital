@@ -11,6 +11,7 @@ import SuccessPaymentCard from "./partial/SuccessPaymentCard";
 
 export default function WaitingPayment() {
   const [paymentStatus, setPaymentStatus] = useState("PENDING");
+  const [dataTransaction, setDataTransaction] = useState({});
 
   useEffect(() => {
     const checkPaymentStatus = async () => {
@@ -33,19 +34,10 @@ export default function WaitingPayment() {
 
         const response = await postResource("confirm-payment", payload);
 
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          // setPaymentStatus(data.status);
+        console.log("tt", response.data);
+        setPaymentStatus("PAID");
+        setDataTransaction(response.data);
 
-          // if (data.status === "PAID" || data.status === "FAILED") {
-          //   clearInterval(interval);
-          // }
-
-          // localStorage.removeItem("dataPayment");
-        } else {
-          console.error("Failed to fetch payment status:", response.statusText);
-        }
       } catch (error) {
         console.error("Error checking payment status:", error);
       }
@@ -56,7 +48,7 @@ export default function WaitingPayment() {
 
   return (
     <>
-      <SuccessPaymentCard />
+      <SuccessPaymentCard dataAccount={dataTransaction} />
     </>
   );
 }
