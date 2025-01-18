@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Script from 'next/script';
 import Image from "next/image";
 import {
     Card,
@@ -63,7 +64,32 @@ export function Detail({ productData }) {
     }, []);
 
     const toCheckout = () => {
-        router.push("/checkout")
+        if (localStorage.getItem("authToken")) {
+            const transactionCode = uuidv4();
+
+            const data = {
+                external_id: productData?.kode_toko,
+                amount: calculateTotalAmount(),
+                id_price: productData?.id,
+                id_customer: dataUser ? dataUser.id : 0,
+                id_promo: selectedPromo ? selectedPromo.id : 0,
+                customer_name: dataUser ? dataUser.name : formData.name,
+                email_customer: dataUser ? dataUser.email : formData.email,
+                phone_customer: dataUser ? dataUser.number : formData.phone,
+                transaction_code: transactionCode,
+                payment_status: "PENDING",
+                product: productData?.product?.variance?.variance_name,
+                duration: productData?.product?.durasi,
+                product_price: productData?.harga,
+                tax: 6524
+            };
+
+            localStorage.setItem("dataPayment", JSON.stringify(data));
+
+            router.push("/checkout")
+        } else {
+            handleOpen();
+        }
     }
 
     const data = [
@@ -124,8 +150,8 @@ export function Detail({ productData }) {
             const response = await postResource('create-invoice', data);
 
             if (response.success === true) {
-                window.open(response.invoice.invoice_url, '_blank');
-                router.push("/waiting")
+                // window.open(response.invoice.invoice_url, '_blank');
+                router.push("/checkout")
                 handleOpenSecondModal();
             } else {
                 console.error('Invoice URL is missing in the response:', response);
@@ -134,6 +160,35 @@ export function Detail({ productData }) {
             console.error('Error creating invoice:', error);
         }
     };
+
+    const checkoutMidtrans = async () => {
+        const data = {
+            amount: 10000,
+            customer_name: "John Doe",
+            email: "john@example.com",
+            phone: "08123456789",
+        }
+
+        const response = await postResource('payment/create', data);
+        if (response.success) {
+            window.snap.pay(response.snap_token, {
+                onSuccess: function (result) {
+                    console.log('Payment Success:', result);
+                },
+                onPending: function (result) {
+                    console.log('Payment Pending:', result);
+                },
+                onError: function (result) {
+                    console.log('Payment Error:', result);
+                },
+                onClose: function () {
+                    console.log('Payment Modal Closed');
+                }
+            });
+        } else {
+            console.error('Error:', response.message);
+        }
+    }
 
     return (
         <section className="py-8 px-4">
@@ -288,7 +343,7 @@ export function Detail({ productData }) {
                             </div>
                         )}
 
-                        <Button className="bg-amber-500 w-full" onClick={checkout}>
+                        <Button className="bg-amber-500 w-full" onClick={toCheckout}>
                             Pesan
                         </Button>
                     </div>
@@ -349,6 +404,12 @@ export function Detail({ productData }) {
                     </Button>
                 </DialogFooter>
             </Dialog>
+
+            <Script
+                src="https://app.sandbox.midtrans.com/snap/snap.js"
+                data-client-key="SB-Mid-client-a2u-4CJzXJ9Wm80f" // Replace with your actual client key  
+                strategy="afterInteractive"
+            />
         </section>
     );
 }

@@ -4,10 +4,11 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { postResource, getResourceWithToken } from "../../../../utils/Fetch";
+import { postResource, getResourceWithToken, getResource } from "../../../../utils/Fetch";
 import Toast from '@/components/Toast';
 
 const SuccessPaymentCard = ({ dataAccount }) => {
+    const router = useRouter();
     const [showModal, setShowModal] = useState(false);
     const [showWhatsAppModal, setShowWhatsAppModal] = useState(false);
     const [testimonial, setTestimonial] = useState("");
@@ -15,16 +16,18 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     const [whatsappNumber, setWhatsappNumber] = useState("");
     const [toastMessage, setToastMessage] = useState('');
     const [toastType, setToastType] = useState('');
-    const router = useRouter();
     const [userData, setUserData] = useState(null);
+    const [waAdmin, setWaAdmin] = useState([]);
+    const [selectedWaAdmin, setSelectedWaAdmin] = useState(null);
 
     useEffect(() => {
         const checkAuth = async () => {
             try {
                 const token = localStorage.getItem("authToken")
-
                 const response = await getResourceWithToken("profile", token);
+                const result = await getResource("list-waadmin");
 
+                setWaAdmin(result.data)
                 setUserData(response.data)
             } catch (error) {
                 console.error("Error checking payment status:", error);
@@ -46,13 +49,16 @@ const SuccessPaymentCard = ({ dataAccount }) => {
 
             try {
                 const payload = {
-                    name: currentName, 
+                    name: currentName,
                     description: testimonial
                 };
 
                 await postResource("testimonial/add", payload);
 
                 localStorage.removeItem("dataPayment");
+                localStorage.removeItem("dataCheckout")
+                localStorage.removeItem("selectedPayment")
+                localStorage.removeItem("selectedWaAdmin")
                 setShowModal(false);
                 router.push("/");
             } catch (error) {
@@ -68,25 +74,46 @@ const SuccessPaymentCard = ({ dataAccount }) => {
         setShowWhatsAppModal(true);
     };
 
-    const sendToWhatsApp = () => {
-        const data = {
-            email: dataAccount.akun.email,
-            password: dataAccount.akun.password,
-            profile: dataAccount.detailAkun.profile ? dataAccount.detailAkun.profile : null
-        };
+    // const sendToWhatsApp = () => {
+    //     const data = {
+    //         email: dataAccount.akun.email,
+    //         password: dataAccount.akun.password,
+    //         profile: dataAccount.detailAkun.profile ? dataAccount.detailAkun.profile : null
+    //     };
 
-        const message = `Silahkan nikmati akun anda, ini untuk Email: ${data.email}\nPassword: ${data.password}\nProfile: ${data.profile ? data.profile : 'No profile'}`;
+    //     const message = `Silahkan nikmati akun anda, ini untuk Email: ${data.email}\nPassword: ${data.password}\nProfile: ${data.profile ? data.profile : 'No profile'}`;
+    //     const encodedMessage = encodeURIComponent(message);
+    //     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+
+    //     window.open(whatsappUrl, '_blank');
+
+    //     setShowWhatsAppModal(false);
+    //     setWhatsappNumber("");
+    // };
+
+    const selectWaAdmin = (admin) => {
+        setSelectedWaAdmin(admin);
+        localStorage.setItem("selectedWaAdmin", JSON.stringify(admin)); 
+        const data = JSON.parse(localStorage.getItem("dataPayment")) 
+        const message = `Halo, saya ingin klaim akun dengan kode transaksi ${data?.transaction_code}`;
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+        const whatsappUrl = `https://wa.me/${admin.wa}?text=${encodedMessage}`; 
 
         window.open(whatsappUrl, '_blank');
 
-        setShowWhatsAppModal(false);
-        setWhatsappNumber("");
+        setShowWhatsAppModal(false); 
     };
 
     const checkTestimonial = () => {
         userData ? setShowModal(true) : router.push("/");
+    }
+
+    const noTestimonial = () => {
+        localStorage.removeItem("dataPayment")
+        localStorage.removeItem("dataCheckout")
+        localStorage.removeItem("selectedPayment")
+        localStorage.removeItem("selectedWaAdmin")
+        router.push('/')
     }
 
     return (
@@ -129,27 +156,32 @@ const SuccessPaymentCard = ({ dataAccount }) => {
             {showWhatsAppModal && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                     <div className="bg-white w-1/3 p-6 rounded-lg shadow-lg">
-                        <h3 className="text-lg font-semibold mb-4">Masukkan Nomor WhatsApp</h3>
-                        <input
-                            type="text"
-                            className="w-full p-2 border rounded-md mb-4"
-                            placeholder="Contoh: 6281234567890"
-                            value={userData ? userData.number : whatsappNumber}
-                            onChange={(e) => setWhatsappNumber(e.target.value)}
-                        />
-                        <div className="flex justify-end space-x-2">
-                            <button
-                                className="px-4 py-2 bg-gray-500 text-white rounded-md"
-                                onClick={() => setShowWhatsAppModal(false)}
-                            >
-                                Batal
-                            </button>
-                            <button
-                                className="px-4 py-2 bg-green-500 text-white rounded-md"
-                                onClick={sendToWhatsApp}
-                            >
-                                Kirim
-                            </button>
+                        <h3 className="text-lg font-semibold mb-4">Pilih Wa Admin</h3>
+                        <div className="flex flex-col">
+                            {waAdmin.length > 0 ? (
+                                waAdmin.map((admin) => (
+                                    <div key={admin.id} className="flex justify-between items-center p-2 border-b">
+                                        <div className="flex items-center">
+                                            <Image
+                                                src={admin.logo}
+                                                alt={admin.name}
+                                                width={40}
+                                                height={40}
+                                                className="rounded-full mr-2"
+                                            />
+                                            <span>{admin.name}</span>
+                                        </div>
+                                        <button
+                                            className="px-2 py-1 bg-blue-500 text-white rounded-md"
+                                            onClick={() => selectWaAdmin(admin)}
+                                        >
+                                            Pilih
+                                        </button>
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="text-gray-500">Tidak ada admin WhatsApp tersedia.</div>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -183,10 +215,10 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                         </div>
                         <div className="flex justify-end space-x-2">
                             <button
-                                className="px-4 py-2 bg-gray-500 text-white rounded-md"
-                                onClick={() => setShowModal(false)}
+                                className="px-4 py-2 border border-teal-600 text-teal-600 rounded-md"
+                                onClick={noTestimonial}
                             >
-                                Batal
+                                Nggak dulu
                             </button>
                             <button
                                 className="px-4 py-2 bg-green-500 text-white rounded-md"

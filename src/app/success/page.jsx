@@ -10,7 +10,6 @@ import {
 import SuccessPaymentCard from "./partial/SuccessPaymentCard";
 
 export default function WaitingPayment() {
-  const [paymentStatus, setPaymentStatus] = useState("PENDING");
   const [dataTransaction, setDataTransaction] = useState({});
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export default function WaitingPayment() {
         const dataPayment = JSON.parse(localStorage.getItem("dataPayment"))
         const payload = {
           external_id: dataPayment.external_id,
-          status: "PAID",
+          status: "PENDING",
           customer: {
             email: dataPayment.email_customer,
             name: dataPayment.customer_name,
@@ -29,13 +28,11 @@ export default function WaitingPayment() {
           amount: dataPayment.amount,
           promo_id: dataPayment.id_promo,
           transaction_code: dataPayment.transaction_code,
-          payment_status: "PAID"
+          payment_status: "PENDING",
+          payment_method: dataPayment.payment_method
         };
 
         const response = await postResource("confirm-payment", payload);
-
-        console.log("tt", response.data);
-        setPaymentStatus("PAID");
         setDataTransaction(response.data);
 
       } catch (error) {
