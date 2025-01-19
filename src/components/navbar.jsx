@@ -63,7 +63,7 @@ export function Navbar() {
   
   const handleNavigation = (id) => {  
     if (id === "coming-soon") {  
-      router.push("/comingsoon"); // Arahkan ke halaman Coming Soon  
+      router.push("/comingsoon");
     } else {  
       const target = document.getElementById(id);  
       if (target) {  
