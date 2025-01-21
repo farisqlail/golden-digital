@@ -107,28 +107,35 @@ function TransactionHistory() {
         <div className="bg-white rounded-lg shadow-md p-4 w-full md:max-w-4xl">
           <h2 className="text-lg font-semibold mb-4">Riwayat Transaksi</h2>
           <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200">
-              <thead className="bg-gray-50">
-                <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Kode Transaksi</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Customer</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal Pembelian</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status Pembayaran</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Harga</th>
-                </tr>
-              </thead>
-              <tbody className="bg-white divide-y divide-gray-200">
-                {transactions.map((transaction) => (
-                  <tr key={transaction.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.kode_transaksi}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.nama_customer}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{new Date(transaction.tanggal_pembelian).toLocaleDateString()}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.status_pembayaran}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{transaction.harga.toLocaleString()} IDR</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+            {loading ? (
+              <div className="text-center">Loading...</div>
+            ) : error ? (
+              <div className="text-center text-red-600">{error}</div>
+            ) : transactions.length === 0 || transactions == [] ? (
+              <div className="text-center">
+                <h2 className="text-lg font-semibold">Tidak ada transaksi ditemukan.</h2>
+                <p className="text-gray-500">Anda belum melakukan transaksi apapun.</p>
+                <button
+                  onClick={() => router.push("/")} // Arahkan ke halaman utama atau halaman lain  
+                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded"
+                >
+                  Kembali ke Beranda
+                </button>
+              </div>
+            ) : (
+              <div>
+                <h1 className="text-2xl font-bold text-center">Riwayat Transaksi</h1>
+                <ul>
+                  {transactions.map((transaction) => (
+                    <li key={transaction.id} className="border-b p-4">
+                      <h2 className="font-semibold">{transaction.title}</h2>
+                      <p>{transaction.date}</p>
+                      <p>{transaction.amount}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

@@ -3,11 +3,8 @@ import { Navbar, Footer } from "@/components";
 
 // sections
 import Hero from "./partial/hero";
-import Benefits from "./partial/benefits";
 import Products from "./partial/products";
-import Subscribe from "./partial/subscribe";
 import PopularProducts from "./partial/popular-products";
-import ContactForm from "./partial/contact-form";
 import FAQ from "./partial/faq";
 
 export default function Portfolio() {
@@ -16,19 +13,19 @@ export default function Portfolio() {
       <Navbar />
       <Hero />
       <PopularProducts />
-      <section id="benefits">
+      {/* <section id="benefits">
         <Benefits />
-      </section>
+      </section> */}
       <section id="products">
         <Products />
       </section>
-      <section id="subscribe">
+      {/* <section id="subscribe">
         <Subscribe />
-      </section>
+      </section> */}
       <section id="faq">
         <FAQ />
       </section>
-      <ContactForm />
+      {/* <ContactForm /> */}
       <Footer />
     </>
   );

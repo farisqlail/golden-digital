@@ -33,12 +33,12 @@ export function Product() {
   }, []);
 
   return (
-    <section className="py-8 px-8">
+    <section className="py-8 px-8 mb-20">
       <div className="container mx-auto sm:mb-20 mb-0 text-center">
-        <Typography color="blue-gray" className="mb-2 font-bold uppercase">
+        <Typography className="mb-2 font-bold uppercase text-gray-400">
           Pilihan
         </Typography>
-        <Typography variant="h2" color="blue-gray" className="mb-4">
+        <Typography variant="h2" color="white" className="mb-4">
           Produk Kami
         </Typography>
       </div>
@@ -56,7 +56,7 @@ export function Product() {
         ) : (
           <Typography
             variant="h6"
-            color="gray"
+            color="white"
             className="col-span-4 text-center"
           >
             Tidak ada produk yang tersedia.

@@ -193,7 +193,7 @@ export function Detail({ productData }) {
     return (
         <section className="py-8 px-4">
             <div className="container mx-auto text-left">
-                <Typography variant="h2" color="blue-gray" className="mb-4">
+                <Typography variant="h2" color="white" className="mb-4">
                     {productData ? `Langganan ${productData?.product?.variance?.variance_name}` : <div className="h-6 bg-gray-200 rounded w-1/3 animate-pulse"></div>}
                 </Typography>
 
@@ -227,7 +227,7 @@ export function Detail({ productData }) {
                                     "Akses lebih cepat ke update atau fitur baru yang belum tersedia untuk pengguna biasa.",
                                     "Pengaturan personalisasi lebih lengkap, memungkinkan pengalaman yang lebih disesuaikan dengan preferensi kamu.",
                                 ].map((benefit, idx) => (
-                                    <div className="flex gap-2" key={idx}>
+                                    <div className="flex gap-2 text-white" key={idx}>
                                         <svg width="32px" height="32px" viewBox="0 0 24 24" fill="none">
                                             <g id="SVGRepo_iconCarrier">
                                                 <path
@@ -253,49 +253,26 @@ export function Detail({ productData }) {
                             )}
                         </div>
 
-                        <Card className="mt-5">
-                            <Tabs value={activeTab}>
-                                <TabsHeader
-                                    className="rounded-none border-b border-blue-gray-50 bg-transparent p-3 w-full"
-                                    indicatorProps={{
-                                        className: "bg-transparent bg-amber-600 shadow-none rounded-lg",
-                                    }}
-                                >
-                                    {data ? (
-                                        data.map(({ label, value }) => (
-                                            <Tab
-                                                key={value}
-                                                value={value}
-                                                onClick={() => setActiveTab(value)}
-                                                className={activeTab === value ? "text-white font-semibold" : ""}
-                                            >
-                                                {label}
-                                            </Tab>
-                                        ))
-                                    ) : (
-                                        <div className="w-1/4 h-4 bg-gray-200 rounded animate-pulse"></div>
-                                    )}
-                                </TabsHeader>
-                                <TabsBody>
-                                    {data ? (
-                                        data.map(({ value, desc }) => (
-                                            <TabPanel key={value} value={value}>
-                                                {desc}
-                                            </TabPanel>
-                                        ))
-                                    ) : (
-                                        <div className="h-32 bg-gray-200 animate-pulse rounded"></div>
-                                    )}
-                                </TabsBody>
-                            </Tabs>
-                        </Card>
+                        <div className="mt-5 bg-[#564d4d] rounded-lg shadow-md p-4"> {/* Menggunakan div sebagai card */}
+                            <h2 className="text-white text-lg font-semibold mb-2">Informasi</h2> {/* Judul Card */}
+                            {data ? (
+                                data.map(({ label, desc }, index) => (
+                                    <div key={index} className="mb-2">
+                                        <h3 className="text-white font-medium">{label}</h3> {/* Menampilkan label */}
+                                        <p className="text-gray-200">{desc}</p> {/* Menampilkan deskripsi */}
+                                    </div>
+                                ))
+                            ) : (
+                                <div className="h-32 bg-gray-600 animate-pulse rounded"></div> // Placeholder jika data tidak ada  
+                            )}
+                        </div>
                     </div>
 
                     {/* Kanan */}
                     <div className="flex-[1] flex flex-col gap-3">
                         <div className="border rounded-lg p-5">
-                            <span>{productData ? "Skema Harga" : <div className="h-4 bg-gray-200 rounded w-1/3 animate-pulse"></div>}</span>
-                            <div className="flex flex-col gap-2 mt-2">
+                            <span className="text-white">{productData ? "Skema Harga" : <div className="h-4 bg-gray-200 rounded w-1/3 animate-pulse"></div>}</span>
+                            <div className="flex flex-col gap-2 mt-2 text-white">
                                 {productData ? (
                                     [
                                         ["Nama Paket", productData?.product?.variance?.variance_name],
@@ -304,9 +281,9 @@ export function Detail({ productData }) {
                                         ["Biaya Admin", "Rp6,524"],
                                         ["Total", "Rp" + calculateTotalAmount().toLocaleString()],
                                     ].map(([label, value], idx) => (
-                                        <div className="flex justify-between gap-5" key={idx}>
+                                        <div className="flex justify-between gap-5 text-white" key={idx}>
                                             <span>{label}</span>
-                                            <span className={idx === 4 ? "font-semibold" : ""}>{value}</span>
+                                            <span className={idx === 4 ? "font-semibold " : ""}>{value}</span>
                                         </div>
                                     ))
                                 ) : (
@@ -323,15 +300,23 @@ export function Detail({ productData }) {
                         </div>
 
                         {dataUser && (
-                            <div className="flex flex-col gap-3">
+                            <div className="flex flex-col gap-3 bg-[">
                                 {promo.length > 0 ? (
                                     promo.map((promoItem) => (
                                         <div className="flex gap-3" key={promoItem.id}>
-                                            <div className="border rounded-lg p-1 w-full">
+                                            <div className="border rounded-lg p-1 w-full text-white">
                                                 <Radio
                                                     name="type"
-                                                    label={promoItem.name}
-                                                    color="amber"
+                                                    label={
+                                                        <Typography
+                                                            color="white"
+                                                            className="flex font-medium text-white"
+                                                        >
+                                                            {promoItem.name}
+                                                        </Typography>
+                                                    }
+                                                    color="red"
+                                                    className="text-white"
                                                     onChange={() => handlePromoSelect(promoItem)}
                                                 />
                                             </div>
@@ -343,7 +328,7 @@ export function Detail({ productData }) {
                             </div>
                         )}
 
-                        <Button className="bg-amber-500 w-full" onClick={toCheckout}>
+                        <Button className="bg-[#ba0c0c] w-full" onClick={toCheckout}>
                             Pesan
                         </Button>
                     </div>

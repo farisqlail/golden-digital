@@ -117,7 +117,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-gray-100">
+        <div className="flex items-center justify-center min-h-screen bg-inherit">
             <div className="bg-white p-8 rounded-lg shadow-md text-center w-fit">
                 <div className="mb-4 flex justify-center">
                     <Image
@@ -143,7 +143,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                     </div>
                     <div className="flex justify-center">
                         <button
-                            className="px-4 py-2 bg-amber-500 text-white rounded-md"
+                            className="px-4 py-2 bg-[#ba0c0c] text-white rounded-md"
                             onClick={checkTestimonial}
                         >
                             Kembali ke Beranda

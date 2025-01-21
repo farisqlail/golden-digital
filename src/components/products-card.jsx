@@ -29,7 +29,7 @@ export function ProductCard({ img, title, desc, code }) {
       <CardBody className="p-0">
         <a
           href="#"
-          className="text-blue-gray-900 transition-colors hover:text-gray-800"
+          className="text-white transition-colors hover:text-gray-800"
         >
           <Typography variant="h5" className="mb-2">
             {title}
@@ -38,7 +38,7 @@ export function ProductCard({ img, title, desc, code }) {
         <Typography className="mb-6 font-normal !text-gray-500">
           {desc}
         </Typography>
-        <Button className="bg-amber-600" size="sm" onClick={() => toDetail(code)}>
+        <Button className="bg-[#ba0c0c]" size="sm" onClick={() => toDetail(code)}>
           Beli
         </Button>
       </CardBody>

@@ -53,18 +53,18 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 px-4 sm:px-6 md:px-8">
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#ba0c0c] via-[#0b0000] to-[#780909] px-4 sm:px-6 md:px-8">
       <Card className="w-full max-w-md shadow-lg bg-white bg-opacity-80 sm:max-w-sm md:max-w-lg">
         <CardBody className="p-6 sm:p-4 md:p-8">
           <Typography
             variant="h4"
-            className="text-center text-2xl sm:text-xl md:text-3xl font-bold text-gray-800 mb-4"
+            className="text-center text-2xl sm:text-xl md:text-3xl font-bold text-[#ba0c0c] mb-4"
           >
             Masuk ke Akun Anda
           </Typography>
           <Typography
             variant="paragraph"
-            className="text-center text-gray-500 mb-6 sm:mb-4 md:mb-8"
+            className="text-center text-gray-600 mb-6 sm:mb-4 md:mb-8"
           >
             Masukkan email dan password untuk melanjutkan.
           </Typography>
@@ -103,7 +103,7 @@ function Login() {
                   Ingat Saya
                 </span>
               </label>
-              <a href="#" className="text-amber-600 hover:underline text-sm sm:text-xs">
+              <a href="#" className="text-[#ba0c0c] hover:underline text-sm sm:text-xs">
                 Lupa Password?
               </a>
             </div>
@@ -117,9 +117,8 @@ function Login() {
             )}
             <Button
               type="submit"
-              color="amber"
               size="lg"
-              className="w-full bg-amber-600 hover:bg-amber-700"
+              className="w-full bg-[#ba0c0c] hover:bg-[#780909]"
               disabled={loading}
             >
               {loading ? "Loading..." : "Masuk"}
@@ -129,12 +128,12 @@ function Login() {
         <CardFooter className="text-center p-6 sm:p-4 md:p-8">
           <Typography
             variant="paragraph"
-            className="text-gray-600 flex gap-2 justify-center text-sm sm:text-xs"
+            className="text-[#ba0c0c] flex gap-2 justify-center text-sm sm:text-xs"
           >
             Belum punya akun?{" "}
             <div
               onClick={() => handleNavigation("/auth/register")}
-              className="text-amber-600 cursor-pointer hover:underline"
+              className="text-[#ba0c0c] cursor-pointer hover:underline"
             >
               Daftar
             </div>

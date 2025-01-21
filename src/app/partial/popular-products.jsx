@@ -12,13 +12,13 @@ const CLIENTS = [
 
 export function PopularProducts() {
   return (
-    <section className="py-4 px-4 lg:py-8 bg-gray-300 mb-10 mt-10">
+    <section className="py-4 px-4 lg:py-8 bg-[#564d4d] mb-10 mt-10">
       <div className="container mx-auto grid items-center place-items-center">
         <div className="text-center">
-          <Typography variant="h6" className="mb-4 uppercase !text-gray-800">
+          <Typography variant="h6" className="mb-4 uppercase !text-gray-400">
             Golden Digital
           </Typography>
-          <Typography variant="h2" color="black" className="mb-4">
+          <Typography variant="h2" color="white" className="mb-4">
             Produk Populer Kami
           </Typography>
         </div>

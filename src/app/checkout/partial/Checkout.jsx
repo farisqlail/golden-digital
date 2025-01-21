@@ -64,7 +64,7 @@ export function Checkout() {
             <div className="container mx-auto text-center flex flex-col justify-center items-center">
                 <div className="flex flex-col justify-center items-center gap-4 w-full max-w-[600px] mt-4">
                     <div className="flex w-full">
-                        <span className="font-semibold text-xl text-left">Detail Pesanan</span>
+                        <span className="font-semibold text-xl text-left text-white">Detail Pesanan</span>
                     </div>
                     <div className="border-2 rounded-lg p-3 w-full">
                         <div className="border-b-2 pb-2">
@@ -76,7 +76,7 @@ export function Checkout() {
                                 className="h-full rounded-lg max-w-full"
                             />
                         </div>
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white">
                             <div className="flex flex-col gap-2">
                                 <span className="font-semibold text-left">{dataCheckout?.product}</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()} / ({dataCheckout?.duration} Bulan)</span>
@@ -84,12 +84,12 @@ export function Checkout() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col w-full">
+                    <div className="flex flex-col w-full text-white">
                         {listPayment.length > 0 ? (
                             listPayment.map((payment, index) => (
                                 <div
                                     key={index}
-                                    className={`border-2 rounded-lg mb-2 ${selectedPayment?.id === payment.id ? 'border-yellow-500' : ''}`}
+                                    className={`border-2 rounded-lg mb-2 ${selectedPayment?.id === payment.id ? 'border-[#ba0c0c]' : ''}`}
                                 >
                                     <div
                                         className="p-4 cursor-pointer flex justify-between items-center"
@@ -97,7 +97,7 @@ export function Checkout() {
                                     >
                                         <span>{payment.nama_payment}</span>
                                         <Button
-                                            className="mt-2 bg-amber-500 text-white"
+                                            className="mt-2 bg-[#ba0c0c] text-white"
                                             onClick={() => selectPayment(payment)}
                                         >
                                             Pilih
@@ -112,7 +112,7 @@ export function Checkout() {
                         )}
                     </div>
 
-                    <div className="flex flex-col gap-2 w-full">
+                    <div className="flex flex-col gap-2 w-full text-white">
                         <span className="font-semibold text-xl text-left">Ringkasan Pembayaran</span>
                         <div className="border-b-2 pb-3 flex flex-col gap-2">
                             <div className="flex justify-between">
@@ -126,9 +126,9 @@ export function Checkout() {
                         </div>
                         <div className="flex justify-between mt-3">
                             <span className="text-xl font-bold">Total</span>
-                            <span className="text-xl font-bold text-amber-600">Rp {dataCheckout?.amount.toLocaleString()}</span>
+                            <span className="text-xl font-bold text-[#ba0c0c]">Rp {dataCheckout?.amount.toLocaleString()}</span>
                         </div>
-                        <Button className="bg-amber-600 w-full mt-3" onClick={handleSubmit}>Bayar</Button>
+                        <Button className="bg-[#ba0c0c] w-full mt-3" onClick={handleSubmit}>Bayar</Button>
                     </div>
                 </div>
             </div>

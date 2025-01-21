@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
         <title>Golden Digital</title>
       </head>
-      <body className={roboto.className}>
+      <body className={`${roboto.className} bg-[#0b0000]`}>
         <Layout>
           {children}
           <FixedPlugin />

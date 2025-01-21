@@ -18,6 +18,8 @@ const NAV_MENU = [
   { name: "Benefit", url: "/" },
   { name: "Produk", url: "/" },
   { name: "Cara Berlangganan", url: "/" },
+  { name: "Top Up", url: "comingsoon" }, 
+  { name: "Social Media", url: "comingsoon" }, 
   { name: "FAQ", url: "/" },
 ];
 
@@ -38,8 +40,8 @@ function NavItem({ children, url }) {
       <Typography
         as="button"
         variant="paragraph"
-        color="gray"
-        className="flex items-center gap-2 font-medium text-gray-900 cursor-pointer"
+        color="white"
+        className="flex items-center gap-2 font-medium text-white cursor-pointer"
         onClick={() => handleClick(url)}
       >
         {children}
@@ -76,13 +78,13 @@ export function NavbarDetail() {
   };
 
   return (
-    <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50">
+    <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50 bg-inherit">
       <div className="container mx-auto flex items-center justify-between">
         <div onClick={() => handleNavigation("/")} className="cursor-pointer">
           <Image
             width={1024}
             height={800}
-            src={`/logos/logo.png`}
+            src={`/logos/logo-primary.png`}
             className="h-full rounded-lg max-w-28"
           />
         </div>
@@ -102,18 +104,18 @@ export function NavbarDetail() {
               </NavItem>
             ))}
           </ul>
-          {authToken ? (
-            <div
-              className="flex items-center justify-center w-10 h-10 bg-gray-200 rounded-full cursor-pointer"
-              onClick={() => handleNavigation("/profile")}
-            >
-              <UserCircleIcon className="w-6 h-6 text-gray-600" />
-            </div>
-          ) : (
-            <div onClick={() => handleNavigation("/auth/login")}>
-              <Button className="bg-amber-500">Langganan</Button>
-            </div>
-          )}
+          {authToken ? (    
+            <div    
+              className="flex items-center justify-center w-10 h-10 bg-[#ba0c0c] rounded-full cursor-pointer"    
+              onClick={() => handleNavigation("/profile")}    
+            >    
+              <UserCircleIcon className="w-6 h-6 text-white" />    
+            </div>    
+          ) : (    
+            <div onClick={() => handleNavigation("/auth/login")}>    
+              <Button className="bg-[#ba0c0c]">Langganan</Button>    
+            </div>    
+          )}  
         </div>
       </div>
       <Collapse open={open} className="lg:hidden">

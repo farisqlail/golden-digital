@@ -30,17 +30,17 @@ function Hero() {
   }, []);
 
   return (
-    <header className="bg-white p-8 lg:mb-0 mb-0 lg:mt-10 mt-0">
+    <header className="bg-[#0b0000] p-8 lg:mb-0 mb-0 lg:mt-10 mt-0">
       <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full">
         <div className="flex flex-col justify-center items-center">
           <div className="flex flex-col justify-center items-center">
             <Typography
               variant="h1"
-              className="mb-4 lg:text-6xl !leading-tight text-3xl font-bold text-center"
+              className="mb-4 lg:text-6xl !leading-tight text-3xl font-bold text-center text-[#df0707]"
             >
               Tempat Langganan Akun
             </Typography>
-            <h1 className="mb-4 lg:text-5xl text-4xl font-bold leading-tight text-amber-600">
+            <h1 className="mb-4 lg:text-5xl text-4xl font-bold leading-tight text-[#df0707]">
               <Typewriter
                 words={["Netflix", "Disney+", "HBO Max", "Spotify"]}
                 loop={true}
@@ -52,13 +52,7 @@ function Hero() {
               />
             </h1>
           </div>
-          <Typography
-            variant="lead"
-            className="mb-4 !text-amber-400 md:pr-16 xl:pr-28"
-          >
-            Solusi langganan mudah dan terpercaya
-          </Typography>
-          <Button className="w-full p-4 md:w-[12rem] bg-amber-600">
+          <Button className="w-full p-4 md:w-[12rem] bg-[#ba0c0c]">
             Langganan Di Sini
           </Button>
         </div>
