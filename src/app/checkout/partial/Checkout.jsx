@@ -79,7 +79,7 @@ export function Checkout() {
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white">
                             <div className="flex flex-col gap-2">
                                 <span className="font-semibold text-left">{dataCheckout?.product}</span>
-                                <span>Rp {dataCheckout?.product_price.toLocaleString()} / ({dataCheckout?.duration} Bulan)</span>
+                                <span>Rp {dataCheckout?.amount.toLocaleString()} / ({dataCheckout?.duration} Bulan)</span>
                             </div>
                         </div>
                     </div>
@@ -119,6 +119,12 @@ export function Checkout() {
                                 <span>Biaya Langganan</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()}</span>
                             </div>
+                            {dataCheckout?.discountAmount && (
+                                <div className="flex justify-between">
+                                    <span>Diskon</span>
+                                    <span>Rp {dataCheckout?.discountAmount.toLocaleString()}</span>
+                                </div>
+                            )}
                             <div className="flex justify-between">
                                 <span>Biaya Transaksi & Tax</span>
                                 <span>Rp {dataCheckout?.tax.toLocaleString()}</span>

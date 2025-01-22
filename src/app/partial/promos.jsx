@@ -53,7 +53,7 @@ export function Promos() {
                             <div key={promo.id} className="relative rounded-lg overflow-hidden">
                                 {promo.image ? (
                                     <Image
-                                        src={`https://your-image-url/${promo.image}`} 
+                                        src={`${promo.image}`} 
                                         alt={promo.title}
                                         width={300}   
                                         height={250}
@@ -62,13 +62,13 @@ export function Promos() {
                                 ) : (
                                     <div className="h-[250px] bg-gray-300 flex items-center justify-center">
                                         <Typography variant="h6" className="text-gray-500">
-                                            No Image Available
+                                            Tidak ada promo tersedia
                                         </Typography>
                                     </div>
                                 )}
                                 <div className="p-4">
-                                    <Typography variant="h5" className="font-semibold">{promo.title}</Typography>
-                                    <Typography variant="body2" className="text-gray-600">{promo.deskripsi}</Typography>
+                                    <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
+                                    <Typography variant="body2" className="text-white">{promo.deskripsi}</Typography>
                                 </div>
                             </div>
                         ))

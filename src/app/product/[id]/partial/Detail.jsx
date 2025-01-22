@@ -36,6 +36,7 @@ export function Detail({ productData }) {
     const [openSecondModal, setOpenSecondModal] = useState(false);
     const [dataUser, setDataUser] = useState(null);
     const [selectedPromo, setSelectedPromo] = useState(null);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -81,7 +82,8 @@ export function Detail({ productData }) {
                 product: productData?.product?.variance?.variance_name,
                 duration: productData?.product?.durasi,
                 product_price: productData?.harga,
-                tax: 6524
+                discountAmount: selectedPromo?.amount,
+                tax: calculateTotalTaxAmount()
             };
 
             localStorage.setItem("dataPayment", JSON.stringify(data));
@@ -119,10 +121,17 @@ export function Detail({ productData }) {
     }
 
     const calculateTotalAmount = () => {
-        const baseAmount = productData?.harga || 0;
-        const adminFee = 6524;
         const discount = selectedPromo?.amount || 0;
-        return baseAmount - discount + adminFee;
+        if (discount > 0) {
+            const harga = productData ? productData?.harga : 0;
+            const totalAfterDiscount = harga - discount;
+            const biayaAdmin = totalAfterDiscount * 0.06;
+            return totalAfterDiscount + biayaAdmin;
+        } else {
+            const harga = productData ? productData?.harga : 0;
+            const biayaAdmin = harga * 0.06;
+            return harga + biayaAdmin;
+        }
     };
 
     const handlePromoSelect = (promoItem) => {
@@ -143,6 +152,8 @@ export function Detail({ productData }) {
             phone_customer: dataUser ? dataUser.number : formData.phone,
             transaction_code: transactionCode,
             payment_status: "PENDING",
+            discountAmount: selectedPromo?.amount,
+            tax: calculateTotalTaxAmount()
         };
 
         localStorage.setItem("dataPayment", JSON.stringify(data));
@@ -189,6 +200,22 @@ export function Detail({ productData }) {
             console.error('Error:', response.message);
         }
     }
+
+    const calculateTotalTaxAmount = () => {
+        const discount = selectedPromo?.amount || 0;
+        if (discount > 0) {
+            const harga = productData ? productData?.harga : 0;
+            const totalAfterDiscount = harga - discount;
+            const biayaAdmin = totalAfterDiscount * 0.06;
+            // setTotalPrice(totalAfterDiscount + biayaAdmin)
+            return biayaAdmin;
+        } else {
+            const harga = productData ? productData?.harga : 0;
+            const biayaAdmin = harga * 0.06;
+            // setTotalPrice(harga + biayaAdmin)
+            return biayaAdmin;
+        }
+    };
 
     return (
         <section className="py-8 px-4">
@@ -278,7 +305,7 @@ export function Detail({ productData }) {
                                         ["Nama Paket", productData?.product?.variance?.variance_name],
                                         ["Harga", "Rp" + productData?.harga.toLocaleString()],
                                         ["Diskon", selectedPromo ? "Rp" + selectedPromo.amount.toLocaleString() : "Rp0"],
-                                        ["Biaya Admin", "Rp6,524"],
+                                        ["Biaya Admin", "Rp" + calculateTotalTaxAmount().toLocaleString()],
                                         ["Total", "Rp" + calculateTotalAmount().toLocaleString()],
                                     ].map(([label, value], idx) => (
                                         <div className="flex justify-between gap-5 text-white" key={idx}>
