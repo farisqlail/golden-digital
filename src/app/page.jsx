@@ -3,8 +3,10 @@ import { Navbar, Footer } from "@/components";
 
 // sections
 import Hero from "./partial/hero";
+import Promos from "./partial/promos";
 import Products from "./partial/products";
 import PopularProducts from "./partial/popular-products";
+import Testimonial from "./partial/testimonial";
 import FAQ from "./partial/faq";
 
 export default function Portfolio() {
@@ -13,6 +15,7 @@ export default function Portfolio() {
       <Navbar />
       <Hero />
       <PopularProducts />
+      <Promos />
       {/* <section id="benefits">
         <Benefits />
       </section> */}
@@ -22,6 +25,7 @@ export default function Portfolio() {
       {/* <section id="subscribe">
         <Subscribe />
       </section> */}
+      <Testimonial />
       <section id="faq">
         <FAQ />
       </section>
