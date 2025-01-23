@@ -45,7 +45,7 @@ function Hero() {
         </Carousel>
       </div>
 
-      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full">
+      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full p-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-lg">
           {isLoading ? (
             Array(8)

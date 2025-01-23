@@ -27,14 +27,14 @@ export function ProductCard({ img, title, desc, code }) {
         />
       </CardHeader>
       <CardBody className="p-0 text-left">
-        <a
-          href="#"
-          className="text-white transition-colors hover:text-[#ba0c0c]"
+        <span
+          onClick={() => toDetail(code)}
+          className="text-white transition-colors hover:text-[#ba0c0c] cursor-pointer"
         >
           <Typography variant="h5" className="mb-2">
             {title}
           </Typography>
-        </a>
+        </span>
         <Typography className="mb-6 font-normal !text-gray-500">
           {desc}
         </Typography>
