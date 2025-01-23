@@ -15,7 +15,7 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
     
 const NAV_MENU = [    
   { name: "Benefit", id: "benefits" },    
-  { name: "Produk", id: "products" },    
+  { name: "Produk", id: "catalog" },    
   { name: "Cara Berlangganan", id: "subscribe" },    
   { name: "Top Up", id: "coming-soon" }, // Ubah id untuk Top Up    
   { name: "Social Media", id: "coming-soon" }, // Ubah id untuk Social Media    
@@ -64,6 +64,8 @@ export function Navbar() {
   const handleNavigation = (id) => {    
     if (id === "coming-soon") {    
       router.push("/comingsoon");  
+    } else if(id == "catalog") {
+      router.push("/catalog"); 
     } else {    
       const target = document.getElementById(id);    
       if (target) {    
@@ -75,7 +77,7 @@ export function Navbar() {
       } else {    
         console.error(`Target with id '${id}' not found.`);    
       }    
-    }    
+    }   
   };    
 
   const handleNavigationRoute = (url) => {

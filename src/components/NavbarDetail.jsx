@@ -16,7 +16,7 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const NAV_MENU = [
   { name: "Benefit", url: "/" },
-  { name: "Produk", url: "/" },
+  { name: "Produk", url: "/catalog" },
   { name: "Cara Berlangganan", url: "/" },
   { name: "Top Up", url: "comingsoon" }, 
   { name: "Social Media", url: "comingsoon" }, 

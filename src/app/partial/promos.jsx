@@ -32,7 +32,7 @@ export function Promos() {
     }, []);
 
     return (
-        <section className="px-8 py-28">
+        <section className="px-8 py-8">
             <div className="container mx-auto text-center">
                 <Typography variant="h2" color="white" className="mb-4">
                     Promo Menarik

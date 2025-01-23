@@ -26,10 +26,10 @@ export function ProductCard({ img, title, desc, code }) {
           className="h-full w-full object-contain"
         />
       </CardHeader>
-      <CardBody className="p-0">
+      <CardBody className="p-0 text-left">
         <a
           href="#"
-          className="text-white transition-colors hover:text-gray-800"
+          className="text-white transition-colors hover:text-[#ba0c0c]"
         >
           <Typography variant="h5" className="mb-2">
             {title}
