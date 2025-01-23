@@ -7,19 +7,22 @@ import {
   getResource,
 } from "../../../utils/Fetch";
 
-import { Typewriter } from 'react-simple-typewriter';
 import { Input, Button, Typography, Carousel } from "@material-tailwind/react";
 
 function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const [promos, setPromos] = useState([]);
   const [error, setError] = useState(null);
+  const [banner, setBanner] = useState([])
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const result = await getResource("promo");
-        setPromos(result.promo.slice(0,4) || []);
+        const resultBanner = await getResource("banner");
+
+        setPromos(result.promo.slice(0, 4) || []);
+        setBanner(resultBanner.data || []);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally {
@@ -31,33 +34,18 @@ function Hero() {
   }, []);
 
   return (
-    <header className="bg-[#0b0000] p-8 lg:mb-0 mb-0 lg:mt-10 mt-0">
-      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full">
-        <div className="flex flex-col justify-center items-center">
-          <div className="flex flex-col justify-center items-center">
-            <Typography
-              variant="h1"
-              className="mb-4 lg:text-6xl !leading-tight text-3xl font-bold text-center text-[#df0707]"
-            >
-              Tempat Langganan Akun
-            </Typography>
-            <h1 className="mb-4 lg:text-5xl text-4xl font-bold leading-tight text-[#df0707]">
-              <Typewriter
-                words={["Netflix", "Disney+", "HBO Max", "Spotify"]}
-                loop={true}
-                cursor
-                cursorStyle="_"
-                typeSpeed={100}
-                deleteSpeed={50}
-                delaySpeed={1000}
-              />
-            </h1>
-          </div>
-          <Button className="w-full p-4 md:w-[12rem] bg-[#ba0c0c]">
-            Langganan Di Sini
-          </Button>
-        </div>
+    <header className="bg-[#0b0000] lg:mb-0 mb-0 lg:mt-0 mt-0">
+      <div className="relative">
+        <Carousel>
+          {banner.map((data, index) => (
+            <div key={index} className="relative">
+              <img src={data.images} alt={`Slide ${index + 1}`} className="w-full h-full" />
+            </div>
+          ))}
+        </Carousel>
+      </div>
 
+      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-lg">
           {isLoading ? (
             Array(8)
