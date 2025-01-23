@@ -12,13 +12,13 @@ import SubscribeSection from "./partial/SubscribeSection"
 import FAQSection from "./partial/FAQSection"
 
 export default function Faq() {
-    const [products, setProducts] = useState([]);
+    const [video, setVideo] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getResource("get_detail_products");
-                setProducts(result.products);
+                const result = await getResource("video-tutorial");
+                setVideo(result.data);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -37,13 +37,13 @@ export default function Faq() {
                     </Typography>
                     <div className="w-full overflow-x-auto">
                         <div className="flex items-center gap-6 justify-start lg:justify-center">
-                            {products.slice(0, 4).map((product) => (
+                            {video.slice(0, 4).map((product) => (
                                 <div key={product.id} className="w-full">
                                     {product.link_video ? (
                                         <iframe
                                             className="lg:w-full lg:h-[400px] h-[200px] rounded-lg"
                                             src={product.link_video.replace("watch?v=", "embed/")}
-                                            title={product.title}
+                                            title={product.name}
                                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                             allowFullScreen
                                         ></iframe>
@@ -55,8 +55,8 @@ export default function Faq() {
                                         </div>
                                     )}
                                     <div className="flex flex-col gap-2 mt-2">
-                                        <span className="text-white text-left">Tutorial video</span>
-                                        <small className="text-gray-600 text-left"> @goldendigital</small>
+                                        <span className="text-white text-left">{product.name}</span>
+                                        <small className="text-gray-600 text-left"> {product.account}</small>
                                     </div>
                                 </div>
                             ))}
