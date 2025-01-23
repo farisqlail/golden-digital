@@ -47,7 +47,7 @@ export function Product() {
           products.map((product) => (
             <ProductCard
               key={product.id_produk}
-              img="/logos/netflix.png"
+              img={`/logos/${product.variance_name.toLowerCase()}.png`}
               title={product.detail_produk}
               desc={`Harga: Rp ${product.harga.toLocaleString()}`}
               code={product.id_produk}

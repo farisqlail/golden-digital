@@ -56,12 +56,12 @@ function Register() {
     }
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 px-4">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-[#ba0c0c] via-[#0b0000] to-[#780909] px-4">
             <Card className="w-full max-w-lg shadow-lg bg-white bg-opacity-90">
                 <CardBody className="p-6">
                     <Typography
                         variant="h4"
-                        className="text-center text-2xl font-bold text-gray-800 mb-4"
+                        className="text-center text-2xl font-bold text-[#ba0c0c] mb-4"
                     >
                         Daftar Akun Baru
                     </Typography>
@@ -130,9 +130,8 @@ function Register() {
                         )}
                         <Button
                             type="submit"
-                            color="amber"
                             size="lg"
-                            className="w-full bg-amber-600 hover:bg-amber-700"
+                            className="w-full bg-[#ba0c0c] hover:bg-[#780909]"
                             disabled={loading}
                         >
                             {loading ? "Loading..." : "Daftar"}
@@ -142,7 +141,7 @@ function Register() {
                 <CardFooter className="text-center p-6">
                     <Typography variant="paragraph" className="text-gray-600 flex gap-2 justify-center">
                         Sudah punya akun?{" "}
-                        <div onClick={() => handleNavigation("/auth/login")} className="text-amber-600 hover:underline cursor-pointer">
+                        <div onClick={() => handleNavigation("/auth/login")} className="text-[#ba0c0c] hover:underline cursor-pointer">
                             Masuk
                         </div>
                     </Typography>

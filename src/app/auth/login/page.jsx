@@ -128,7 +128,7 @@ function Login() {
         <CardFooter className="text-center p-6 sm:p-4 md:p-8">
           <Typography
             variant="paragraph"
-            className="text-[#ba0c0c] flex gap-2 justify-center text-sm sm:text-xs"
+            className="text-gray-600 flex gap-2 justify-center"
           >
             Belum punya akun?{" "}
             <div
