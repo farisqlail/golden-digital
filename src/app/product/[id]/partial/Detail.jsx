@@ -152,24 +152,16 @@ export function Detail({ productData }) {
             phone_customer: dataUser ? dataUser.number : formData.phone,
             transaction_code: transactionCode,
             payment_status: "PENDING",
+            product: productData?.product?.variance?.variance_name,
+            duration: productData?.product?.durasi,
+            product_price: productData?.harga,
             discountAmount: selectedPromo?.amount,
             tax: calculateTotalTaxAmount()
         };
 
         localStorage.setItem("dataPayment", JSON.stringify(data));
-        try {
-            const response = await postResource('create-invoice', data);
 
-            if (response.success === true) {
-                // window.open(response.invoice.invoice_url, '_blank');
-                router.push("/checkout")
-                handleOpenSecondModal();
-            } else {
-                console.error('Invoice URL is missing in the response:', response);
-            }
-        } catch (error) {
-            console.error('Error creating invoice:', error);
-        }
+        router.push("/checkout")
     };
 
     const checkoutMidtrans = async () => {
@@ -371,11 +363,11 @@ export function Detail({ productData }) {
                     <Button onClick={() => {
                         handleOpen();
                         handleOpenSecondModal();
-                    }} className="w-full bg-amber-500">
+                    }} className="w-full bg-[#ba0c0c]">
                         <span>Tetap lanjutkan</span>
                     </Button>
                     <div className="flex justify-center">
-                        <span className="mr-1 w-full text-red-500 cursor-pointer" onClick={handleOpen}>Login dan dapatkan point!</span>
+                        <span className="mr-1 w-full text-amber-500 cursor-pointer" onClick={handleOpen}>Login dan dapatkan point!</span>
                     </div>
                 </DialogFooter>
             </Dialog>
@@ -409,7 +401,7 @@ export function Detail({ productData }) {
                 </DialogBody>
                 <DialogFooter>
                     <Button
-                        className="w-full bg-amber-500"
+                        className="w-full bg-[#ba0c0c]"
                         onClick={handleSubmit}
                     >
                         Lanjutkan

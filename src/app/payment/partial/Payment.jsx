@@ -53,9 +53,9 @@ export function Payment() {
     };
 
     return (
-        <section className="py-0 px-4 h-screen text-white">
-            <div className="container mx-auto text-center flex flex-col justify-center items-center bg-white">
-                <div className="flex flex-col justify-center items-center gap-4 w-full max-w-[600px] mt-4 border rounded-lg p-3">
+        <section className="py-0 px-4 h-screen text-black">
+            <div className="container mx-auto text-center flex flex-col justify-center items-center">
+                <div className="flex flex-col justify-center items-center gap-4 w-full max-w-[600px] mt-4 bg-white rounded-lg p-3">
                     <div className="flex flex-col gap-2 w-full">
                         <span className="font-semibold text-lg">Selesaikan Pembayaran anda</span>
                         <div className="mb-4 flex justify-center">
