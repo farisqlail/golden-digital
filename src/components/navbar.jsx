@@ -14,7 +14,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const NAV_MENU = [
-  { name: "Benefit", id: "benefits" },
+  { name: "Home", id: "home" },
   { name: "Produk", id: "catalog" },
   { name: "Top Up", id: "coming-soon" }, // Ubah id untuk Top Up    
   { name: "Social Media", id: "coming-soon" }, // Ubah id untuk Social Media    

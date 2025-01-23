@@ -15,7 +15,7 @@ import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/solid";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 
 const NAV_MENU = [
-  { name: "Benefit", url: "/" },
+  { name: "Home", url: "/" },
   { name: "Produk", url: "/catalog" },
   { name: "Top Up", url: "comingsoon" }, 
   { name: "Social Media", url: "comingsoon" }, 
