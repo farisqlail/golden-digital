@@ -47,7 +47,7 @@ export function Detail({ productData }) {
     const handleOpenSecondModal = () => setOpenSecondModal(!openSecondModal);
 
     useEffect(() => {
-        window.scrollTo(0, 0);  
+        window.scrollTo(0, 0);
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
@@ -210,6 +210,10 @@ export function Detail({ productData }) {
         }
     };
 
+    const toAuth = () => {
+        router.push('/auth/login');
+    }
+
     return (
         <section className="py-8 px-4">
             <div className="container mx-auto text-left">
@@ -368,7 +372,7 @@ export function Detail({ productData }) {
                         <span>Tetap lanjutkan</span>
                     </Button>
                     <div className="flex justify-center">
-                        <span className="mr-1 w-full text-amber-500 cursor-pointer" onClick={handleOpen}>Login dan dapatkan point!</span>
+                        <span className="mr-1 w-full text-amber-500 cursor-pointer text-[#ba0c0c]" onClick={toAuth}>Login dan dapatkan point!</span>
                     </div>
                 </DialogFooter>
             </Dialog>
