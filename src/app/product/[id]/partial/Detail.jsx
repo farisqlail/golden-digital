@@ -47,6 +47,7 @@ export function Detail({ productData }) {
     const handleOpenSecondModal = () => setOpenSecondModal(!openSecondModal);
 
     useEffect(() => {
+        window.scrollTo(0, 0);  
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
@@ -219,7 +220,7 @@ export function Detail({ productData }) {
                 <div className="flex flex-col lg:flex-row gap-8">
                     {/* Kiri */}
                     <div className="flex-[3] flex flex-col gap-4">
-                        <div className="max-w-[18rem] mx-auto lg:mx-0 mt-5 border-2 rounded-lg p-2">
+                        <div className="max-w-[18rem] mx-auto lg:mx-0 mt-5 border-2 rounded-lg p-2 bg-white">
                             {productData?.product?.variance?.variance_name ? (
                                 <Image
                                     width={1024}
