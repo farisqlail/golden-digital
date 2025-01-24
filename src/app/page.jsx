@@ -3,6 +3,7 @@ import { Navbar, Footer } from "@/components";
 
 // sections
 import Hero from "./partial/hero";
+import Trending from "./partial/trending";
 import Promos from "./partial/promos";
 import Products from "./partial/products";
 import PopularProducts from "./partial/popular-products";
@@ -15,6 +16,7 @@ export default function Portfolio() {
       <Navbar />
       <Hero />
       <PopularProducts />
+      <Trending />
       <Promos />
       {/* <section id="benefits">
         <Benefits />

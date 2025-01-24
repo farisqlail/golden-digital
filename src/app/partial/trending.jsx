@@ -17,17 +17,16 @@ import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
 
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 
-export function Promos() {
+export function Trending() {
     const [isLoading, setIsLoading] = useState(true);
-    const [promos, setPromos] = useState([]);
+    const [trending, setTrending] = useState([]);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const result = await getResource("promo");
-                const filteredPromos = result.promo.filter(promo => promo.image !== null);
-                setPromos(filteredPromos.slice(0, 8) || []);
+                const result = await getResource("trending");
+                setTrending(result.trending);
             } catch (error) {
                 console.error("Error fetching data:", error);
             } finally {
@@ -42,7 +41,7 @@ export function Promos() {
         <section className="px-8 py-8">
             <div className="container mx-auto text-center">
                 <Typography variant="h2" color="white" className="mb-4">
-                    Promo Menarik
+                    Trending
                 </Typography>
 
                 <div className="lg:p-8 p-0">
@@ -103,18 +102,18 @@ export function Promos() {
                                 },
                             }}
                         >
-                            {promos.map((promo) => (
-                                <SwiperSlide key={promo.id} className="relative rounded-lg overflow-hidden">
+                            {trending.map((item) => (
+                                <SwiperSlide key={item.id} className="relative rounded-lg overflow-hidden">
                                     <Image
-                                        src={`${promo.image}`}
-                                        alt={promo.title}
+                                        src={`${item.image}`}
+                                        alt={item.title}
                                         width={300}
                                         height={250}
-                                        className="object-cover h-[250px] w-full"
+                                        className="object-cover h-full w-full"
                                     />
                                     <div className="pt-4 text-left">
-                                        <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
-                                        <Typography variant="body2" className="text-gray-500">{promo.deskripsi}</Typography>
+                                        <Typography variant="h5" className="font-semibold text-white">{item.title}</Typography>
+                                        <Typography variant="body2" className="text-gray-500">{item.caption}</Typography>
                                     </div>
                                 </SwiperSlide>
                             ))}
@@ -126,4 +125,4 @@ export function Promos() {
     );
 }
 
-export default Promos;
+export default Trending;
