@@ -8,6 +8,13 @@ import {
     getResource,
 } from "../../../utils/Fetch";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
+
 import { Carousel, Typography, Button } from "@material-tailwind/react";
 
 export function Promos() {
@@ -38,40 +45,80 @@ export function Promos() {
                     Promo Menarik
                 </Typography>
 
-                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-lg">
+                <div className="lg:p-8 p-0">
                     {isLoading ? (
-                        Array(8)
-                            .fill(0)
-                            .map((_, index) => (
-                                <div
-                                    key={index}
-                                    className="relative h-[250px] bg-gray-200 animate-pulse rounded-lg"
-                                ></div>
-                            ))
+                        <Swiper
+                            modules={[Navigation, Pagination]}
+                            spaceBetween={30}
+                            navigation
+                            pagination={{ clickable: true }}
+                            className="mySwiper"
+                            style={{ maxHeight: "auto" }}
+                            breakpoints={{
+                                640: {
+                                    slidesPerView: 1,
+                                },
+                                768: {
+                                    slidesPerView: 2,
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                },
+                                1280: {
+                                    slidesPerView: 4,
+                                },
+                            }}
+                        >
+                            {Array(8)
+                                .fill(0)
+                                .map((_, index) => (
+                                    <SwiperSlide key={index} className="relative rounded-lg overflow-hidden">
+                                        <div className="h-[250px] w-full bg-gray-200 animate-pulse rounded-lg"></div>
+                                        <div className="p-4">
+                                            <div className="h-6 bg-gray-300 animate-pulse rounded w-3/4 mb-2"></div>
+                                            <div className="h-4 bg-gray-300 animate-pulse rounded w-1/2"></div>
+                                        </div>
+                                    </SwiperSlide>
+                                ))}
+                        </Swiper>
                     ) : (
-                        promos.map((promo) => (
-                            <div key={promo.id} className="relative rounded-lg overflow-hidden">
-                                {promo.image ? (
+                        <Swiper
+                            modules={[Navigation]}
+                            spaceBetween={30}
+                            navigation
+                            className="mySwiper"
+                            style={{ maxHeight: "auto" }}
+                            breakpoints={{
+                                640: {
+                                    slidesPerView: 2,
+                                },
+                                768: {
+                                    slidesPerView: 2,
+                                },
+                                1024: {
+                                    slidesPerView: 3,
+                                },
+                                1280: {
+                                    slidesPerView: 4,
+                                },
+                            }}
+                        >
+                            {promos.map((promo) => (
+                                <SwiperSlide key={promo.id} className="relative rounded-lg overflow-hidden">
                                     <Image
-                                        src={`${promo.image}`} 
+                                        src={`${promo.image}`}
                                         alt={promo.title}
-                                        width={300}   
+                                        width={300}
                                         height={250}
                                         className="object-cover h-[250px] w-full"
                                     />
-                                ) : (
-                                    <div className="h-[250px] bg-gray-300 flex items-center justify-center">
-                                        <Typography variant="h6" className="text-gray-500">
-                                            Tidak ada promo tersedia
-                                        </Typography>
+                                    <div className="p-4">
+                                        <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
+                                        <Typography variant="body2" className="text-gray-600 text-white">{promo.deskripsi}</Typography>
                                     </div>
-                                )}
-                                <div className="p-4">
-                                    <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
-                                    <Typography variant="body2" className="text-white">{promo.deskripsi}</Typography>
-                                </div>
-                            </div>
-                        ))
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     )}
                 </div>
             </div>

@@ -7,6 +7,13 @@ import {
   getResource,
 } from "../../../utils/Fetch";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
+
 import { Input, Button, Typography, Carousel } from "@material-tailwind/react";
 
 function Hero() {
@@ -45,20 +52,67 @@ function Hero() {
         </Carousel>
       </div>
 
-      <div className="flex flex-col justify-center items-center h-full gap-10 min-h-[60vh] w-full p-8">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 mx-auto max-w-screen-lg">
-          {isLoading ? (
-            Array(8)
+      <div className="p-8">
+        {isLoading ? (
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={30}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+            style={{ maxHeight: "250px" }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {Array(8)
               .fill(0)
               .map((_, index) => (
-                <div
-                  key={index}
-                  className="relative h-[250px] bg-gray-200 animate-pulse rounded-lg"
-                ></div>
-              ))
-          ) : (
-            promos.map((promo) => (
-              <div key={promo.id} className="relative rounded-lg overflow-hidden">
+                <SwiperSlide key={index} className="relative rounded-lg overflow-hidden">
+                  <div className="h-[250px] w-full bg-gray-200 animate-pulse rounded-lg"></div>
+                  <div className="p-4">
+                    <div className="h-6 bg-gray-300 animate-pulse rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-300 animate-pulse rounded w-1/2"></div>
+                  </div>
+                </SwiperSlide>
+              ))}
+          </Swiper>
+        ) : (
+          <Swiper
+            modules={[Navigation, Pagination]}
+            spaceBetween={30}
+            navigation
+            pagination={{ clickable: true }}
+            className="mySwiper"
+            style={{ maxHeight: "250px" }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {promos.map((promo) => (
+              <SwiperSlide key={promo.id} className="relative rounded-lg overflow-hidden">
                 <iframe
                   className="h-[250px] w-full"
                   src={promo.link_video.replace("watch?v=", "embed/")}
@@ -70,10 +124,10 @@ function Hero() {
                   <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
                   <Typography variant="body2" className="text-gray-600 text-white">{promo.deskripsi}</Typography>
                 </div>
-              </div>
-            ))
-          )}
-        </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
       </div>
     </header>
   );

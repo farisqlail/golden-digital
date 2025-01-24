@@ -7,6 +7,13 @@ import {
   getResource,
 } from "../../../utils/Fetch";
 
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/scrollbar';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
+
 import { ProductCard } from "@/components";
 import { Typography } from "@material-tailwind/react";
 
@@ -42,17 +49,43 @@ export function Product() {
           Produk Kami
         </Typography>
       </div>
-      <div className="container mx-auto grid grid-cols-1 gap-x-10 gap-y-20 md:grid-cols-2 xl:grid-cols-4">
+
+      <div className="lg:p-8 p-0">
         {products.length > 0 ? (
-          products.map((product) => (
-            <ProductCard
-              key={product.id_produk}
-              img={`/logos/${product.variance_name.toLowerCase()}.png`}
-              title={product.detail_produk}
-              desc={`Harga: Rp ${product.harga.toLocaleString()}`}
-              code={product.id_produk}
-            />
-          ))
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={30}
+            navigation
+            className="mySwiper"
+            style={{ maxHeight: "auto" }}
+            breakpoints={{
+              640: {
+                slidesPerView: 1,
+              },
+              768: {
+                slidesPerView: 2,
+              },
+              1024: {
+                slidesPerView: 3,
+              },
+              1280: {
+                slidesPerView: 4,
+              },
+            }}
+          >
+            {products.map((product) => (
+              <SwiperSlide key={product.id} className="relative rounded-lg overflow-hidden">
+                <ProductCard
+                  key={product.id_produk}
+                  img={`/logos/${product.variance_name.toLowerCase()}.png`}
+                  title={product.detail_produk}
+                  desc={`Harga: Rp ${product.harga.toLocaleString()}`}
+                  code={product.id_produk}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+
         ) : (
           <Typography
             variant="h6"

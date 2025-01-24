@@ -19,6 +19,7 @@
     "react-dom": "18",
     "react-simple-typewriter": "^5.0.1",
     "react-toastify": "^11.0.2",
+    "swiper": "^11.2.1",
     "uuid": "^11.0.3"
   },
   "devDependencies": {
