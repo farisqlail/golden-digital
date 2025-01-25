@@ -7,7 +7,7 @@ const CLIENTS = [
   "spotify",
   "netflix",
   "hbo",
-  "disney+",
+  "disney",
 ];
 
 export function PopularProducts() {
