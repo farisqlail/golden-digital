@@ -8,6 +8,13 @@ const CLIENTS = [
   "netflix",
   "hbo",
   "disney",
+  "canva",
+  "capcut",
+  "vidio",
+  "viu",
+  "vision",
+  "wetv",
+  "youtube"
 ];
 
 export function PopularProducts() {
