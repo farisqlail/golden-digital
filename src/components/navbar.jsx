@@ -41,19 +41,28 @@ export function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [authToken, setAuthToken] = useState(null);
+  const [scrolling, setScrolling] = useState(false);  
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  useEffect(() => {
-    const handleResize = () => {
-      if (window.innerWidth >= 960) {
-        setOpen(false);
-      }
-    };
-
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  useEffect(() => {  
+    const handleResize = () => {  
+      if (window.innerWidth >= 960) {  
+        setOpen(false);  
+      }  
+    };  
+  
+    const handleScroll = () => {  
+      setScrolling(window.scrollY > 0);  
+    };  
+  
+    window.addEventListener("resize", handleResize);  
+    window.addEventListener("scroll", handleScroll);  
+    return () => {  
+      window.removeEventListener("resize", handleResize);  
+      window.removeEventListener("scroll", handleScroll);  
+    };  
+  }, []);  
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -86,7 +95,7 @@ export function Navbar() {
   }
 
   return (
-    <MTNavbar shadow={false} fullWidth className="border-0 sticky top-0 z-50 bg-inherit">
+    <MTNavbar shadow={false} fullWidth className={`border-0 sticky top-0 z-50 ${scrolling ? "bg-[#232323]" : "bg-transparent"}`}>
       <div className="container mx-auto flex items-center justify-between">
         <div onClick={() => handleNavigation("/")} className="cursor-pointer">
           <Image

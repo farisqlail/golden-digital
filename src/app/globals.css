@@ -1,3 +1,116 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.hidden-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
+
+.hidden-scrollbar::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari, and Opera */
+}
+
+.rounded-top-full {
+    border-top-left-radius: 50%;
+    /* Nilai 50% akan membuat bagian atas menjadi bulat */
+    border-top-right-radius: 50%;
+    /* Nilai 50% akan membuat bagian atas menjadi bulat */
+    overflow: hidden;
+    /* Memastikan konten di dalam section tidak keluar dari border-radius */
+}
+
+.monochrome {
+    filter: grayscale(100%);
+    /* Membuat gambar menjadi monochrome */
+}
+
+/* styles.css */
+.carousel-container {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE and Edge */
+}
+
+.carousel-container::-webkit-scrollbar {
+    display: none;
+}
+
+.carousel-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-right: 20px;
+}
+
+.carousel-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.091);
+}
+
+.carousel-item img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.carousel-item .index {
+    position: absolute;
+    top: -65px;
+    left: 10px;
+    -webkit-text-stroke-width: 3px;
+    -webkit-text-stroke-color: #e5e5e5;
+    color: transparent;
+    padding: 5px 10px;
+    border-radius: 50%;
+    font-size: 100px;
+    transition: transform 0.3s ease;
+}
+
+.carousel-item:hover {
+    transform: scale(1.1);
+}
+
+.carousel-item-product {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    position: relative;
+    width: 100%;
+    max-width: 300px;
+    margin-right: 20px;
+}
+
+@media (max-width: 768px) {
+    .carousel-item {
+        max-width: 200px;
+    }
+
+    .carousel-item-product {
+        max-width: 200px;
+    }
+}
+
+/* Media query untuk tampilan mobile */
+@media (max-width: 768px) {
+    .rounded-top-full {
+        border-top-left-radius: 0px;
+        /* Nilai yang lebih kecil untuk tampilan mobile */
+        border-top-right-radius: 0px;
+        /* Nilai yang lebih kecil untuk tampilan mobile */
+    }
+}

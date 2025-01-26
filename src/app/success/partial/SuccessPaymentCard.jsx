@@ -21,12 +21,26 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     const [selectedWaAdmin, setSelectedWaAdmin] = useState(null);
 
     useEffect(() => {
+        const fetch = async () => {
+            try {
+                const result = await getResource("list-waadmin");
+
+                setWaAdmin(result.data)
+            } catch (error) {
+                console.error("Error checking payment status:", error);
+            }
+        }
+
+        fetch();
+    }, [])
+
+    useEffect(() => {
         const checkAuth = async () => {
             try {
                 const token = localStorage.getItem("authToken")
-                const response = await getResourceWithToken("profile", token);
                 const result = await getResource("list-waadmin");
-
+                const response = await getResourceWithToken("profile", token);
+                console.log("tt", result.data);
                 setWaAdmin(result.data)
                 setUserData(response.data)
             } catch (error) {
@@ -93,15 +107,15 @@ const SuccessPaymentCard = ({ dataAccount }) => {
 
     const selectWaAdmin = (admin) => {
         setSelectedWaAdmin(admin);
-        localStorage.setItem("selectedWaAdmin", JSON.stringify(admin)); 
-        const data = JSON.parse(localStorage.getItem("dataPayment")) 
+        localStorage.setItem("selectedWaAdmin", JSON.stringify(admin));
+        const data = JSON.parse(localStorage.getItem("dataPayment"))
         const message = `Halo, saya ingin klaim akun dengan kode transaksi ${data?.transaction_code}`;
         const encodedMessage = encodeURIComponent(message);
-        const whatsappUrl = `https://wa.me/${admin.wa}?text=${encodedMessage}`; 
+        const whatsappUrl = `https://wa.me/${admin.wa}?text=${encodedMessage}`;
 
         window.open(whatsappUrl, '_blank');
 
-        setShowWhatsAppModal(false); 
+        setShowWhatsAppModal(false);
     };
 
     const checkTestimonial = () => {
@@ -117,8 +131,8 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     }
 
     return (
-        <div className="flex items-center justify-center min-h-screen bg-inherit">
-            <div className="bg-white p-8 rounded-lg shadow-md text-center w-fit">
+        <div className="flex items-center justify-center min-h-screen bg-inherit p-4">
+            <div className="bg-white p-4 rounded-lg shadow-md text-center w-fit">
                 <div className="mb-4 flex justify-center">
                     <Image
                         width={1024}
@@ -132,7 +146,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                 <p className="text-gray-500 mb-4 text-sm">
                     Silahkan klaim akun kamu!
                 </p>
-                <div className="flex w-full justify-between">
+                <div className="flex gap-3 w-full justify-between">
                     <div className="flex justify-center">
                         <button
                             className="px-4 py-2 bg-green-500 text-white rounded-md"
@@ -154,8 +168,8 @@ const SuccessPaymentCard = ({ dataAccount }) => {
 
             {/* Modal untuk input nomor WhatsApp */}
             {showWhatsAppModal && (
-                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-                    <div className="bg-white w-1/3 p-6 rounded-lg shadow-lg">
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-8">
+                    <div className="bg-white w-full p-6 rounded-lg shadow-lg">
                         <h3 className="text-lg font-semibold mb-4">Pilih Wa Admin</h3>
                         <div className="flex flex-col">
                             {waAdmin.length > 0 ? (
@@ -172,7 +186,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                                             <span>{admin.name}</span>
                                         </div>
                                         <button
-                                            className="px-2 py-1 bg-blue-500 text-white rounded-md"
+                                            className="px-2 py-1 bg-[#ba0c0c] text-white rounded-md"
                                             onClick={() => selectWaAdmin(admin)}
                                         >
                                             Pilih

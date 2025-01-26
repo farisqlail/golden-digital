@@ -20,6 +20,7 @@ export function Checkout() {
     const [selectedPayment, setSelectedPayment] = useState(null);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const dataCheckout = JSON.parse(localStorage.getItem("dataPayment"));
         setDataCheckout(dataCheckout);
 
@@ -66,8 +67,8 @@ export function Checkout() {
                     <div className="flex w-full">
                         <span className="font-semibold text-xl text-left text-white">Detail Pesanan</span>
                     </div>
-                    <div className="border-2 rounded-lg p-3 w-full">
-                        <div className="border-b-2 pb-2">
+                    <div className="border-2 rounded-lg w-full">
+                        <div className="border-b-2 pb-2 bg-white">
                             <Image
                                 width={1024}
                                 height={800}
@@ -76,7 +77,7 @@ export function Checkout() {
                                 className="h-full rounded-lg max-w-full"
                             />
                         </div>
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white p-3">
                             <div className="flex flex-col gap-2">
                                 <span className="font-semibold text-left">{dataCheckout?.product}</span>
                                 <span>Rp {dataCheckout?.amount.toLocaleString()} / ({dataCheckout?.duration} Bulan)</span>
