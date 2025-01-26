@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import {
   getResource,
+  getResourceUrl
 } from "../../../utils/Fetch";
 
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -19,6 +20,7 @@ import { Input, Button, Typography, Carousel } from "@material-tailwind/react";
 function Hero() {
   const [isLoading, setIsLoading] = useState(true);
   const [promos, setPromos] = useState([]);
+  const [movies, setMovies] = useState([]);
   const [error, setError] = useState(null);
   const [banner, setBanner] = useState([])
 
@@ -27,6 +29,10 @@ function Hero() {
       try {
         const result = await getResource("promo");
         const resultBanner = await getResource("banner");
+        // const response = await getResourceUrl('https://api.themoviedb.org/3/movie/popular?api_key=07b5021a6c01561da27b2a25c2471dbc');
+        // console.log("tt", response);
+        // setMovies(response.results);
+
 
         setPromos(result.promo.slice(0, 4) || []);
         setBanner(resultBanner.data || []);
