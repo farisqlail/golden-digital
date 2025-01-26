@@ -52,7 +52,7 @@ function Hero() {
       <div>
         <Carousel>
           {isLoading ? (
-            Array(3) // Misalnya, menampilkan 3 skeleton slide saat loading  
+            Array(3)
               .fill(0)
               .map((_, index) => (
                 <div key={index} className="relative">
@@ -62,7 +62,7 @@ function Hero() {
           ) : (
             banner.map((data, index) => (
               <div key={index} className="relative">
-                <img src={data.images} alt={`Slide ${index + 1}`} className="w-full h-full" />
+                <Image width={1080} height={400} src={data.images} alt={`Slide ${index + 1}`} className="w-full h-full" />
               </div>
             ))
           )}
