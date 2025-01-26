@@ -73,7 +73,7 @@ function Hero() {
         {isLoading ? (Array(8)
           .fill(0)
           .map((_, index) => (
-            <div className="relative rounded-lg">
+            <div key={index} className="relative rounded-lg">
               <div className="h-[250px] lg:w-[400px] w-[200px] bg-gray-200 animate-pulse rounded-lg"></div>
               <div className="p-4">
                 <div className="h-6 bg-gray-300 animate-pulse rounded w-3/4 mb-2"></div>
@@ -81,8 +81,8 @@ function Hero() {
               </div>
             </div>
           ))
-        ) : promos.map((promo) => (
-          <div className="relative rounded-lg">
+        ) : promos.map((promo, index) => (
+          <div key={index} className="relative rounded-lg">
             <iframe
               className="h-[250px] lg:w-[500px]"
               src={promo.link_video.replace("watch?v=", "embed/")}
