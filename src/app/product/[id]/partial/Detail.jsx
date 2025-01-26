@@ -239,7 +239,7 @@ export function Detail({ productData }) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <span className="font-semibold">
+                            <span className="font-semibold text-white">
                                 {productData ? 'Benefit' : <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>}
                             </span>
                             {productData ? (
@@ -372,7 +372,7 @@ export function Detail({ productData }) {
                         <span>Tetap lanjutkan</span>
                     </Button>
                     <div className="flex justify-center">
-                        <span className="mr-1 w-full text-amber-500 cursor-pointer text-[#ba0c0c]" onClick={toAuth}>Login dan dapatkan point!</span>
+                        <span className="mr-1 w-full cursor-pointer text-[#ba0c0c]" onClick={toAuth}>Login dan dapatkan point!</span>
                     </div>
                 </DialogFooter>
             </Dialog>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {useRouter} from "next/navigation";
+import { useRouter } from "next/navigation";
 import {
   Card,
   CardHeader,
@@ -16,14 +16,15 @@ export function ProductCard({ img, title, desc, code }) {
   }
 
   return (
-    <Card color="transparent" shadow={false}>
+    <Card color="transparent" shadow={false} className="w-full">
       <CardHeader floated={false} className="mx-0 mt-0 mb-6 h-48">
         <Image
           src={img}
           alt={title}
           width={768}
           height={768}
-          className="h-full w-full object-contain"
+          className="h-full w-full object-contain cursor-pointer"
+          onClick={() => toDetail(code)}
         />
       </CardHeader>
       <CardBody className="p-0 text-left">

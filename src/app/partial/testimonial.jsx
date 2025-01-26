@@ -30,9 +30,9 @@ export function Testimonial() {
 
     return (
         <section className="py-4 px-4 lg:px-20 lg:mt-0 lg:mt-20 mt-6 lg:mb-20 mb-6">
-            <div className="container mx-auto sm:mb-20 mb-0 text-center">
-                <Typography variant="h2" color="white" className="mb-4">
-                    Testimonal Dari Pengguna Kami
+            <div className="container mx-auto text-center">
+                <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
+                Testimonal
                 </Typography>
             </div>
 

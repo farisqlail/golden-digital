@@ -40,61 +40,34 @@ export function Product() {
   }, []);
 
   return (
-    <section className="py-8 px-8 mb-20">
-      <div className="container mx-auto sm:mb-20 mb-0 text-center">
-        <Typography className="mb-2 font-bold uppercase text-gray-400">
-          Pilihan
-        </Typography>
-        <Typography variant="h2" color="white" className="mb-4">
-          Produk Kami
+    <section>
+      <div className="container mx-auto text-center pl-8">
+        <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
+          Produk kami
         </Typography>
       </div>
 
-      <div className="lg:p-8 p-0">
-        {products.length > 0 ? (
-          <Swiper
-            modules={[Navigation]}
-            spaceBetween={30}
-            navigation
-            className="mySwiper"
-            style={{ maxHeight: "auto" }}
-            breakpoints={{
-              640: {
-                slidesPerView: 1,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-              1280: {
-                slidesPerView: 4,
-              },
-            }}
-          >
-            {products.map((product) => (
-              <SwiperSlide key={product.id} className="relative rounded-lg overflow-hidden">
-                <ProductCard
-                  key={product.id_produk}
-                  img={`/logos/${product.variance_name.toLowerCase()}.png`}
-                  title={product.detail_produk}
-                  desc={`Harga: Rp ${product.harga.toLocaleString()}`}
-                  code={product.id_produk}
-                />
-              </SwiperSlide>
-            ))}
-          </Swiper>
-
-        ) : (
-          <Typography
-            variant="h6"
-            color="white"
-            className="col-span-4 text-center"
-          >
-            Tidak ada produk yang tersedia.
-          </Typography>
-        )}
+      <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-0 lg:pb-8 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">
+        {products.length > 0 ?
+          products.map((product) => (
+            <div key={product.id} className="carousel-item-product">
+              <ProductCard
+                key={product.id_produk}
+                img={`/logos/${product.variance_name.toLowerCase()}.png`}
+                title={product.detail_produk}
+                desc={`Harga: Rp ${product.harga.toLocaleString()}`}
+                code={product.id_produk}
+              />
+            </div>
+          )) : (
+            <Typography
+              variant="h6"
+              color="white"
+              className="col-span-4 text-center"
+            >
+              Tidak ada produk yang tersedia.
+            </Typography>
+          )}
       </div>
     </section>
   );

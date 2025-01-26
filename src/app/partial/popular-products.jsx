@@ -19,17 +19,14 @@ const CLIENTS = [
 
 export function PopularProducts() {
   return (
-    <section className="py-4 px-4 lg:py-8 bg-[#dedede] mb-10 mt-10">
-      <div className="container mx-auto grid items-center place-items-center">
+    <section className="py-4 px-4 lg:py-8 bg-[#E50814] mb-10 mt-10  rounded-top-full">
+      <div className="container mx-auto grid items-center lg:place-items-center place-items-start">
         <div className="text-center">
-          <Typography variant="h6" className="mb-4 uppercase !text-gray-600">
-            Golden Digital
-          </Typography>
-          <Typography variant="h2" color="black" className="mb-4">
+          <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
             Produk Populer Kami
           </Typography>
         </div>
-        <div className="w-full overflow-x-auto mt-4">
+        <div className="w-full overflow-x-auto hidden-scrollbar mt-4">
           <div className="flex items-center gap-6 justify-start lg:justify-center">
             {CLIENTS.map((logo, key) => (
               <Image
@@ -38,7 +35,7 @@ export function PopularProducts() {
                 width={480}
                 height={480}
                 src={`/logos/${logo}.png`}
-                className="w-40"
+                className="w-40 monochrome" 
               />
             ))}
           </div>

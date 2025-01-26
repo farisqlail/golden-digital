@@ -46,94 +46,56 @@ function Hero() {
     fetchData();
   }, []);
 
+
   return (
-    <header className="bg-[#0b0000] lg:mb-0 mb-0 lg:mt-0 mt-0">
-      <div className="relative">
+    <header className="bg-[#232323] top-0 lg:mb-0 mb-0 lg:mt-[-20px] mt-0">
+      <div>
         <Carousel>
-          {banner.map((data, index) => (
-            <div key={index} className="relative">
-              <img src={data.images} alt={`Slide ${index + 1}`} className="w-full h-full" />
-            </div>
-          ))}
+          {isLoading ? (
+            Array(3) // Misalnya, menampilkan 3 skeleton slide saat loading  
+              .fill(0)
+              .map((_, index) => (
+                <div key={index} className="relative">
+                  <div className="lg:h-[400px] h-[150px] bg-gray-300 animate-pulse rounded w-full mb-2"></div>
+                </div>
+              ))
+          ) : (
+            banner.map((data, index) => (
+              <div key={index} className="relative">
+                <img src={data.images} alt={`Slide ${index + 1}`} className="w-full h-full" />
+              </div>
+            ))
+          )}
         </Carousel>
       </div>
 
-      <div className="p-8">
-        {isLoading ? (
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={30}
-            navigation
-            pagination={{ clickable: true }}
-            className="mySwiper"
-            style={{ maxHeight: "250px" }}
-            breakpoints={{
-              640: {
-                slidesPerView: 1,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-              1280: {
-                slidesPerView: 4,
-              },
-            }}
-          >
-            {Array(8)
-              .fill(0)
-              .map((_, index) => (
-                <SwiperSlide key={index} className="relative rounded-lg overflow-hidden">
-                  <div className="h-[250px] w-full bg-gray-200 animate-pulse rounded-lg"></div>
-                  <div className="p-4">
-                    <div className="h-6 bg-gray-300 animate-pulse rounded w-3/4 mb-2"></div>
-                    <div className="h-4 bg-gray-300 animate-pulse rounded w-1/2"></div>
-                  </div>
-                </SwiperSlide>
-              ))}
-          </Swiper>
-        ) : (
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={30}
-            navigation
-            pagination={{ clickable: true }}
-            className="mySwiper"
-            style={{ maxHeight: "250px" }}
-            breakpoints={{
-              640: {
-                slidesPerView: 1,
-              },
-              768: {
-                slidesPerView: 2,
-              },
-              1024: {
-                slidesPerView: 3,
-              },
-              1280: {
-                slidesPerView: 4,
-              },
-            }}
-          >
-            {promos.map((promo) => (
-              <SwiperSlide key={promo.id} className="relative rounded-lg overflow-hidden">
-                <iframe
-                  className="h-[250px] w-full"
-                  src={promo.link_video.replace("watch?v=", "embed/")}
-                  title={promo.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                ></iframe>
-                <div className="p-4">
-                  <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
-                  <Typography variant="body2" className="text-gray-600 text-white">{promo.deskripsi}</Typography>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        )}
+      <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-8 lg:pb-8 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">
+        {isLoading ? (Array(8)
+          .fill(0)
+          .map((_, index) => (
+            <div className="relative rounded-lg">
+              <div className="h-[250px] lg:w-[400px] w-[200px] bg-gray-200 animate-pulse rounded-lg"></div>
+              <div className="p-4">
+                <div className="h-6 bg-gray-300 animate-pulse rounded w-3/4 mb-2"></div>
+                <div className="h-4 bg-gray-300 animate-pulse rounded w-1/2"></div>
+              </div>
+            </div>
+          ))
+        ) : promos.map((promo) => (
+          <div className="relative rounded-lg">
+            <iframe
+              className="h-[250px] lg:w-[500px]"
+              src={promo.link_video.replace("watch?v=", "embed/")}
+              title={promo.title}
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+            <div className="lg:pt-4 pt-4">
+              <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
+              <Typography variant="body2" className="text-gray-600 text-white">{promo.deskripsi}</Typography>
+            </div>
+          </div>
+        ))}
       </div>
     </header>
   );
