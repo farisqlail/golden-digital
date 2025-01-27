@@ -102,7 +102,7 @@ export function Navbar() {
             width={1024}
             height={800}
             src={`/logos/logo-primary.png`}
-            className="h-full rounded-lg max-w-24"
+            className="h-full h-max-24 rounded-lg max-w-24"
           />
         </div>
         <IconButton
