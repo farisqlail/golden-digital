@@ -24,13 +24,9 @@ export function Product() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const result = await getResource("get_detail_products");
+        const result = await getResource("variances");
 
-        const websiteProducts = result.products.filter(
-          (product) => product.platform === "Website"
-        );
-
-        setProducts(websiteProducts);
+        setProducts(result.variance);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -53,11 +49,10 @@ export function Product() {
           products.map((product) => (
             <div key={product.id} className="carousel-item-product">
               <ProductCard
-                key={product.id_produk}
+                key={product.id}
                 img={`/logos/${product.variance_name.toLowerCase()}.png`}
-                title={product.detail_produk}
-                desc={`Harga: Rp ${product.harga.toLocaleString()}`}
-                code={product.id_produk}
+                title={product.variance_name}
+                code={product.id}
               />
             </div>
           )) : (

@@ -11,17 +11,21 @@ import { getResource } from "../../../../utils/Fetch";
 
 export default function DetailPage({ params }) {
     const [productData, setProductData] = useState(null);
+    const [error, setError] = useState(null);
     const router = useRouter();
 
     useEffect(() => {
         if (params.id) {
             const fetchData = async () => {
                 try {
-                    const result = await getResource(`get_detail_products/${params.id}`);
-
-                    setProductData(result.price);
-                } catch (error) {
-                    console.error("Error fetching product details:", error);
+                    const response = await getResource(`get_detail_products/${params.id}`); 
+                    if (response.prices && response.prices.length > 0) {
+                        setProductData(response.prices[0]);
+                    } else {  
+                        console.warn("No prices found in the response.");  
+                    }  
+                } catch (err) {
+                    setError("An error occurred while fetching data."); 
                 }
             };
 
@@ -32,7 +36,7 @@ export default function DetailPage({ params }) {
     return (
         <>
             <NavbarDetail />
-            <Detail productData={productData} />
+            <Detail productData={productData} id={params.id} />
             <Footer />
         </>
     );
