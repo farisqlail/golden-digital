@@ -39,10 +39,11 @@ export function Trending() {
 
     return (
         <section className="lg:mt-20">
-            <div className="container mx-auto text-center pl-8">
-                <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
-                    Trending
-                </Typography>
+            <div className="flex gap-4 pl-8 items-center pr-8">
+                <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+                    Trending Saat ini
+                </h1>
+                <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
             </div>
             
             <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-16 lg:pb-16 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">

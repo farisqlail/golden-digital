@@ -28,9 +28,9 @@ export default function Portfolio() {
         <Subscribe />
       </section> */}
       <Testimonial />
-      <section id="faq">
+      {/* <section id="faq">
         <FAQ />
-      </section>
+      </section> */}
       {/* <ContactForm /> */}
       <Footer />
     </>

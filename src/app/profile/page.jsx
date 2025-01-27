@@ -56,7 +56,7 @@ function Profile() {
   return (
     <>
       <NavbarDetail />
-      <div className="min-h-screen bg-[#0b0000] flex flex-col md:flex-row justify-center gap-6 p-4 md:p-8">
+      <div className="min-h-screen flex flex-col md:flex-row justify-center gap-6 p-4 md:p-8">
         {/* Sidebar */}
         <div className="bg-white rounded-lg shadow-md p-4 flex flex-col gap-4 w-full md:max-w-sm h-fit">
           <div className="flex items-center gap-2 cursor-pointer">
