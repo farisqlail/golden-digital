@@ -51,19 +51,19 @@ export function Detail({ productData }) {
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
-                const result = await getResource("vouchers");
+                const result = await getResource(`vouchers?id_variance=${productData?.product.id_varian}`);
                 if (authToken) {
                     const resultUser = await getResourceWithToken("profile", authToken);
                     setDataUser(resultUser.data);
                 }
-                setPromo(Array.isArray(result.voucher) ? result.voucher : []);
+                setPromo(Array.isArray(result.vouchers) ? result.vouchers : []);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
         fetchData();
-    }, []);
+    }, [productData]);
 
     const toCheckout = () => {
         if (localStorage.getItem("authToken")) {
@@ -325,7 +325,7 @@ export function Detail({ productData }) {
 
                         {dataUser && (
                             <div className="flex flex-col gap-3 bg-[">
-                                {promo.length > 0 ? (
+                                {promo.length > 0 && (
                                     promo.map((promoItem) => (
                                         <div className="flex gap-3" key={promoItem.id}>
                                             <div className="border rounded-lg p-1 w-full text-white">
@@ -346,8 +346,6 @@ export function Detail({ productData }) {
                                             </div>
                                         </div>
                                     ))
-                                ) : (
-                                    <div className="w-3/4 h-4 bg-gray-200 animate-pulse rounded"></div>
                                 )}
                             </div>
                         )}
