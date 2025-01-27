@@ -6,7 +6,7 @@ import { Typography } from "@material-tailwind/react";
 const CLIENTS = [
   "spotify",
   "netflix",
-  "hbo",
+  "hbo go",
   "disney",
   "canva",
   "capcut",
