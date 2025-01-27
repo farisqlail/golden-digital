@@ -28,7 +28,7 @@ import {
     getResourceWithToken
 } from "../../../../../utils/Fetch";
 
-export function Detail({ productData }) {
+export function Detail({ productData, id }) {
     const router = useRouter();
     const [activeTab, setActiveTab] = React.useState("informasi");
     const [promo, setPromo] = useState([]);
@@ -37,6 +37,10 @@ export function Detail({ productData }) {
     const [dataUser, setDataUser] = useState(null);
     const [selectedPromo, setSelectedPromo] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
+    const [price, setPrice] = useState(0);
+    const [varian, setVarian] = useState(0);
+    const [selectedIndex, setSelectedIndex] = useState(0);
+    const [variance, setVariance] = useState([]);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -47,23 +51,33 @@ export function Detail({ productData }) {
     const handleOpenSecondModal = () => setOpenSecondModal(!openSecondModal);
 
     useEffect(() => {
+        console.log("tt", productData);
         window.scrollTo(0, 0);
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
                 const result = await getResource(`vouchers?id_variance=${productData?.product.id_varian}`);
+                const resultData = await getResource(`get_detail_products/${id}`)
                 if (authToken) {
                     const resultUser = await getResourceWithToken("profile", authToken);
                     setDataUser(resultUser.data);
                 }
+
+                setVariance(resultData.prices);
                 setPromo(Array.isArray(result.vouchers) ? result.vouchers : []);
+
+                if (variance.length > 0) {
+                    setSelectedIndex(0);
+                }
+
+                handleSelect(productData)
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
         };
 
         fetchData();
-    }, [productData]);
+    }, [productData, variance]);
 
     const toCheckout = () => {
         if (localStorage.getItem("authToken")) {
@@ -124,12 +138,12 @@ export function Detail({ productData }) {
     const calculateTotalAmount = () => {
         const discount = selectedPromo?.amount || 0;
         if (discount > 0) {
-            const harga = productData ? productData?.harga : 0;
+            const harga = price;
             const totalAfterDiscount = harga - discount;
             const biayaAdmin = totalAfterDiscount * 0.06;
             return totalAfterDiscount + biayaAdmin;
         } else {
-            const harga = productData ? productData?.harga : 0;
+            const harga = price;
             const biayaAdmin = harga * 0.06;
             return harga + biayaAdmin;
         }
@@ -197,15 +211,13 @@ export function Detail({ productData }) {
     const calculateTotalTaxAmount = () => {
         const discount = selectedPromo?.amount || 0;
         if (discount > 0) {
-            const harga = productData ? productData?.harga : 0;
+            const harga = price;
             const totalAfterDiscount = harga - discount;
             const biayaAdmin = totalAfterDiscount * 0.06;
-            // setTotalPrice(totalAfterDiscount + biayaAdmin)
             return biayaAdmin;
         } else {
-            const harga = productData ? productData?.harga : 0;
+            const harga = price;
             const biayaAdmin = harga * 0.06;
-            // setTotalPrice(harga + biayaAdmin)
             return biayaAdmin;
         }
     };
@@ -214,6 +226,12 @@ export function Detail({ productData }) {
         router.push('/auth/login');
     }
 
+    const handleSelect = (item, index) => {  
+        setSelectedIndex(index);
+        setPrice(item.harga)
+        setVarian(item.product.product_type.type_name)
+    };  
+  
     return (
         <section className="py-8 px-4">
             <div className="container mx-auto text-left">
@@ -299,8 +317,8 @@ export function Detail({ productData }) {
                             <div className="flex flex-col gap-2 mt-2 text-white">
                                 {productData ? (
                                     [
-                                        ["Nama Paket", productData?.product?.variance?.variance_name],
-                                        ["Harga", "Rp" + productData?.harga.toLocaleString()],
+                                        ["Nama Paket", varian],
+                                        ["Harga", "Rp" + price.toLocaleString()],
                                         ["Diskon", selectedPromo ? "Rp" + selectedPromo.amount.toLocaleString() : "Rp0"],
                                         ["Biaya Admin", "Rp" + calculateTotalTaxAmount().toLocaleString()],
                                         ["Total", "Rp" + calculateTotalAmount().toLocaleString()],
@@ -323,30 +341,62 @@ export function Detail({ productData }) {
                             </div>
                         </div>
 
-                        {dataUser && (
-                            <div className="flex flex-col gap-3 bg-[">
-                                {promo.length > 0 && (
-                                    promo.map((promoItem) => (
-                                        <div className="flex gap-3" key={promoItem.id}>
+                        <div>
+                            <span className="font-semibold text-white">Pilihan Paket</span>
+                            <div className="flex flex-col gap-3 mt-3">
+                                {variance.length > 0 && (
+                                    variance.map((item, index) => (
+                                        <div className="flex gap-3" key={item.id}>
                                             <div className="border rounded-lg p-1 w-full text-white">
                                                 <Radio
-                                                    name="type"
+                                                    name="type_variance"
                                                     label={
                                                         <Typography
                                                             color="white"
                                                             className="flex font-medium text-white"
                                                         >
-                                                            {promoItem.name}
+                                                            {item.product.product_type.type_name}
                                                         </Typography>
                                                     }
                                                     color="red"
                                                     className="text-white"
-                                                    onChange={() => handlePromoSelect(promoItem)}
+                                                    checked={selectedIndex === index}
+                                                    onChange={() => handleSelect(item, index)}
                                                 />
                                             </div>
                                         </div>
                                     ))
                                 )}
+                            </div>
+                        </div>
+
+                        {dataUser && (
+                            <div>
+                                <span className="font-semibold text-white">Pilihan Paket</span>
+                                <div className="flex flex-col gap-3 mt-3">
+                                    {promo.length > 0 && (
+                                        promo.map((promoItem) => (
+                                            <div className="flex gap-3" key={promoItem.id}>
+                                                <div className="border rounded-lg p-1 w-full text-white">
+                                                    <Radio
+                                                        name="type"
+                                                        label={
+                                                            <Typography
+                                                                color="white"
+                                                                className="flex font-medium text-white"
+                                                            >
+                                                                {promoItem.name}
+                                                            </Typography>
+                                                        }
+                                                        color="red"
+                                                        className="text-white"
+                                                        onChange={() => handlePromoSelect(promoItem)}
+                                                    />
+                                                </div>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
                             </div>
                         )}
 

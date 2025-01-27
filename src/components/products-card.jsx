@@ -8,7 +8,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 
-export function ProductCard({ img, title, desc, code }) {
+export function ProductCard({ img, title, code }) {
   const router = useRouter();
 
   const toDetail = (id) => {
@@ -36,11 +36,8 @@ export function ProductCard({ img, title, desc, code }) {
             {title}
           </Typography>
         </span>
-        <Typography className="mb-6 font-normal !text-gray-500">
-          {desc}
-        </Typography>
-        <Button className="bg-[#ba0c0c]" size="sm" onClick={() => toDetail(code)}>
-          Beli
+        <Button className="bg-[#ba0c0c] w-full" onClick={() => toDetail(code)}>
+          Pilih
         </Button>
       </CardBody>
     </Card>
