@@ -38,7 +38,10 @@ export function Detail({ productData, id }) {
     const [selectedPromo, setSelectedPromo] = useState(null);
     const [totalPrice, setTotalPrice] = useState(0);
     const [price, setPrice] = useState(0);
-    const [varian, setVarian] = useState(0);
+    const [varian, setVarian] = useState("");
+    const [duration, setDuration] = useState("");
+    const [idPrice, setIdPrice] = useState(0);
+    const [kodeToko, setKodeToko] = useState("");
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [variance, setVariance] = useState([]);
     const [formData, setFormData] = React.useState({
@@ -84,9 +87,9 @@ export function Detail({ productData, id }) {
             const transactionCode = uuidv4();
 
             const data = {
-                external_id: productData?.kode_toko,
+                external_id: kodeToko,
                 amount: calculateTotalAmount(),
-                id_price: productData?.id,
+                id_price: idPrice,
                 id_customer: dataUser ? dataUser.id : 0,
                 id_promo: selectedPromo ? selectedPromo.id : 0,
                 customer_name: dataUser ? dataUser.name : formData.name,
@@ -95,8 +98,8 @@ export function Detail({ productData, id }) {
                 transaction_code: transactionCode,
                 payment_status: "PENDING",
                 product: productData?.product?.variance?.variance_name,
-                duration: productData?.product?.durasi,
-                product_price: productData?.harga,
+                duration: duration,
+                product_price: price,
                 discountAmount: selectedPromo?.amount,
                 tax: calculateTotalTaxAmount()
             };
@@ -157,9 +160,9 @@ export function Detail({ productData, id }) {
         const transactionCode = uuidv4();
 
         const data = {
-            external_id: productData?.kode_toko,
+            external_id: kodeToko,
             amount: calculateTotalAmount(),
-            id_price: productData?.id,
+            id_price: idPrice,
             id_customer: dataUser ? dataUser.id : 0,
             id_promo: selectedPromo ? selectedPromo.id : 0,
             customer_name: dataUser ? dataUser.name : formData.name,
@@ -168,8 +171,8 @@ export function Detail({ productData, id }) {
             transaction_code: transactionCode,
             payment_status: "PENDING",
             product: productData?.product?.variance?.variance_name,
-            duration: productData?.product?.durasi,
-            product_price: productData?.harga,
+            duration: duration,
+            product_price: price,
             discountAmount: selectedPromo?.amount,
             tax: calculateTotalTaxAmount()
         };
@@ -230,6 +233,9 @@ export function Detail({ productData, id }) {
         setSelectedIndex(index);
         setPrice(item.harga)
         setVarian(item.product.product_type.type_name)
+        setDuration(item.product.ket_durasi)
+        setIdPrice(item.id)
+        setKodeToko(item.kode_toko)
     };  
   
     return (
