@@ -13,7 +13,7 @@ const CLIENTS = [
   "vidio",
   "viu",
   "vision",
-  "wetv",
+  "we tv",
   "youtube"
 ];
 
