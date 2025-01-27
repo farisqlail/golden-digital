@@ -72,7 +72,6 @@ export function Detail({ productData, id }) {
                 if (variance.length > 0) {
                     setSelectedIndex(0);
                 }
-
                 handleSelect(productData)
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -230,7 +229,7 @@ export function Detail({ productData, id }) {
     }
 
     const handleSelect = (item, index) => {  
-        setSelectedIndex(index);
+        setSelectedIndex(index ? index : 0);
         setPrice(item.harga)
         setVarian(item.product.product_type.type_name)
         setDuration(item.product.ket_durasi)
