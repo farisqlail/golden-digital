@@ -54,12 +54,11 @@ export function Detail({ productData, id }) {
     const handleOpenSecondModal = () => setOpenSecondModal(!openSecondModal);
 
     useEffect(() => {
-        console.log("tt", productData);
         window.scrollTo(0, 0);
         const fetchData = async () => {
             try {
                 const authToken = localStorage.getItem("authToken");
-                const result = await getResource(`vouchers?id_variance=${productData?.product.id_varian}`);
+                const result = await getResource(`vouchers?id_variance=${productData?.product.id_varian}&id_product_type=${productData?.product?.product_type?.id}`);
                 const resultData = await getResource(`get_detail_products/${id}`)
                 if (authToken) {
                     const resultUser = await getResourceWithToken("profile", authToken);
@@ -80,6 +79,16 @@ export function Detail({ productData, id }) {
 
         fetchData();
     }, [productData, variance]);
+
+    const refreshVoucher = async (id) => {
+        try {
+            const result = await getResource(`vouchers?id_variance=${productData?.product.id_varian}&id_product_type=${id}`);
+
+            setPromo(Array.isArray(result.vouchers) ? result.vouchers : []);
+        } catch (error) {
+            console.error("Error fetching vouchers:", error); 
+        }
+    };
 
     const toCheckout = () => {
         if (localStorage.getItem("authToken")) {
@@ -228,15 +237,17 @@ export function Detail({ productData, id }) {
         router.push('/auth/login');
     }
 
-    const handleSelect = (item, index) => {  
+    const handleSelect = (item, index) => {
         setSelectedIndex(index ? index : 0);
         setPrice(item.harga)
         setVarian(item.product.product_type.type_name)
         setDuration(item.product.ket_durasi)
         setIdPrice(item.id)
         setKodeToko(item.kode_toko)
-    };  
-  
+
+        refreshVoucher(item.product.product_type.id)
+    };
+
     return (
         <section className="py-8 px-4">
             <div className="container mx-auto text-left">
