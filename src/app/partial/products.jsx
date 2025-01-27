@@ -40,11 +40,12 @@ export function Product() {
   }, []);
 
   return (
-    <section>
-      <div className="container mx-auto text-center pl-8">
-        <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
-          Produk kami
-        </Typography>
+    <section className="mt-6">
+      <div className="flex gap-4 pl-8 items-center pr-8">
+        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+          Produk Hari Ini
+        </h1>
+        <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
       </div>
 
       <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-0 lg:pb-8 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">

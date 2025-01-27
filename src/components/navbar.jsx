@@ -41,28 +41,28 @@ export function Navbar() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [authToken, setAuthToken] = useState(null);
-  const [scrolling, setScrolling] = useState(false);  
+  const [scrolling, setScrolling] = useState(false);
 
   const handleOpen = () => setOpen((cur) => !cur);
 
-  useEffect(() => {  
-    const handleResize = () => {  
-      if (window.innerWidth >= 960) {  
-        setOpen(false);  
-      }  
-    };  
-  
-    const handleScroll = () => {  
-      setScrolling(window.scrollY > 0);  
-    };  
-  
-    window.addEventListener("resize", handleResize);  
-    window.addEventListener("scroll", handleScroll);  
-    return () => {  
-      window.removeEventListener("resize", handleResize);  
-      window.removeEventListener("scroll", handleScroll);  
-    };  
-  }, []);  
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 960) {
+        setOpen(false);
+      }
+    };
+
+    const handleScroll = () => {
+      setScrolling(window.scrollY > 0);
+    };
+
+    window.addEventListener("resize", handleResize);
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   useEffect(() => {
     const token = localStorage.getItem("authToken");
@@ -144,6 +144,18 @@ export function Navbar() {
               </NavItem>
             ))}
           </ul>
+          {authToken ? (
+            <div
+              className="flex items-center justify-center w-10 h-10 bg-[#ba0c0c] rounded-full cursor-pointer mt-3"
+              onClick={() => handleNavigationRoute("/profile")}
+            >
+              <UserCircleIcon className="w-6 h-6 text-white" />
+            </div>
+          ) : (
+            <div className="mt-3" onClick={() => handleNavigationRoute("/auth/login")}>
+              <Button className="bg-[#ba0c0c]">Langganan</Button>
+            </div>
+          )}
         </div>
       </Collapse>
     </MTNavbar>

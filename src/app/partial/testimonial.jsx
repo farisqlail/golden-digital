@@ -29,17 +29,18 @@ export function Testimonial() {
 
 
     return (
-        <section className="py-4 px-4 lg:px-20 lg:mt-0 lg:mt-20 mt-6 lg:mb-20 mb-6">
-            <div className="container mx-auto text-center">
-                <Typography className="mb-4 text-white lg:text-3xl text-2xl lg:text-center text-left font-semibold">
-                Testimonal
-                </Typography>
+        <section className="mt-6">
+            <div className="flex gap-4 pl-8 items-center pr-8">
+                <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+                    Ulasan
+                </h1>
+                <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 overflow-y-auto max-h-[500px]">
+            <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-0 lg:pb-8 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">
                 {testimonial.length > 0 ? (
                     testimonial.map((item) => (
-                        <div key={item.id} className="bg-[#dedede] text-black p-4 rounded-lg shadow-md relative">
+                        <div key={item.id} className="bg-[#dedede] text-black p-4 rounded-lg shadow-md relative w-[400px]">
                             <div className="flex gap-3 items-center">
                                 <div>
                                     <UserCircleIcon className="w-8 h-8 text-black" />
