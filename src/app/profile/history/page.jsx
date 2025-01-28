@@ -22,6 +22,8 @@ function TransactionHistory() {
       try {
         const user = await getResourceWithToken("profile", authToken);
         const data = await getResourceWithToken(`transactions/history/${user.data.id}`, authToken);
+
+        console.log("tt", data.data.transactions);
         setTransactions(data.data.transactions);
       } catch (err) {
         setError(err.message || "Failed to fetch transactions");
@@ -131,15 +133,26 @@ function TransactionHistory() {
             ) : (
               <div>
                 <h1 className="text-2xl font-bold text-center">Riwayat Transaksi</h1>
-                <ul>
-                  {transactions.map((transaction) => (
-                    <li key={transaction.id} className="border-b p-4">
-                      <h2 className="font-semibold">{transaction.title}</h2>
-                      <p>{transaction.date}</p>
-                      <p>{transaction.amount}</p>
-                    </li>
-                  ))}
-                </ul>
+                <table className="min-w-full border-collapse">
+                  <thead>
+                    <tr>
+                      <th className="border-b p-4 text-left">Kode Transaksi</th>
+                      <th className="border-b p-4 text-left">Produk</th>
+                      <th className="border-b p-4 text-left">Tanggal Pembelian</th>
+                      <th className="border-b p-4 text-left">Tanggal Berakhir</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((transaction) => (
+                      <tr key={transaction.id} className="border-b">
+                        <td className="p-4">{transaction.kode_transaksi}</td>
+                        <td className="p-4">{transaction.price.product.variance.variance_name}</td>
+                        <td className="p-4">{transaction.tanggal_pembelian}</td>
+                        <td className="p-4">{transaction.tanggal_berakhir}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
             )}
           </div>
