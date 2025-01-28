@@ -78,7 +78,7 @@ export function Detail({ productData, id }) {
         };
 
         fetchData();
-    }, [productData, variance]);
+    }, [productData]);
 
     const refreshVoucher = async (id) => {
         try {
@@ -369,9 +369,9 @@ export function Detail({ productData, id }) {
                                                     label={
                                                         <Typography
                                                             color="white"
-                                                            className="flex font-medium text-white"
+                                                            className="flex font-medium text-white items-center"
                                                         >
-                                                            {item.product.product_type.type_name}
+                                                            {item.product.product_type.type_name} &nbsp; <span className="text-sm">{item.product.durasi} {item.product.ket_durasi}</span>
                                                         </Typography>
                                                     }
                                                     color="red"
