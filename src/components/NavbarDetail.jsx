@@ -126,6 +126,18 @@ export function NavbarDetail() {
               </NavItem>
             ))}
           </ul>
+          {authToken ? (
+            <div
+              className="flex items-center justify-center w-10 h-10 bg-[#ba0c0c] rounded-full cursor-pointer mt-3"
+              onClick={() => handleNavigationRoute("/profile")}
+            >
+              <UserCircleIcon className="w-6 h-6 text-white" />
+            </div>
+          ) : (
+            <div className="mt-3" onClick={() => handleNavigationRoute("/auth/login")}>
+              <Button className="bg-[#ba0c0c]">Langganan</Button>
+            </div>
+          )}
         </div>
       </Collapse>
     </MTNavbar>
