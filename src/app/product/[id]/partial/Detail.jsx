@@ -86,7 +86,7 @@ export function Detail({ productData, id }) {
 
             setPromo(Array.isArray(result.vouchers) ? result.vouchers : []);
         } catch (error) {
-            console.error("Error fetching vouchers:", error); 
+            console.error("Error fetching vouchers:", error);
         }
     };
 
@@ -161,7 +161,11 @@ export function Detail({ productData, id }) {
     };
 
     const handlePromoSelect = (promoItem) => {
-        setSelectedPromo(promoItem);
+        if (selectedPromo && selectedPromo.id === promoItem.id) {
+            setSelectedPromo(null); 
+        } else {
+            setSelectedPromo(promoItem); 
+        }
     };
 
     const handleSubmit = async () => {
@@ -246,6 +250,8 @@ export function Detail({ productData, id }) {
         setKodeToko(item.kode_toko)
 
         refreshVoucher(item.product.product_type.id)
+        setSelectedPromo(null)
+        handlePromoSelect(null)
     };
 
     return (
@@ -406,6 +412,7 @@ export function Detail({ productData, id }) {
                                                         }
                                                         color="red"
                                                         className="text-white"
+                                                        checked={selectedPromo && selectedPromo.id === promoItem.id}
                                                         onChange={() => handlePromoSelect(promoItem)}
                                                     />
                                                 </div>

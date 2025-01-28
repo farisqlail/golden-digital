@@ -13,7 +13,7 @@ export function FAQ() {
 
     const faqs = [
         {
-            question: "Payment method apa saja yang available di Seakun?",
+            question: "Payment method apa saja yang available di Golden Digital?",
             answer: "Kami menerima pembayaran melalui transfer bank, e-wallet seperti OVO, Gopay, dan DANA.",
         },
         {
@@ -22,7 +22,7 @@ export function FAQ() {
         },
         {
             question: "Bagaimana cara menghubungi support jika ada masalah?",
-            answer: "Anda dapat menghubungi kami melalui email atau live chat di website kami.",
+            answer: "Anda dapat menghubungi kami melalui WhatsApp admin kami.",
         },
     ];
 

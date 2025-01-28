@@ -8,12 +8,7 @@ import {
   getResourceUrl
 } from "../../../utils/Fetch";
 
-import { Swiper, SwiperSlide } from 'swiper/react';
-import 'swiper/css';
-import 'swiper/css/scrollbar';
-import 'swiper/css/navigation';
-import 'swiper/css/pagination';
-import { Keyboard, Scrollbar, Navigation, Pagination } from 'swiper/modules';
+import PopularProducts from "./popular-products";
 
 import { Input, Button, Typography, Carousel } from "@material-tailwind/react";
 
@@ -67,6 +62,14 @@ function Hero() {
             ))
           )}
         </Carousel>
+      </div>
+      <PopularProducts />
+
+      <div className="flex gap-4 pl-8 items-center pr-8">
+        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+          STREAMING EVENT
+        </h1>
+        <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
       </div>
 
       <div className="flex gap-6 lg:pl-8 lg:pr-8 lg:pt-8 lg:pb-8 pl-8 pt-8 pr-8 pb-8 w-full overflow-x-auto hidden-scrollbar">
