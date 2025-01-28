@@ -32,7 +32,7 @@ export function Testimonial() {
         <section>
             <div className="flex gap-4 pl-8 items-center pr-8">
                 <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
-                    ULASAN PELANGGAN GOLDEN DIGITAL
+                    ULASAN
                 </h1>
                 <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
             </div>
