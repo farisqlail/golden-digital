@@ -161,11 +161,7 @@ export function Detail({ productData, id }) {
     };
 
     const handlePromoSelect = (promoItem) => {
-        if (selectedPromo && selectedPromo.id === promoItem.id) {
-            setSelectedPromo(null); 
-        } else {
-            setSelectedPromo(promoItem); 
-        }
+        setSelectedPromo(promoItem);
     };
 
     const handleSubmit = async () => {
@@ -249,9 +245,10 @@ export function Detail({ productData, id }) {
         setIdPrice(item.id)
         setKodeToko(item.kode_toko)
 
+        setSelectedPromo(null); // Mengatur selectedPromo ke null  
+        handlePromoSelect(null);
+
         refreshVoucher(item.product.product_type.id)
-        setSelectedPromo(null)
-        handlePromoSelect(null)
     };
 
     return (
@@ -412,7 +409,7 @@ export function Detail({ productData, id }) {
                                                         }
                                                         color="red"
                                                         className="text-white"
-                                                        checked={selectedPromo && selectedPromo.id === promoItem.id}
+                                                        checked={selectedPromo?.id === promoItem.id}
                                                         onChange={() => handlePromoSelect(promoItem)}
                                                     />
                                                 </div>
