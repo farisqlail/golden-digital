@@ -73,7 +73,7 @@ export function Checkout() {
                                 width={1024}
                                 height={800}
                                 alt="product"
-                                src={`/logos/${dataCheckout?.product}.png`}
+                                src={`/logos/${dataCheckout?.product.toLowerCase()}.png`}
                                 className="h-full rounded-lg max-w-full"
                             />
                         </div>
