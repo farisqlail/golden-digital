@@ -42,9 +42,11 @@ export default function Faq() {
                                     {product.link_video ? (
                                         <iframe
                                             className="lg:w-full lg:h-[400px] h-[200px] rounded-lg"
-                                            src={product.link_video.replace("watch?v=", "embed/")}
-                                            title={product.name}
-                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                            src={product.link_video.includes("shorts")
+                                                ? product.link_video.replace("shorts/", "embed/")
+                                                : product.link_video.replace("watch?v=", "embed/")}
+                                            title={`Video ${product.id}`}
+                                            frameBorder="0"
                                             allowFullScreen
                                         ></iframe>
                                     ) : (
