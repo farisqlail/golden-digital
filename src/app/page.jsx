@@ -15,15 +15,15 @@ export default function Portfolio() {
     <>
       <Navbar />
       <Hero />
-      <PopularProducts />
+      {/* <PopularProducts /> */}
       <Trending />
-      <Promos />
       {/* <section id="benefits">
         <Benefits />
       </section> */}
       <section id="products">
         <Products />
       </section>
+      <Promos />
       {/* <section id="subscribe">
         <Subscribe />
       </section> */}

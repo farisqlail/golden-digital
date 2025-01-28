@@ -44,7 +44,7 @@ export function Promos() {
                 <section className="mt-6">
                     <div className="flex gap-4 pl-8 items-center pr-8">
                         <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
-                            Produk Hari Ini
+                            PROMO HARI INI
                         </h1>
                         <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
                     </div>

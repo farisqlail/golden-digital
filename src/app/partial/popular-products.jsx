@@ -19,7 +19,7 @@ const CLIENTS = [
 
 export function PopularProducts() {
   return (
-    <section className="py-4 px-4 lg:py-8 bg-white mb-10 mt-10">
+    <section className="py-4 px-4 lg:py-8 bg-white mb-10">
       <div className="container mx-auto grid items-center lg:place-items-center place-items-start">
         <div className="text-center">
           <Typography className="mb-4 text-black lg:text-3xl text-2xl lg:text-center text-left font-semibold">
