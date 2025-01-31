@@ -18,6 +18,8 @@ export function Checkout() {
     const [listPayment, setListPayment] = useState([]);
     const [openIndex, setOpenIndex] = useState(null);
     const [selectedPayment, setSelectedPayment] = useState(null);
+    const [total, setTotal] = useState(0);
+    const [uniqueCode, setUniqueCode] = useState(0);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -32,9 +34,24 @@ export function Checkout() {
                 console.log(error);
             }
         }
+        const generateUniqueCode = () => {
+            const randomCode = Math.floor(Math.random() * 1000); 
+            setUniqueCode(randomCode);
+        };
 
+        generateUniqueCode();
         fetchData();
     }, [])
+
+    const calculateTotal = () => {
+        const uniqueCodeValue = uniqueCode; 
+        const baseTotal = dataCheckout?.amount;
+        setTotal(baseTotal + uniqueCodeValue); 
+    };
+
+    useEffect(() => {
+        calculateTotal();
+    }, [uniqueCode]);
 
     const selectPayment = (payment, index) => {
         setSelectedPayment(payment);
@@ -45,7 +62,7 @@ export function Checkout() {
         const payment = JSON.parse(localStorage.getItem("selectedPayment"))
         const data = {
             external_id: dataCheckout?.external_id,
-            amount: dataCheckout?.amount,
+            amount: total,
             id_price: dataCheckout?.id_price,
             id_customer: dataCheckout?.id_customer ? dataCheckout?.id_customer : 0,
             id_promo: dataCheckout?.id_promo ? dataCheckout?.id_promo : 0,
@@ -120,6 +137,10 @@ export function Checkout() {
                                 <span>Biaya Langganan</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()}</span>
                             </div>
+                            <div className="flex justify-between">
+                                <span>Kode Unik Pembayaran</span>
+                                <span>Rp {uniqueCode}</span>
+                            </div>
                             {dataCheckout?.discountAmount && (
                                 <div className="flex justify-between">
                                     <span>Diskon</span>
@@ -133,7 +154,7 @@ export function Checkout() {
                         </div>
                         <div className="flex justify-between mt-3">
                             <span className="text-xl font-bold">Total</span>
-                            <span className="text-xl font-bold text-[#ba0c0c]">Rp {dataCheckout?.amount.toLocaleString()}</span>
+                            <span className="text-xl font-bold text-[#ba0c0c]">Rp {total.toLocaleString()}</span>
                         </div>
                         <Button className="bg-[#ba0c0c] w-full mt-3" onClick={handleSubmit}>Bayar</Button>
                     </div>
