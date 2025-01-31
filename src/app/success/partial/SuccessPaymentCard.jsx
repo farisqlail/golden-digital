@@ -88,30 +88,20 @@ const SuccessPaymentCard = ({ dataAccount }) => {
         setShowWhatsAppModal(true);
     };
 
-    // const sendToWhatsApp = () => {
-    //     const data = {
-    //         email: dataAccount.akun.email,
-    //         password: dataAccount.akun.password,
-    //         profile: dataAccount.detailAkun.profile ? dataAccount.detailAkun.profile : null
-    //     };
-
-    //     const message = `Silahkan nikmati akun anda, ini untuk Email: ${data.email}\nPassword: ${data.password}\nProfile: ${data.profile ? data.profile : 'No profile'}`;
-    //     const encodedMessage = encodeURIComponent(message);
-    //     const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
-
-    //     window.open(whatsappUrl, '_blank');
-
-    //     setShowWhatsAppModal(false);
-    //     setWhatsappNumber("");
-    // };
-
-    const selectWaAdmin = (admin) => {
+    const selectWaAdmin = async (admin) => {
         setSelectedWaAdmin(admin);
         localStorage.setItem("selectedWaAdmin", JSON.stringify(admin));
         const data = JSON.parse(localStorage.getItem("dataPayment"))
         const message = `Halo, saya ingin klaim akun dengan kode transaksi ${data?.transaction_code}`;
         const encodedMessage = encodeURIComponent(message);
         const whatsappUrl = `https://wa.me/${admin.wa}?text=${encodedMessage}`;
+        const dataClaim = {
+            transaction_code: data?.transaction_code,
+            status: 1,
+            claim_number: admin.wa
+        }
+
+        await postResource("update-status-invoice", dataClaim);
 
         window.open(whatsappUrl, '_blank');
 
