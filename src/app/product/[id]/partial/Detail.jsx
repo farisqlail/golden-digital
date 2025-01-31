@@ -122,14 +122,27 @@ export function Detail({ productData, id }) {
 
     const data = [
         {
-            label: "Informasi",
-            value: "informasi",
-            desc: `Akun premium memberi Anda akses lebih banyak fitur dan kenyamanan. Dengan berlangganan akun premium, Anda dapat menikmati pengalaman tanpa gangguan, mendapatkan akses eksklusif ke konten, dan menikmati fitur tambahan yang tidak tersedia untuk pengguna biasa. Baik untuk menonton, mendengarkan, atau mengelola akun Anda, berlangganan premium memberikan pengalaman yang lebih kaya dan lebih cepat.`
+            label: "Private Profile",
+            value: "private",
+            desc: `Satu akun private berisikan 5 Pembeli
+            Dikarenakan batas screen limit Netflix 4 user, apabila 4 user sedang menonton otomatis 1 user menunggu (terkena batas layar)
+            Apabila terkena batas layer bisa download vidio dan ditonton secara offline agar tidak terkena batas layar`
         },
         {
-            label: "Skema Berlangganan",
-            value: "skema",
-            desc: `Pilih paket yang sesuai dengan kebutuhan Anda! Akun premium hadir dengan beberapa pilihan skema berlangganan: Paket Bulanan yang memungkinkan Anda menikmati akses premium dengan biaya bulanan yang terjangkau, Paket Tahunan yang memberikan diskon lebih besar dengan berlangganan untuk setahun penuh, dan Paket Keluarga yang menyediakan akses premium untuk beberapa akun dalam satu keluarga dengan harga yang lebih hemat. Setiap paket menawarkan berbagai keuntungan seperti bebas iklan, kualitas streaming lebih tinggi, dan akses eksklusif ke konten tertentu.`
+            label: "Anti Limit Profile",
+            value: "anti",
+            desc: `Satu akun private platinum berisikan 4 pembeli
+            Tidak akan terkena screen limit
+            Mendapatkan prioritas customer service
+            Tidak akan terkena household`
+        },
+        {
+            label: "Sharing Profile",
+            value: "sharing",
+            desc: `Satu akun sharing berisikan 10 Pembeli
+            Dikarenakan batas screen limit Netflix 4 user, apabila 4 user sedang menonton otomatis 6 user menunggu (terkena batas layar)
+            Apabila terkena batas layar bisa download vidio dan ditonton secara offline agar tidak terkena batas layar
+            Tidak direkomendasikan untuk TV`
         },
     ];
 
@@ -316,16 +329,16 @@ export function Detail({ productData, id }) {
 
                         <div className="mt-5 bg-[#564d4d] rounded-lg shadow-md p-4"> {/* Menggunakan div sebagai card */}
                             <h2 className="text-white text-lg font-semibold mb-2">Informasi</h2> {/* Judul Card */}
-                            {data ? (
-                                data.map(({ label, desc }, index) => (
-                                    <div key={index} className="mb-2">
-                                        <h3 className="text-white font-medium">{label}</h3> {/* Menampilkan label */}
-                                        <p className="text-gray-200">{desc}</p> {/* Menampilkan deskripsi */}
-                                    </div>
-                                ))
-                            ) : (
-                                <div className="h-32 bg-gray-600 animate-pulse rounded"></div> // Placeholder jika data tidak ada  
-                            )}
+                            {data.map((item, index) => (
+                                <div key={index} className="mb-4">
+                                    <h3 className="font-semibold text-white">{item.label}</h3>
+                                    <ul className="list-disc pl-5 text-white">
+                                        {item.desc.split('\n').map((descItem, descIndex) => (
+                                            <li key={descIndex}>{descItem.trim()}</li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            ))}
                         </div>
                     </div>
 
