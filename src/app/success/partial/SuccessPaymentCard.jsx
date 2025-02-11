@@ -40,7 +40,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                 const token = localStorage.getItem("authToken")
                 const result = await getResource("list-waadmin");
                 const response = await getResourceWithToken("profile", token);
-                console.log("tt", result.data);
+
                 setWaAdmin(result.data)
                 setUserData(response.data)
             } catch (error) {
@@ -63,6 +63,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
 
             try {
                 const payload = {
+                    id: userData.id,
                     name: currentName,
                     description: testimonial
                 };
