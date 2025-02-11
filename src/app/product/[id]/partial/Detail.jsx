@@ -372,32 +372,34 @@ export function Detail({ productData, id }) {
 
                         {dataUser && (
                             <div>
-                                <span className="font-semibold text-white">Pilihan Paket</span>
-                                <div className="flex flex-col gap-3 mt-3">
-                                    {promo.length > 0 && (
-                                        promo.map((promoItem) => (
-                                            <div className="flex gap-3" key={promoItem.id}>
-                                                <div className="border rounded-lg p-1 w-full text-white">
-                                                    <Radio
-                                                        name="type"
-                                                        label={
-                                                            <Typography
-                                                                color="white"
-                                                                className="flex font-medium text-white"
-                                                            >
-                                                                {promoItem.name}
-                                                            </Typography>
-                                                        }
-                                                        color="red"
-                                                        className="text-white"
-                                                        checked={selectedPromo?.id === promoItem.id}
-                                                        onChange={() => handlePromoSelect(promoItem)}
-                                                    />
+                                {promo.length > 0 && (
+                                    <>
+                                        <span className="font-semibold text-white">Pilihan Paket</span>
+                                        <div className="flex flex-col gap-3 mt-3">
+                                            {promo.map((promoItem) => (
+                                                <div className="flex gap-3" key={promoItem.id}>
+                                                    <div className="border rounded-lg p-1 w-full text-white">
+                                                        <Radio
+                                                            name="type"
+                                                            label={
+                                                                <Typography
+                                                                    color="white"
+                                                                    className="flex font-medium text-white"
+                                                                >
+                                                                    {promoItem.name}
+                                                                </Typography>
+                                                            }
+                                                            color="red"
+                                                            className="text-white"
+                                                            checked={selectedPromo?.id === promoItem.id}
+                                                            onChange={() => handlePromoSelect(promoItem)}
+                                                        />
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
+                                            ))}
+                                        </div>
+                                    </>
+                                )}
                             </div>
                         )}
 
