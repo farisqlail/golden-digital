@@ -34,7 +34,8 @@ export function Payment() {
             phone_customer: dataCheckout?.phone_customer,
             transaction_code: dataCheckout?.transaction_code,
             payment_status: "PENDING",
-            payment_method: dataCheckout?.payment_method.nama_payment
+            payment_method: dataCheckout?.payment_method?.nama_payment,
+            claim_point: dataCheckout?.claim_point
         };
 
         localStorage.setItem("dataPayment", JSON.stringify(data));

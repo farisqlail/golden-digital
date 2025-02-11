@@ -20,6 +20,8 @@ export function Checkout() {
     const [selectedPayment, setSelectedPayment] = useState(null);
     const [total, setTotal] = useState(0);
     const [uniqueCode, setUniqueCode] = useState(0);
+    const [userData, setUserData] = useState(null);
+    const [isChecked, setIsChecked] = useState(false);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -28,14 +30,18 @@ export function Checkout() {
 
         const fetchData = async () => {
             try {
+                const token = localStorage.getItem("authToken");
+                const response = await getResourceWithToken("profile", token);
                 const result = await getResource("list-payments");
+
                 setListPayment(result.data);
+                setUserData(response.data)
             } catch (error) {
                 console.log(error);
             }
         }
         const generateUniqueCode = () => {
-            const randomCode = Math.floor(Math.random() * 1000); 
+            const randomCode = Math.floor(Math.random() * 1000);
             setUniqueCode(randomCode);
         };
 
@@ -43,10 +49,22 @@ export function Checkout() {
         fetchData();
     }, [])
 
+    const handleToggle = () => {
+        setIsChecked(!isChecked);
+        const uniqueCodeValue = uniqueCode;
+        const baseTotal = dataCheckout?.amount || 0;
+
+        if (!isChecked) {
+            setTotal(baseTotal + uniqueCodeValue - userData.point);
+        } else {
+            setTotal(baseTotal + uniqueCodeValue);
+        }
+    };
+
     const calculateTotal = () => {
-        const uniqueCodeValue = uniqueCode; 
+        const uniqueCodeValue = uniqueCode;
         const baseTotal = dataCheckout?.amount;
-        setTotal(baseTotal + uniqueCodeValue); 
+        setTotal(baseTotal + uniqueCodeValue);
     };
 
     useEffect(() => {
@@ -71,7 +89,8 @@ export function Checkout() {
             phone_customer: dataCheckout?.phone_customer,
             transaction_code: dataCheckout?.transaction_code,
             payment_status: "PENDING",
-            payment_method: payment
+            payment_method: payment,
+            claim_point: isChecked
         };
         localStorage.setItem("dataCheckout", JSON.stringify(data));
         router.push("/payment")
@@ -133,6 +152,19 @@ export function Checkout() {
                     <div className="flex flex-col gap-2 w-full text-white">
                         <span className="font-semibold text-xl text-left">Ringkasan Pembayaran</span>
                         <div className="border-b-2 pb-3 flex flex-col gap-2">
+                            {userData && (
+                                <div className="flex justify-between">
+                                    <span>Pakai Point</span>
+                                    <div className="flex items-center gap-2">
+                                        <span className="text-green-500">{userData.point}</span>
+                                        <label className="relative inline-flex items-center cursor-pointer">
+                                            <input type="checkbox" className="sr-only" checked={isChecked} onChange={handleToggle} />
+                                            <div className={`w-11 h-6 ${isChecked ? 'bg-red-600' : 'bg-gray-200'} rounded-full shadow-inner`}></div>
+                                            <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isChecked ? 'translate-x-5' : ''}`}></div>
+                                        </label>
+                                    </div>
+                                </div>
+                            )}
                             <div className="flex justify-between">
                                 <span>Biaya Langganan</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()}</span>
@@ -156,7 +188,13 @@ export function Checkout() {
                             <span className="text-xl font-bold">Total</span>
                             <span className="text-xl font-bold text-[#ba0c0c]">Rp {total.toLocaleString()}</span>
                         </div>
-                        <Button className="bg-[#ba0c0c] w-full mt-3" onClick={handleSubmit}>Bayar</Button>
+                        <Button
+                            className={`mt-4 p-3 rounded-lg ${selectedPayment ? 'bg-[#ba0c0c] text-white' : 'bg-gray-300 text-gray-500 cursor-not-allowed'}`}
+                            onClick={handleSubmit}
+                            disabled={!selectedPayment}
+                        >
+                            Bayar
+                        </Button>
                     </div>
                 </div>
             </div>
