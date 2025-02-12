@@ -63,7 +63,7 @@ const Checkout = () => {
 
         generateUniqueCode();
         fetchData();
-    }, [])
+    }, [router, searchParams])
 
     const handleToggle = () => {
         setIsChecked(!isChecked);
@@ -129,12 +129,12 @@ const Checkout = () => {
                                 className="h-full rounded-lg max-w-full"
                             />
                         </div>
-                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white p-3">
+                        {/* <div className="flex flex-col md:flex-row justify-between items-start md:items-center mt-3 gap-4 text-white p-3">
                             <div className="flex flex-col gap-2">
                                 <span className="font-semibold text-left">{dataCheckout?.product}</span>
                                 <span>Rp {dataCheckout?.amount.toLocaleString()} / ({dataCheckout?.duration} Bulan)</span>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className="flex flex-col w-full text-white">
