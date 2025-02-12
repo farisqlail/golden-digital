@@ -12,7 +12,7 @@ import {
     getResourceWithToken
 } from "../../../../utils/Fetch";
 
-export function Checkout() {
+const Checkout = () => {
     const router = useRouter();
     const searchParams = useSearchParams();
     const [dataCheckout, setDataCheckout] = useState(null);
@@ -218,4 +218,12 @@ export function Checkout() {
     );
 }
 
-export default Checkout;
+const CheckoutPage = () => {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <Checkout />
+      </Suspense>
+    );
+  };
+
+export default CheckoutPage;
