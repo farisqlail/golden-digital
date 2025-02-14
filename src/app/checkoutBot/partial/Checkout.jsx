@@ -46,12 +46,12 @@ const Checkout = () => {
 
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem("authToken");
-                const response = await getResourceWithToken("profile", token);
+                // const token = localStorage.getItem("authToken");
+                // const response = await getResourceWithToken("profile", token);
                 const result = await getResource("list-payments");
 
                 setListPayment(result.data);
-                setUserData(response.data)
+                // setUserData(response.data)
             } catch (error) {
                 console.log(error);
             }
@@ -70,17 +70,13 @@ const Checkout = () => {
         const uniqueCodeValue = uniqueCode;
         const baseTotal = dataCheckout?.amount || 0;
 
-        if (!isChecked) {
-            setTotal(baseTotal + uniqueCodeValue - userData.point);
-        } else {
-            setTotal(baseTotal + uniqueCodeValue);
-        }
+        setTotal(baseTotal + uniqueCodeValue);
     };
 
     const calculateTotal = () => {
         const uniqueCodeValue = uniqueCode;
-        const baseTotal = dataCheckout?.amount;
-        setTotal(baseTotal + uniqueCodeValue);
+        const baseTotal = parseInt(dataCheckout?.amount);
+        setTotal(baseTotal + parseInt(dataCheckout?.tax) + uniqueCodeValue);
     };
 
     useEffect(() => {
@@ -89,7 +85,7 @@ const Checkout = () => {
 
     const selectPayment = (payment, index) => {
         setSelectedPayment(payment);
-        localStorage.setItem("selectedPayment", JSON.stringify(payment)); 
+        localStorage.setItem("selectedPayment", JSON.stringify(payment));
     };
 
     const handleSubmit = async () => {
@@ -168,19 +164,6 @@ const Checkout = () => {
                     <div className="flex flex-col gap-2 w-full text-white">
                         <span className="font-semibold text-xl text-left">Ringkasan Pembayaran</span>
                         <div className="border-b-2 pb-3 flex flex-col gap-2">
-                            {userData && (
-                                <div className="flex justify-between">
-                                    <span>Pakai Point</span>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-green-500">{userData.point}</span>
-                                        <label className="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" className="sr-only" checked={isChecked} onChange={handleToggle} />
-                                            <div className={`w-11 h-6 ${isChecked ? 'bg-red-600' : 'bg-gray-200'} rounded-full shadow-inner`}></div>
-                                            <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isChecked ? 'translate-x-5' : ''}`}></div>
-                                        </label>
-                                    </div>
-                                </div>
-                            )}
                             <div className="flex justify-between">
                                 <span>Biaya Langganan</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()}</span>
@@ -220,10 +203,10 @@ const Checkout = () => {
 
 const CheckoutPage = () => {
     return (
-      <Suspense fallback={<div>Loading...</div>}>
-        <Checkout />
-      </Suspense>
+        <Suspense fallback={<div>Loading...</div>}>
+            <Checkout />
+        </Suspense>
     );
-  };
+};
 
 export default CheckoutPage;
