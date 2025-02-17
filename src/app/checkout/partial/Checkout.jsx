@@ -28,18 +28,31 @@ export function Checkout() {
         const dataCheckout = JSON.parse(localStorage.getItem("dataPayment"));
         setDataCheckout(dataCheckout);
 
+     
         const fetchData = async () => {
             try {
-                const token = localStorage.getItem("authToken");
-                const response = await getResourceWithToken("profile", token);
                 const result = await getResource("list-payments");
-
-                setListPayment(result.data);
-                setUserData(response.data)
-            } catch (error) {
-                console.log(error);
+                setListPayment(result.data); // Set data pembayaran
+            } catch (fetchError) {
+                console.error("Error fetching list payments:", fetchError);
+                setError("Gagal memuat daftar pembayaran. Silakan coba lagi."); // Set pesan kesalahan
             }
-        }
+
+            const token = localStorage.getItem("authToken");
+            if (token) {
+                try {
+                    const response = await getResourceWithToken("profile", token);
+
+                    setUserData(response.data)
+                } catch (profileError) {
+                    console.error("Error fetching profile:", profileError);
+                    setError("Gagal memuat profil. Silakan coba lagi."); // Set pesan kesalahan
+                }
+            } else {
+                setError("Token tidak ditemukan. Silakan login kembali."); // Pesan jika token tidak ada
+            }
+        };
+
         const generateUniqueCode = () => {
             const randomCode = Math.floor(Math.random() * 1000);
             setUniqueCode(randomCode);
