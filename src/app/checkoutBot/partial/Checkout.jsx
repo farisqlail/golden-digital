@@ -40,7 +40,8 @@ const Checkout = () => {
             product: searchParams.get('product'),
             duration: searchParams.get('duration'),
             product_price: searchParams.get('product_price'),
-            tax: searchParams.get('tax')
+            tax: searchParams.get('tax'),
+            claim_number: searchParams.get('claim_number'),
         }
         setDataCheckout(dataCheckout);
 
@@ -102,7 +103,8 @@ const Checkout = () => {
             transaction_code: searchParams.get('transaction_code'),
             payment_status: "PENDING",
             payment_method: payment,
-            claim_point: isChecked
+            claim_point: isChecked,
+            claim_number: searchParams.get('claim_number') ? searchParams.get('claim_number') : null
         };
         localStorage.setItem("dataCheckout", JSON.stringify(data));
         router.push("/payment")

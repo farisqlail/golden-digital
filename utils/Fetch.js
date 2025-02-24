@@ -126,13 +126,17 @@ export async function deleteResource(endpoint, token) {
 
 export async function postResource(endpoint, data) {
   try {
+    const isFormData = data instanceof FormData;
+
     const response = await fetch(`${BASE_URL}/${endpoint}`, {
       method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
+      headers: isFormData
+        ? { Accept: "application/json" } 
+        : { 
+            Accept: "application/json",
+            "Content-Type": "application/json",
+          },
+      body: isFormData ? data : JSON.stringify(data),
     });
 
     const responseData = await response.json();

@@ -29,7 +29,8 @@ export default function WaitingPayment() {
           promo_id: dataPayment.id_promo,
           transaction_code: dataPayment.transaction_code,
           payment_status: "PENDING",
-          payment_method: dataPayment.payment_method
+          payment_method: dataPayment.payment_method,
+          claim_number: dataPayment.claim_number
         };
 
         const response = await postResource("confirm-payment", payload);

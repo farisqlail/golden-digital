@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
-import { Button, Typography } from "@material-tailwind/react";
+import { Button, Dialog, DialogBody, DialogFooter } from "@material-tailwind/react";
 
 import {
     getResource,
@@ -15,14 +15,57 @@ import {
 export function Payment() {
     const router = useRouter();
     const [dataCheckout, setDataCheckout] = useState(null);
+    const [openModal, setOpenModal] = useState(false);
+    const [imagePath, setImagePath] = useState(null);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         const dataCheckout = JSON.parse(localStorage.getItem("dataCheckout"));
         setDataCheckout(dataCheckout);
     }, [])
 
 
+    const handleOpenModal = () => {
+        setOpenModal(true);
+    };
+
+    const handleCloseModal = () => {
+        setOpenModal(false);
+    };
+
+    const handleImageUpload = (event) => {
+        const file = event.target.files[0];
+        setImagePath(file);
+    };
+
     const handleSubmit = async () => {
+        handleOpenModal(); // Buka modal upload bukti pembayaran
+    };
+
+    const handleUploadProof = async () => {
+        if (!imagePath) {
+            alert("Harap unggah bukti pembayaran!");
+            return;
+        }
+
+        setLoading(true);
+
+        const formData = new FormData();
+        formData.append("external_id", dataCheckout?.external_id);
+        formData.append("amount", dataCheckout?.amount);
+        formData.append("id_price", dataCheckout?.id_price);
+        formData.append("id_customer", dataCheckout?.id_customer || 0);
+        formData.append("id_promo", dataCheckout?.id_promo || 0);
+        formData.append("customer_name", dataCheckout?.customer_name);
+        formData.append("email_customer", dataCheckout?.email_customer);
+        formData.append("phone_customer", dataCheckout?.phone_customer);
+        formData.append("transaction_code", dataCheckout?.transaction_code);
+        formData.append("payment_status", "PENDING");
+        formData.append("payment_method", dataCheckout?.payment_method?.nama_payment);
+        formData.append("claim_point", dataCheckout?.claim_point);
+        formData.append("image_path", imagePath);
+
         const data = {
             external_id: dataCheckout?.external_id,
             amount: dataCheckout?.amount,
@@ -35,21 +78,24 @@ export function Payment() {
             transaction_code: dataCheckout?.transaction_code,
             payment_status: "PENDING",
             payment_method: dataCheckout?.payment_method?.nama_payment,
-            claim_point: dataCheckout?.claim_point
+            claim_point: dataCheckout?.claim_point,
+            claim_number: dataCheckout?.claim_number ? dataCheckout?.claim_number : null,
         };
 
         localStorage.setItem("dataPayment", JSON.stringify(data));
         try {
-            const response = await postResource('create-invoice', data);
+            const response = await postResource("create-invoice", formData);
 
             if (response.success === true) {
-                router.push("/success")
-                handleOpenSecondModal();
+                router.push("/success");
             } else {
-                console.error('Invoice URL is missing in the response:', response);
+                console.error("Invoice creation failed:", response);
             }
         } catch (error) {
-            console.error('Error creating invoice:', error);
+            console.error("Error uploading proof:", error);
+        } finally {
+            setLoading(false);
+            handleCloseModal();
         }
     };
 
@@ -86,6 +132,44 @@ export function Payment() {
                     </div>
                 </div>
             </div>
+
+            {/* Modal Upload Bukti Pembayaran */}
+            <Dialog open={openModal} handler={handleCloseModal}>
+                <DialogBody>
+                    <div className="flex flex-col items-center gap-3">
+                        <p className="text-lg font-semibold">Unggah Bukti Pembayaran</p>
+
+                        {/* Label sebagai tombol upload */}
+                        <label className="cursor-pointer w-40 h-40 flex items-center justify-center border-2 border-dashed border-gray-400 rounded-lg hover:bg-gray-100 mt-6 mb-6">
+                            {imagePath ? (
+                                <Image
+                                    src={URL.createObjectURL(imagePath)}
+                                    alt="Preview"
+                                    width={160}
+                                    height={160}
+                                    className="object-cover rounded-lg"
+                                />
+                            ) : (
+                                <span className="text-gray-600">Klik untuk upload</span>
+                            )}
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageUpload}
+                                className="hidden"
+                            />
+                        </label>
+                    </div>
+                </DialogBody>
+                <DialogFooter className="flex gap-3">
+                    <Button color="gray" onClick={handleCloseModal}>
+                        Batal
+                    </Button>
+                    <Button className="bg-[#ba0c0c]" onClick={handleUploadProof} disabled={loading}>
+                        {loading ? "Mengunggah..." : "Kirim Bukti"}
+                    </Button>
+                </DialogFooter>
+            </Dialog>
         </section>
     );
 }
