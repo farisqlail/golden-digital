@@ -19,10 +19,13 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     const [userData, setUserData] = useState(null);
     const [waAdmin, setWaAdmin] = useState([]);
     const [selectedWaAdmin, setSelectedWaAdmin] = useState(null);
+    const [dataTransaction, setDataTransaction] = useState({});
 
     useEffect(() => {
         const fetch = async () => {
             try {
+                const dataPayment = JSON.parse(localStorage.getItem("dataPayment"))
+                setDataTransaction(dataPayment);
                 const result = await getResource("list-waadmin");
 
                 setWaAdmin(result.data)
@@ -109,6 +112,23 @@ const SuccessPaymentCard = ({ dataAccount }) => {
         setShowWhatsAppModal(false);
     };
 
+    const claimBot = async () => {
+        console.log(" tt");
+        const data = JSON.parse(localStorage.getItem("dataPayment"))
+        const message = `Halo, saya ingin klaim akun dengan kode transaksi ${data?.transaction_code}`;
+        const encodedMessage = encodeURIComponent(message);
+        const whatsappUrl = `https://wa.me/${data?.claim_number}?text=${encodedMessage}`;
+        const dataClaim = {
+            transaction_code: data?.transaction_code,
+            status: 1,
+            claim_number: data?.claim_number
+        }
+
+        await postResource("update-status-invoice", dataClaim);
+
+        window.open(whatsappUrl, '_blank');
+    }
+
     const checkTestimonial = () => {
         userData ? setShowModal(true) : router.push("/");
     }
@@ -141,7 +161,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                     <div className="flex justify-center">
                         <button
                             className="px-4 py-2 bg-green-500 text-white rounded-md"
-                            onClick={claim}
+                            onClick={() => dataTransaction.claim_number ? claimBot() : claim()}
                         >
                             Klaim akun kamu
                         </button>

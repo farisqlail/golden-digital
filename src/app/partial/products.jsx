@@ -50,7 +50,7 @@ export function Product() {
             <div key={product.id} className="carousel-item-product">
               <ProductCard
                 key={product.id}
-                img={`/logos/${product.variance_name.toLowerCase()}.png`}
+                img={`/logos/${product.variance_name.split(' ')[0].toLowerCase()}.png`}
                 title={product.variance_name}
                 code={product.id}
               />

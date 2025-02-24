@@ -444,7 +444,6 @@ export function Detail({ productData, id }) {
                         type="email"
                         value={formData.email}
                         onChange={handleChange}
-                        required
                     />
                     <Input
                         label="Nomor Telepon"
