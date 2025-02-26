@@ -283,15 +283,21 @@ export function Detail({ productData, id }) {
                                 {benefits ? 'Benefit' : <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>}
                             </span>
                             {productData && productData.product.description ? (
-                                <ul className="list-disc pl-5">
-                                    {benefits.split('\r\n').map((item, index) => (
-                                        <li key={index} className="text-white">
-                                            {item}
-                                        </li>
-                                    ))}
-                                </ul>
+                                benefits ? (
+                                    <ul className="list-disc pl-5">
+                                        {benefits.split('\r\n').map((item, index) => (
+                                            item.trim() !== '' && ( // Hanya render item yang tidak kosong
+                                                <li key={index} className="text-white">
+                                                    {item}
+                                                </li>
+                                            )
+                                        ))}
+                                    </ul>
+                                ) : (
+                                    <p className="text-white">Tidak ada benefit yang tersedia.</p>
+                                )
                             ) : (
-                                <div className="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                                <p className="text-white">Tidak ada benefit yang tersedia.</p>
                             )}
                         </div>
 
