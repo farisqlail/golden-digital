@@ -43,7 +43,7 @@ export function Promos() {
             {promos.length > 0 && (
                 <section className="mt-6">
                     <div className="flex gap-4 pl-8 items-center pr-8">
-                        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+                        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-xl sm:text-xl lg:text-center text-left text-nowrap font-semibold">
                             PROMO PILIHAN
                         </h1>
                         <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
@@ -70,8 +70,8 @@ export function Promos() {
                                         className="object-cover h-[250px] w-full"
                                     />
                                     <div className="pt-4 text-left">
-                                        <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
-                                        <Typography variant="body2" className="text-gray-500">{promo.deskripsi}</Typography>
+                                        <Typography className="font-semibold text-white text-lg sm:text-xl">{promo.title}</Typography>
+                                        <Typography variant="body2" className="text-gray-500 text-md sm:text-lg">{promo.deskripsi}</Typography>
                                     </div>
                                 </div>
                             ))}

@@ -38,7 +38,7 @@ export function Product() {
   return (
     <section className="mt-6">
       <div className="flex gap-4 pl-8 items-center pr-8">
-        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-xl sm:text-xl lg:text-center text-left text-nowrap font-semibold">
           PRODUK HARI INI
         </h1>
         <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
@@ -57,9 +57,8 @@ export function Product() {
             </div>
           )) : (
             <Typography
-              variant="h6"
               color="white"
-              className="col-span-4 text-center"
+              className="col-span-4 text-center text-md sm:text-xl"
             >
               Tidak ada produk yang tersedia.
             </Typography>
