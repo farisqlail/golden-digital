@@ -105,36 +105,50 @@ export function Payment() {
                 <div className="flex flex-col justify-center items-center gap-4 w-full max-w-[600px] mt-4 bg-white rounded-lg p-3">
                     <div className="flex flex-col gap-2 w-full">
                         <span className="font-semibold text-lg">Selesaikan Pembayaran anda</span>
-                        <div className="mb-4 flex justify-center">
-                            <Image
-                                width={1024}
-                                height={800}
-                                alt="subscribe image"
-                                src={`/image/success-payment.png`}
-                                className="h-full rounded-lg w-2/4"
-                            />
-                        </div>
-                        <div className="mt-4 mb-4 flex flex-col gap-3">
-                            <div className="flex justify-between">
-                                <span>Pilihan Pembayaran</span>
-                                <span className="font-semibold">{dataCheckout?.payment_method?.nama_payment}</span>
+                        {dataCheckout?.payment_method?.image ? (
+                            <div className="flex justify-center">
+                                <Image
+                                    width={1024}
+                                    height={800}
+                                    alt="subscribe image"
+                                    src={`https://devgoldendigital.my.id/public/uploads/payments/` + dataCheckout?.payment_method?.image }
+                                    className="h-full rounded-lg w-3/4"
+                                />
                             </div>
-                            <div className="flex justify-between">
-                                <span>VA</span>
-                                <span className="font-semibold">{dataCheckout?.payment_method?.va}</span>
-                            </div>
-                            <div className="flex justify-between">
-                                <span>Atas Nama</span>
-                                <span className="font-semibold">{dataCheckout?.payment_method?.name_account}</span>
-                            </div>
-                        </div>
-                        <Button className="bg-[#ba0c0c] w-full mt-3" onClick={handleSubmit}>Saya sudah bayar</Button>
+                        ) : (
+                            <>
+                                <div className="mb-4 flex justify-center">
+                                    <Image
+                                        width={1024}
+                                        height={800}
+                                        alt="subscribe image"
+                                        src={`/image/success-payment.png`}
+                                        className="h-full rounded-lg w-2/4"
+                                    />
+                                </div>
+                                <div className="mt-4 mb-4 flex flex-col gap-3">
+                                    <div className="flex justify-between">
+                                        <span>Pilihan Pembayaran</span>
+                                        <span className="font-semibold">{dataCheckout?.payment_method?.nama_payment}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>VA</span>
+                                        <span className="font-semibold">{dataCheckout?.payment_method?.va}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                        <span>Atas Nama</span>
+                                        <span className="font-semibold">{dataCheckout?.payment_method?.name_account}</span>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        <Button className="bg-[#ba0c0c] w-full mt-3" onClick={handleSubmit}>Upload Bukti Bayar</Button>
                     </div>
                 </div>
-            </div>
+            </div >
 
             {/* Modal Upload Bukti Pembayaran */}
-            <Dialog open={openModal} handler={handleCloseModal}>
+            < Dialog open={openModal} handler={handleCloseModal} >
                 <DialogBody>
                     <div className="flex flex-col items-center gap-3">
                         <p className="text-lg font-semibold">Unggah Bukti Pembayaran</p>
@@ -169,8 +183,8 @@ export function Payment() {
                         {loading ? "Mengunggah..." : "Kirim Bukti"}
                     </Button>
                 </DialogFooter>
-            </Dialog>
-        </section>
+            </Dialog >
+        </section >
     );
 }
 

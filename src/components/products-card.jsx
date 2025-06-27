@@ -32,7 +32,7 @@ export function ProductCard({ img, title, code }) {
           onClick={() => toDetail(code)}
           className="text-white transition-colors hover:text-[#ba0c0c] cursor-pointer"
         >
-          <Typography variant="h5" className="mb-2">
+          <Typography className="mb-2 font-semibold text-lg sm:text-xl">
             {title}
           </Typography>
         </span>

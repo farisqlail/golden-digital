@@ -257,7 +257,7 @@ export function Detail({ productData, id }) {
     return (
         <section className="py-8 px-4">
             <div className="container mx-auto text-left">
-                <Typography variant="h2" color="white" className="mb-4">
+                <Typography color="white" className="mb-4 font-semibold text-lg sm:text-xl">
                     {productData ? `Langganan ${productData?.product?.variance?.variance_name}` : <div className="h-6 bg-gray-200 rounded w-1/3 animate-pulse"></div>}
                 </Typography>
 

@@ -66,7 +66,7 @@ function Hero() {
       <PopularProducts />
 
       <div className="flex gap-4 pl-8 items-center pr-8">
-        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+        <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-xl sm:text-xl lg:text-center text-left text-nowrap font-semibold">
           STREAMING EVENT
         </h1>
         <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
@@ -94,8 +94,8 @@ function Hero() {
               allowFullScreen
             ></iframe>
             <div className="lg:pt-4 pt-4">
-              <Typography variant="h5" className="font-semibold text-white">{promo.title}</Typography>
-              <Typography variant="body2" className="text-gray-600 text-white">{promo.deskripsi}</Typography>
+              <Typography className="font-semibold text-white sm:text-xl text-sm">{promo.title}</Typography>
+              <Typography className="text-gray-600 text-white text-sm sm:text-xl">{promo.deskripsi}</Typography>
             </div>
           </div>
         ))}

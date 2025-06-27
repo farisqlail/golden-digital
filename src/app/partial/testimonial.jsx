@@ -31,7 +31,7 @@ export function Testimonial() {
     return (
         <section>
             <div className="flex gap-4 pl-8 items-center pr-8">
-                <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-2xl lg:text-center text-left text-nowrap font-semibold">
+                <h1 className="mb-4 text-[#ba0c0c] lg:text-3xl text-xl sm:text-xl lg:text-center text-left text-nowrap font-semibold">
                     ULASAN
                 </h1>
                 <div className="w-full bg-[#ba0c0c] p-[1px]"></div>
@@ -45,9 +45,9 @@ export function Testimonial() {
                                 <div>
                                     <UserCircleIcon className="w-8 h-8 text-black" />
                                 </div>
-                                <Typography variant="h5" className="font-semibold text-black">{item.name}</Typography>
+                                <Typography className="font-semibold text-black text-lg sm:text-xl">{item.name}</Typography>
                             </div>
-                            <Typography variant="paragraph" className="mt-2 text-black">{item.deskripsi}</Typography>
+                            <Typography variant="paragraph" className="mt-2 text-black text-sm sm:text-xl">{item.deskripsi}</Typography>
                         </div>
                     ))
                 ) : (

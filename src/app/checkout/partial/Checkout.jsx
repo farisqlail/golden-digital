@@ -28,7 +28,7 @@ export function Checkout() {
         const dataCheckout = JSON.parse(localStorage.getItem("dataPayment"));
         setDataCheckout(dataCheckout);
 
-     
+
         const fetchData = async () => {
             try {
                 const result = await getResource("list-payments");
@@ -136,30 +136,34 @@ export function Checkout() {
 
                     <div className="flex flex-col w-full text-white">
                         {listPayment.length > 0 ? (
-                            listPayment.map((payment, index) => (
-                                <div
-                                    key={index}
-                                    className={`border-2 rounded-lg mb-2 ${selectedPayment?.id === payment.id ? 'border-[#ba0c0c]' : ''}`}
-                                >
+                            listPayment
+                                .filter(payment => payment.web) 
+                                .map((payment, index) => (
                                     <div
-                                        className="p-4 cursor-pointer flex justify-between items-center"
-                                        onClick={() => selectPayment(payment)}
+                                        key={index}
+                                        className={`border-2 rounded-lg mb-2 ${selectedPayment?.id === payment.id ? 'border-[#ba0c0c]' : ''
+                                            }`}
                                     >
-                                        <span>{payment.nama_payment}</span>
-                                        <Button
-                                            className="mt-2 bg-[#ba0c0c] text-white"
+                                        <div
+                                            className="p-4 cursor-pointer flex justify-between items-center"
                                             onClick={() => selectPayment(payment)}
                                         >
-                                            Pilih
-                                        </Button>
+                                            <span>{payment.nama_payment}</span>
+                                            <Button
+                                                className="mt-2 bg-[#ba0c0c] text-white"
+                                                onClick={() => selectPayment(payment)}
+                                            >
+                                                Pilih
+                                            </Button>
+                                        </div>
                                     </div>
-                                </div>
-                            ))
+                                ))
                         ) : (
                             <div className="col-span-full border-2 rounded-lg p-4 text-gray-500">
                                 Tidak ada metode pembayaran tersedia.
                             </div>
                         )}
+
                     </div>
 
                     <div className="flex flex-col gap-2 w-full text-white">
