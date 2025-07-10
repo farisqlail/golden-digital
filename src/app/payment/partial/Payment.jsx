@@ -57,6 +57,7 @@ export function Payment() {
         formData.append("id_price", dataCheckout?.id_price);
         formData.append("id_customer", dataCheckout?.id_customer || 0);
         formData.append("id_promo", dataCheckout?.id_promo || 0);
+        formData.append("id_payment", dataCheckout?.payment_method?.id || 0);
         formData.append("customer_name", dataCheckout?.customer_name);
         formData.append("email_customer", dataCheckout?.email_customer);
         formData.append("phone_customer", dataCheckout?.phone_customer);
@@ -72,6 +73,7 @@ export function Payment() {
             id_price: dataCheckout?.id_price,
             id_customer: dataCheckout?.id_customer ? dataCheckout?.id_customer : 0,
             id_promo: dataCheckout?.id_promo ? dataCheckout?.id_promo : 0,
+            id_payment: dataCheckout?.payment_method?.id,
             customer_name: dataCheckout?.customer_name,
             email_customer: dataCheckout?.email_customer,
             phone_customer: dataCheckout?.phone_customer,

@@ -91,9 +91,13 @@ export function Detail({ productData, id }) {
         }
     };
 
+    const generateShortUUID = () => {
+        return uuidv4().split('-')[0];
+    };
+
     const toCheckout = () => {
         if (localStorage.getItem("authToken")) {
-            const transactionCode = uuidv4();
+            const transactionCode = generateShortUUID();
 
             const data = {
                 external_id: kodeToko,
