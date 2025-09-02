@@ -22,34 +22,41 @@ export function Checkout() {
     const [uniqueCode, setUniqueCode] = useState(0);
     const [userData, setUserData] = useState(null);
     const [isChecked, setIsChecked] = useState(false);
+    const [vouchers, setVouchers] = useState([]);
+    const [showVoucherModal, setShowVoucherModal] = useState(false);
+    const [claimedVoucher, setClaimedVoucher] = useState(null); // State untuk voucher yang diklaim
 
     useEffect(() => {
         window.scrollTo(0, 0);
         const dataCheckout = JSON.parse(localStorage.getItem("dataPayment"));
         setDataCheckout(dataCheckout);
 
-
         const fetchData = async () => {
+            const authToken = localStorage.getItem("authToken");
             try {
+                const dataUser = await getResourceWithToken("profile", authToken);
                 const result = await getResource("list-payments");
-                setListPayment(result.data); // Set data pembayaran
+                const resultVoucher = await getResource(`vouchers/claimed?user_id=${dataUser.data.id}`);
+
+                setListPayment(result.data);
+                setVouchers(resultVoucher.claimed_vouchers);
+                setUserData(dataUser.data);
             } catch (fetchError) {
                 console.error("Error fetching list payments:", fetchError);
-                setError("Gagal memuat daftar pembayaran. Silakan coba lagi."); // Set pesan kesalahan
+                setError("Gagal memuat daftar pembayaran. Silakan coba lagi.");
             }
 
             const token = localStorage.getItem("authToken");
             if (token) {
                 try {
                     const response = await getResourceWithToken("profile", token);
-
                     setUserData(response.data)
                 } catch (profileError) {
                     console.error("Error fetching profile:", profileError);
-                    setError("Gagal memuat profil. Silakan coba lagi."); // Set pesan kesalahan
+                    setError("Gagal memuat profil. Silakan coba lagi.");
                 }
             } else {
-                setError("Token tidak ditemukan. Silakan login kembali."); // Pesan jika token tidak ada
+                setError("Token tidak ditemukan. Silakan login kembali.");
             }
         };
 
@@ -64,29 +71,53 @@ export function Checkout() {
 
     const handleToggle = () => {
         setIsChecked(!isChecked);
+        calculateTotalWithDiscounts(!isChecked);
+    };
+
+    const calculateTotalWithDiscounts = (usePoints = isChecked) => {
         const uniqueCodeValue = uniqueCode;
         const baseTotal = dataCheckout?.amount || 0;
-
-        if (!isChecked) {
-            setTotal(baseTotal + uniqueCodeValue - userData.point);
-        } else {
-            setTotal(baseTotal + uniqueCodeValue);
+        let finalTotal = baseTotal + uniqueCodeValue;
+        
+        // Kurangi dengan voucher jika ada
+        if (claimedVoucher) {
+            finalTotal -= claimedVoucher.amount;
         }
+        
+        // Kurangi dengan poin jika dicentang
+        if (usePoints && userData?.point) {
+            finalTotal -= userData.point;
+        }
+        
+        // Pastikan total tidak negatif
+        finalTotal = Math.max(0, finalTotal);
+        
+        setTotal(finalTotal);
     };
 
     const calculateTotal = () => {
-        const uniqueCodeValue = uniqueCode;
-        const baseTotal = dataCheckout?.amount;
-        setTotal(baseTotal + uniqueCodeValue);
+        calculateTotalWithDiscounts();
     };
 
     useEffect(() => {
         calculateTotal();
-    }, [uniqueCode]);
+    }, [uniqueCode, claimedVoucher, userData]);
 
     const selectPayment = (payment, index) => {
         setSelectedPayment(payment);
-        localStorage.setItem("selectedPayment", JSON.stringify(payment)); // Simpan ke localStorage  
+        localStorage.setItem("selectedPayment", JSON.stringify(payment));
+    };
+
+    const handleClaimVoucher = (voucher) => {
+        setClaimedVoucher(voucher.voucher);
+        setShowVoucherModal(false);
+        // Hitung ulang total dengan voucher yang diklaim
+        calculateTotalWithDiscounts();
+    };
+
+    const handleRemoveVoucher = () => {
+        setClaimedVoucher(null);
+        calculateTotalWithDiscounts();
     };
 
     const handleSubmit = async () => {
@@ -103,7 +134,8 @@ export function Checkout() {
             transaction_code: dataCheckout?.transaction_code,
             payment_status: "PENDING",
             payment_method: payment,
-            claim_point: isChecked
+            claim_point: isChecked,
+            id_voucher: claimedVoucher?.id || null 
         };
         localStorage.setItem("dataCheckout", JSON.stringify(data));
         router.push("/payment")
@@ -137,7 +169,7 @@ export function Checkout() {
                     <div className="flex flex-col w-full text-white">
                         {listPayment.length > 0 ? (
                             listPayment
-                                .filter(payment => payment.web) 
+                                .filter(payment => payment.web)
                                 .map((payment, index) => (
                                     <div
                                         key={index}
@@ -163,25 +195,80 @@ export function Checkout() {
                                 Tidak ada metode pembayaran tersedia.
                             </div>
                         )}
-
                     </div>
+
+                    {/* Bagian Voucher - tampilkan voucher yang diklaim atau tombol untuk buka modal */}
+                    {claimedVoucher ? (
+                        <div className="flex justify-between items-center px-4 py-4 border border-green-700 w-full rounded-lg bg-green-50">
+                            <div className="flex flex-col gap-2 text-left">
+                                <span className="font-bold text-lg text-green-700">{claimedVoucher.name}</span>
+                                <small className="text-gray-600">Potongan Rp {claimedVoucher.amount.toLocaleString()}</small>
+                            </div>
+                            <Button
+                                className="bg-red-500 text-white hover:bg-red-600"
+                                onClick={handleRemoveVoucher}
+                            >
+                                Hapus
+                            </Button>
+                        </div>
+                    ) : (
+                        <div className="flex justify-between items-center px-4 py-4 border border-yellow-700 w-full rounded-lg">
+                            <div className="flex flex-col gap-2 text-left">
+                                <span className="font-bold text-2xl text-yellow-700">Gunakan Vouchermu</span>
+                                <small className="text-gray-500">Dapat potongan menarik dengan menggunakan vouchermu!</small>
+                            </div>
+                            <Button
+                                className="bg-green-700 text-white"
+                                onClick={() => setShowVoucherModal(true)}
+                            >
+                                Lihat Voucher
+                            </Button>
+                        </div>
+                    )}
+
+                    {/* Modal Voucher */}
+                    {showVoucherModal && (
+                        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+                            <div className="bg-white rounded-lg w-full max-w-lg p-6 relative">
+                                <h2 className="text-xl text-left font-semibold mb-4">Voucher Kamu</h2>
+                                <button
+                                    className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+                                    onClick={() => setShowVoucherModal(false)}
+                                >
+                                    &times;
+                                </button>
+                                <div className="max-h-96 overflow-y-auto grid gap-4">
+                                    {vouchers.length === 0 ? (
+                                        <p className="text-gray-500 text-center">Anda tidak memiliki voucher.</p>
+                                    ) : (
+                                        vouchers.map((voucher) => (
+                                            <div
+                                                key={voucher.voucher.id}
+                                                className="bg-gradient-to-r from-[#ff9a9e] to-[#fad0c4] p-4 rounded-xl shadow-md flex justify-between items-center"
+                                            >
+                                                <div className="mb-2 text-left">
+                                                    <h3 className="font-bold text-lg">{voucher.voucher.name}</h3>
+                                                    <p className="text-sm text-gray-700">
+                                                        Potongan Rp {voucher.voucher.amount.toLocaleString()}
+                                                    </p>
+                                                </div>
+                                                <button
+                                                    className="mt-2 w-fit px-4 bg-[#ba0c0c] text-white py-2 rounded-lg hover:bg-red-700 transition-colors"
+                                                    onClick={() => handleClaimVoucher(voucher)}
+                                                >
+                                                    Klaim Voucher
+                                                </button>
+                                            </div>
+                                        ))
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                     <div className="flex flex-col gap-2 w-full text-white">
                         <span className="font-semibold text-xl text-left">Ringkasan Pembayaran</span>
                         <div className="border-b-2 pb-3 flex flex-col gap-2">
-                            {userData && (
-                                <div className="flex justify-between">
-                                    <span>Pakai Point</span>
-                                    <div className="flex items-center gap-2">
-                                        <span className="text-green-500">{userData.point}</span>
-                                        <label className="relative inline-flex items-center cursor-pointer">
-                                            <input type="checkbox" className="sr-only" checked={isChecked} onChange={handleToggle} />
-                                            <div className={`w-11 h-6 ${isChecked ? 'bg-red-600' : 'bg-gray-200'} rounded-full shadow-inner`}></div>
-                                            <div className={`dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform ${isChecked ? 'translate-x-5' : ''}`}></div>
-                                        </label>
-                                    </div>
-                                </div>
-                            )}
                             <div className="flex justify-between">
                                 <span>Biaya Langganan</span>
                                 <span>Rp {dataCheckout?.product_price.toLocaleString()}</span>
@@ -193,7 +280,19 @@ export function Checkout() {
                             {dataCheckout?.discountAmount && (
                                 <div className="flex justify-between">
                                     <span>Diskon</span>
-                                    <span>Rp {dataCheckout?.discountAmount.toLocaleString()}</span>
+                                    <span>-Rp {dataCheckout?.discountAmount.toLocaleString()}</span>
+                                </div>
+                            )}
+                            {claimedVoucher && (
+                                <div className="flex justify-between">
+                                    <span>Potongan Voucher ({claimedVoucher.name})</span>
+                                    <span className="text-green-400">-Rp {claimedVoucher.amount.toLocaleString()}</span>
+                                </div>
+                            )}
+                            {isChecked && userData?.point && (
+                                <div className="flex justify-between">
+                                    <span>Potongan Poin</span>
+                                    <span className="text-blue-400">-Rp {userData.point.toLocaleString()}</span>
                                 </div>
                             )}
                             <div className="flex justify-between">
@@ -201,6 +300,7 @@ export function Checkout() {
                                 <span>Rp {dataCheckout?.tax.toLocaleString()}</span>
                             </div>
                         </div>
+                        
                         <div className="flex justify-between mt-3">
                             <span className="text-xl font-bold">Total</span>
                             <span className="text-xl font-bold text-[#ba0c0c]">Rp {total.toLocaleString()}</span>

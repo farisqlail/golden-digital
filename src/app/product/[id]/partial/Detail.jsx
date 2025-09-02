@@ -380,11 +380,11 @@ export function Detail({ productData, id }) {
                             </div>
                         </div>
 
-                        {dataUser && (
+                        {/* {dataUser && (
                             <div>
                                 {promo.length > 0 && (
                                     <>
-                                        <span className="font-semibold text-white">Pilihan Paket</span>
+                                        <span className="font-semibold text-white">Pilihan Voucher</span>
                                         <div className="flex flex-col gap-3 mt-3">
                                             {promo.map((promoItem) => (
                                                 <div className="flex gap-3" key={promoItem.id}>
@@ -411,7 +411,7 @@ export function Detail({ productData, id }) {
                                     </>
                                 )}
                             </div>
-                        )}
+                        )} */}
 
                         <Button className="bg-[#ba0c0c] w-full" onClick={toCheckout}>
                             Pesan
