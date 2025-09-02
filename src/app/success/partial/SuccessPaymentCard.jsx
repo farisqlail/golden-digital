@@ -22,6 +22,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
     const [dataTransaction, setDataTransaction] = useState({});
 
     useEffect(() => {
+        setShowModal(true);
         const fetch = async () => {
             try {
                 const dataPayment = JSON.parse(localStorage.getItem("dataPayment"))
@@ -129,16 +130,8 @@ const SuccessPaymentCard = ({ dataAccount }) => {
         window.open(whatsappUrl, '_blank');
     }
 
-    const checkTestimonial = () => {
-        userData ? setShowModal(true) : router.push("/");
-    }
-
     const noTestimonial = () => {
-        localStorage.removeItem("dataPayment")
-        localStorage.removeItem("dataCheckout")
-        localStorage.removeItem("selectedPayment")
-        localStorage.removeItem("selectedWaAdmin")
-        router.push('/')
+        setShowModal(false);
     }
 
     return (
@@ -169,7 +162,7 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                     <div className="flex justify-center">
                         <button
                             className="px-4 py-2 bg-[#ba0c0c] text-white rounded-md"
-                            onClick={checkTestimonial}
+                            onClick={toHome}
                         >
                             Kembali ke Beranda
                         </button>
