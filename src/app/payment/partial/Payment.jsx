@@ -65,7 +65,7 @@ export function Payment() {
         formData.append("transaction_code", dataCheckout?.transaction_code);
         formData.append("payment_status", "PENDING");
         formData.append("payment_method", dataCheckout?.payment_method?.nama_payment);
-        formData.append("claim_point", dataCheckout?.claim_point);
+        formData.append("point", dataCheckout?.point);
         formData.append("image_path", imagePath);
 
         const data = {
@@ -83,6 +83,7 @@ export function Payment() {
             payment_status: "PENDING",
             payment_method: dataCheckout?.payment_method?.nama_payment,
             claim_point: dataCheckout?.claim_point,
+            point: dataCheckout?.point,
             claim_number: dataCheckout?.claim_number ? dataCheckout?.claim_number : null,
         };
 

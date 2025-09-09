@@ -59,29 +59,35 @@ export default function Vouchers() {
         setTimeout(() => setToast({ show: false, message: "", type: "" }), 3000); // auto hide 3 detik
     };
 
-    const claimVoucher = async (id) => {
+    const claimVoucher = async (id, minPointsRequired) => {
         const authToken = localStorage.getItem("authToken");
         try {
             const dataUser = await getResourceWithToken("profile", authToken);
+            if (dataUser.data.point < minPointsRequired) {
+                showToast("Poin kamu tidak cukup untuk klaim voucher ini!", "error");
+                return;
+            }
+
             const payload = {
                 user_id: dataUser.data.id,
                 voucher_id: id,
                 points_used: dataUser.data.point
-            }
+            };
+
             const data = await createResource(`vouchers/claim`, payload, authToken);
 
             if (data.success === true) {
                 showToast("Voucher berhasil diklaim!", "success");
                 setTimeout(() => window.location.reload(), 1500);
             } else {
-                console.log(data.message);
+                showToast(data.message || "Gagal klaim voucher.", "error");
             }
         } catch (err) {
-            setError(err.message || "Failed to fetch vouchers");
+            showToast(err.message || "Failed to fetch vouchers", "error");
         } finally {
             setLoading(false);
         }
-    }
+    };
 
     const formatCurrency = (amount) =>
         new Intl.NumberFormat("id-ID", { style: "currency", currency: "IDR" }).format(amount);
