@@ -45,6 +45,7 @@ export function Detail({ productData, id }) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [variance, setVariance] = useState([]);
     const [benefits, setBenefits] = useState("");
+    const [point, setPoint] = useState(0);
     const [formData, setFormData] = React.useState({
         name: '',
         email: '',
@@ -113,6 +114,7 @@ export function Detail({ productData, id }) {
                 product: productData?.product?.variance?.variance_name,
                 duration: duration,
                 product_price: price,
+                point: point,
                 discountAmount: selectedPromo?.amount,
                 tax: calculateTotalTaxAmount()
             };
@@ -137,7 +139,6 @@ export function Detail({ productData, id }) {
             desc: `Pilih paket yang sesuai dengan kebutuhan Anda! Akun premium hadir dengan beberapa pilihan skema berlangganan: Paket Bulanan yang memungkinkan Anda menikmati akses premium dengan biaya bulanan yang terjangkau, Paket Tahunan yang memberikan diskon lebih besar dengan berlangganan untuk setahun penuh, dan Paket Keluarga yang menyediakan akses premium untuk beberapa akun dalam satu keluarga dengan harga yang lebih hemat. Setiap paket menawarkan berbagai keuntungan seperti bebas iklan, kualitas streaming lebih tinggi, dan akses eksklusif ke konten tertentu.`
         },
     ];
-
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -188,6 +189,7 @@ export function Detail({ productData, id }) {
             duration: duration,
             product_price: price,
             discountAmount: selectedPromo?.amount,
+            point: point,
             tax: calculateTotalTaxAmount()
         };
 
@@ -251,6 +253,7 @@ export function Detail({ productData, id }) {
         setIdPrice(item.id)
         setKodeToko(item.kode_toko)
         setBenefits(item.product.description)
+        setPoint(item.product.point || 0);
 
         setSelectedPromo(null); // Mengatur selectedPromo ke null  
         handlePromoSelect(null);

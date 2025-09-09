@@ -135,6 +135,7 @@ export function Checkout() {
             payment_status: "PENDING",
             payment_method: payment,
             claim_point: isChecked,
+            point: dataCheckout?.point,
             id_voucher: claimedVoucher?.id || null 
         };
         localStorage.setItem("dataCheckout", JSON.stringify(data));
