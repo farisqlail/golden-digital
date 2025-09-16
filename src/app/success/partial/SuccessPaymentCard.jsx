@@ -79,7 +79,6 @@ const SuccessPaymentCard = ({ dataAccount }) => {
                 localStorage.removeItem("selectedPayment")
                 localStorage.removeItem("selectedWaAdmin")
                 setShowModal(false);
-                router.push("/");
             } catch (error) {
                 console.error("Error checking payment status:", error);
             }
