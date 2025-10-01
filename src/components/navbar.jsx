@@ -16,8 +16,8 @@ import { UserCircleIcon } from "@heroicons/react/24/outline";
 const NAV_MENU = [
   { name: "Home", id: "home" },
   { name: "Aplikasi Premium", id: "catalog" },
-  { name: "Top Up", id: "coming-soon" }, // Ubah id untuk Top Up    
-  { name: "Social Media", id: "coming-soon" }, // Ubah id untuk Social Media    
+  { name: "Top Up", id: "coming-soon" }, 
+  { name: "Social Media", id: "coming-soon" }, 
   { name: "FAQ", id: "faq" },
 ];
 
@@ -27,7 +27,7 @@ function NavItem({ children, id, onClick }) {
       <Typography
         as="button"
         variant="paragraph"
-        color="white" // Ubah warna teks menjadi putih  
+        color="white" 
         className="flex items-center gap-2 font-medium cursor-pointer"
         onClick={onClick}
       >
@@ -101,7 +101,7 @@ export function Navbar() {
           <Image
             width={1024}
             height={800}
-            src={`/logos/logo-primary.png`}
+            src={`/logos/logo-new.png`}
             className="h-full h-max-24 rounded-lg max-w-24"
           />
         </div>

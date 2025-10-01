@@ -83,7 +83,7 @@ export function NavbarDetail() {
           <Image
             width={1024}
             height={800}
-            src={`/logos/logo-primary.png`}
+            src={`/logos/logo-new.png`}
             className="h-full rounded-lg max-w-28"
           />
         </div>
