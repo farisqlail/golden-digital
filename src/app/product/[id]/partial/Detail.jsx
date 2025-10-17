@@ -426,7 +426,7 @@ export function Detail({ productData, id }) {
             <Dialog open={open} handler={handleOpen}>
                 <DialogHeader>Konfirmasi Pesanan</DialogHeader>
                 <DialogBody>
-                    Anda dapat mendapatkan point jika anda memiliki akun <span className="font-semibold">Golden Digital</span>
+                    Anda dapat mendapatkan point jika anda memiliki akun <span className="font-semibold">Teman Gabutmu</span>
                 </DialogBody>
                 <DialogFooter className="flex flex-col gap-3">
                     <Button onClick={() => {

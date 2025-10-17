@@ -58,12 +58,12 @@ export default function BenefitSection() {
                 <div className="container mx-auto sm:mb-20 mb-0 text-center">
                     <h1
                         className="mb-2 font-bold uppercase text-white text-xl">
-                        Golden Digital
+                        Teman Gabutmu
                     </h1>
                     <h1
                         color="white"
                         className="mb-4 text-white">
-                        Keuntungan Berlangganan Di Golden Digital
+                        Keuntungan Berlangganan Di Teman Gabutmu
                     </h1>
                 </div>
                 <div className="container mx-auto grid grid-cols-1 gap-y-10 md:grid-cols-2 lg:grid-cols-3 flex justify-center">

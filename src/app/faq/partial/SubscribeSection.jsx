@@ -47,7 +47,7 @@ export default function SubscribeSection() {
                 <div className="mt-12 text-left bg-white p-4 rounded-lg">
                     <h1 className="uppercase text-[#ba0c0c] font-bold text-3xl">Hati-hati dengan modus penipuan!</h1>
                     <p className="text-black mt-3">
-                       Sebelum melakukan transaksi pastikan <span className="uppercase text-green-500 font-semibold">Nomor Whatsapp admin</span> adalah benar dari <span className="uppercase text-[#ba0c0c] font-semibold">golden digital</span>
+                       Sebelum melakukan transaksi pastikan <span className="uppercase text-green-500 font-semibold">Nomor Whatsapp admin</span> adalah benar dari <span className="uppercase text-[#ba0c0c] font-semibold">Teman Gabutmu</span>
                     </p>
                 </div>
             </div>

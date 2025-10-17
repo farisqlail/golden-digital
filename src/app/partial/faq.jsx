@@ -13,7 +13,7 @@ export function FAQ() {
 
     const faqs = [
         {
-            question: "Payment method apa saja yang available di Golden Digital?",
+            question: "Payment method apa saja yang available di Teman Gabutmu?",
             answer: "Kami menerima pembayaran melalui transfer bank, e-wallet seperti OVO, Gopay, dan DANA.",
         },
         {

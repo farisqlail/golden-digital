@@ -58,12 +58,12 @@ export function Benefit() {
         <h1
           color="blue-gray"
           className="mb-2 font-bold uppercase">
-          Golden Digital
+          Teman Gabutmu
         </h1>
         <h1
           color="blue-gray"
           className="mb-4">
-          Keuntungan Berlangganan Di Golden Digital
+          Keuntungan Berlangganan Di Teman Gabutmu
         </h1>
       </div>
       <div className="container mx-auto grid grid-cols-1 gap-y-10 md:grid-cols-2 lg:grid-cols-3 flex justify-center">

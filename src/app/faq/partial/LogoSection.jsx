@@ -11,7 +11,7 @@ export default function LogoSection() {
                     width={1024}
                     height={800}
                     alt="product"
-                    src="/logos/logo-primary.png"
+                    src="/favicon.png"
                     className="h-full rounded-lg w-40"
                 />
             </div>

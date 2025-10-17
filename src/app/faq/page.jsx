@@ -33,7 +33,7 @@ export default function Faq() {
             <section className="py-8 px-8 ">
                 <div className="container mx-auto sm:mb-20 mb-0 text-center">
                     <Typography className="mb-2 font-bold uppercase text-white text-xl mb-8">
-                        Video Support Golden Digital
+                        Video Support Teman Gabutmu
                     </Typography>
                     <div className="w-full overflow-x-auto">
                         <div className="flex items-center gap-6 justify-start lg:justify-center">

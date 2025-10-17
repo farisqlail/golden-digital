@@ -11,7 +11,7 @@ export function Footer() {
           <Typography className="text-center font-normal !text-white">
             &copy; {CURRENT_YEAR} Made by{" "}
             <a href="https://www.material-tailwind.com" target="_blank">
-              Golden Digital
+              Teman Gabutmu
             </a>{" "}
           </Typography>
           <ul className="flex flex-wrap gap-4 sm:gap-8 items-center justify-center md:justify-end">

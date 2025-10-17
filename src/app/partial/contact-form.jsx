@@ -40,7 +40,7 @@ export function ContactForm() {
             <div className="w-full mt-8 md:mt-0 md:px-10 col-span-4 h-full p-5">
               <h4 className="text-white mb-2 font-bold">Tentang Kami</h4>
               <p className="text-white">
-                Teman Layanan Digital hanya di Golden Digital. Layanan digital bebas
+                Teman Layanan Digital hanya di Teman Gabutmu. Layanan digital bebas
                 kendala, harga murah, account dijamin original.
               </p>
             </div>
